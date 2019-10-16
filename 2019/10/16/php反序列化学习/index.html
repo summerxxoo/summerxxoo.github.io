@@ -58,12 +58,12 @@
   };
 </script>
 
-  <meta name="description" content="PHP反序列化进阶学习与总结">
+  <meta name="description" content="以前在做反序列化的题的时候遇到的都是public成员，先来复习一下一个简单的序列化例子：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php反序列化学习">
 <meta property="og:url" content="http://yoursite.com/2019/10/16/php反序列化学习/index.html">
 <meta property="og:site_name" content="死鬼快来看我">
-<meta property="og:description" content="PHP反序列化进阶学习与总结">
+<meta property="og:description" content="以前在做反序列化的题的时候遇到的都是public成员，先来复习一下一个简单的序列化例子：">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20190929223536-66d2d19c-e2c6-1.jpeg">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20190929223546-6cae61bc-e2c6-1.jpeg">
@@ -76,10 +76,10 @@
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20191003102313-c07d9e8c-e584-1.jpg">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20190929223811-c32575ee-e2c6-1.jpeg">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20190929223820-c89a06de-e2c6-1.jpeg">
-<meta property="og:updated_time" content="2019-10-16T12:34:05.700Z">
+<meta property="og:updated_time" content="2019-10-16T12:48:35.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php反序列化学习">
-<meta name="twitter:description" content="PHP反序列化进阶学习与总结">
+<meta name="twitter:description" content="以前在做反序列化的题的时候遇到的都是public成员，先来复习一下一个简单的序列化例子：">
 <meta name="twitter:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20190929223536-66d2d19c-e2c6-1.jpeg">
   <link rel="canonical" href="http://yoursite.com/2019/10/16/php反序列化学习/">
 
@@ -258,7 +258,7 @@
                 
               
 
-              <time title="Created: 2019-10-16 19:54:41 / Modified: 20:34:05" itemprop="dateCreated datePublished" datetime="2019-10-16T19:54:41+08:00">2019-10-16</time>
+              <time title="Created: 2019-10-16 19:54:41 / Modified: 20:48:35" itemprop="dateCreated datePublished" datetime="2019-10-16T19:54:41+08:00">2019-10-16</time>
             </span>
           
             
@@ -277,10 +277,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="PHP反序列化进阶学习与总结"><a href="#PHP反序列化进阶学习与总结" class="headerlink" title="PHP反序列化进阶学习与总结"></a>PHP反序列化进阶学习与总结</h2><a id="more"></a>
+        <p>以前在做反序列化的题的时候遇到的都是public成员，<br>先来复习一下一个简单的序列化例子：</p>
+<a id="more"></a>
 
-<h2 id="pravite和Protected成员的序列化"><a href="#pravite和Protected成员的序列化" class="headerlink" title="pravite和Protected成员的序列化"></a>pravite和Protected成员的序列化</h2><p>以前在做反序列化的题的时候遇到的都是public成员，但在k0rz3n师傅的文章中看到了Private和Protected权限序列化的过程中有着不同的差别。这里做一个小知识点的总结。</p>
-<p>先来复习一下一个简单的序列化例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">class Threezh1 &#123;</span><br><span class="line">    public $text;</span><br><span class="line"></span><br><span class="line">    function execute($payload) &#123;</span><br><span class="line">        eval($payload);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __destruct()&#123;</span><br><span class="line">        $this-&gt;execute($this-&gt;text);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new Threezh1();</span><br><span class="line">$a-&gt;text = &apos;echo &quot;Threezh1&quot;;&apos;;</span><br><span class="line">echo serialize($a);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
 <p>序列化后的内容：</p>
@@ -616,7 +615,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP反序列化进阶学习与总结"><span class="nav-number">1.</span> <span class="nav-text">PHP反序列化进阶学习与总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pravite和Protected成员的序列化"><span class="nav-number">2.</span> <span class="nav-text">pravite和Protected成员的序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Private类型"><span class="nav-number">2.1.</span> <span class="nav-text">Private类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Protected类型"><span class="nav-number">2.2.</span> <span class="nav-text">Protected类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phar反序列化"><span class="nav-number">3.</span> <span class="nav-text">Phar反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#phar文件的结构："><span class="nav-number">3.1.</span> <span class="nav-text">phar文件的结构：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成一个phar文件："><span class="nav-number">3.2.</span> <span class="nav-text">生成一个phar文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用条件"><span class="nav-number">3.3.</span> <span class="nav-text">漏洞利用条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phar受影响的文件操作函数："><span class="nav-number">3.4.</span> <span class="nav-text">phar受影响的文件操作函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞的利用实例："><span class="nav-number">3.5.</span> <span class="nav-text">漏洞的利用实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个简单的例子"><span class="nav-number">3.5.1.</span> <span class="nav-text">一个简单的例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绕过文件格式限制"><span class="nav-number">3.5.2.</span> <span class="nav-text">绕过文件格式限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配合PHP内核哈希表碰撞攻击"><span class="nav-number">3.5.3.</span> <span class="nav-text">配合PHP内核哈希表碰撞攻击</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生类序列化-ZipArchive-open"><span class="nav-number">4.</span> <span class="nav-text">原生类序列化(ZipArchive::open)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生类魔法函数-soapClient类"><span class="nav-number">5.</span> <span class="nav-text">原生类魔法函数(soapClient类)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session反序列化"><span class="nav-number">6.</span> <span class="nav-text">Session反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP中的session保存"><span class="nav-number">6.1.</span> <span class="nav-text">PHP中的session保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session反序列化漏洞的原理："><span class="nav-number">6.2.</span> <span class="nav-text">Session反序列化漏洞的原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#payload的构造"><span class="nav-number">6.3.</span> <span class="nav-text">payload的构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-web-writeup-PHPINFO"><span class="nav-number">6.4.</span> <span class="nav-text">jarvisoj-web-writeup PHPINFO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Private类型"><span class="nav-number">1.</span> <span class="nav-text">Private类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Protected类型"><span class="nav-number">2.</span> <span class="nav-text">Protected类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phar反序列化"><span class="nav-number"></span> <span class="nav-text">Phar反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#phar文件的结构："><span class="nav-number">1.</span> <span class="nav-text">phar文件的结构：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成一个phar文件："><span class="nav-number">2.</span> <span class="nav-text">生成一个phar文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用条件"><span class="nav-number">3.</span> <span class="nav-text">漏洞利用条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phar受影响的文件操作函数："><span class="nav-number">4.</span> <span class="nav-text">phar受影响的文件操作函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞的利用实例："><span class="nav-number">5.</span> <span class="nav-text">漏洞的利用实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个简单的例子"><span class="nav-number">5.1.</span> <span class="nav-text">一个简单的例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绕过文件格式限制"><span class="nav-number">5.2.</span> <span class="nav-text">绕过文件格式限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配合PHP内核哈希表碰撞攻击"><span class="nav-number">5.3.</span> <span class="nav-text">配合PHP内核哈希表碰撞攻击</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生类序列化-ZipArchive-open"><span class="nav-number"></span> <span class="nav-text">原生类序列化(ZipArchive::open)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生类魔法函数-soapClient类"><span class="nav-number"></span> <span class="nav-text">原生类魔法函数(soapClient类)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session反序列化"><span class="nav-number"></span> <span class="nav-text">Session反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP中的session保存"><span class="nav-number">1.</span> <span class="nav-text">PHP中的session保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session反序列化漏洞的原理："><span class="nav-number">2.</span> <span class="nav-text">Session反序列化漏洞的原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#payload的构造"><span class="nav-number">3.</span> <span class="nav-text">payload的构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jarvisoj-web-writeup-PHPINFO"><span class="nav-number">4.</span> <span class="nav-text">jarvisoj-web-writeup PHPINFO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
         
       </div>
       <!--/noindex-->

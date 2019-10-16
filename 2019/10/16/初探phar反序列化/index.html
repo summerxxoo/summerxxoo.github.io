@@ -58,12 +58,12 @@
   };
 </script>
 
-  <meta name="description" content="初探phar反序列化">
+  <meta name="description" content="初探phar反序列化来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初探phar反序列化">
 <meta property="og:url" content="http://yoursite.com/2019/10/16/初探phar反序列化/index.html">
 <meta property="og:site_name" content="死鬼快来看我">
-<meta property="og:description" content="初探phar反序列化">
+<meta property="og:description" content="初探phar反序列化来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-210cf44c-b344-1.png">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-211fe3fe-b344-1.png">
@@ -74,10 +74,10 @@
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2183f114-b344-1.png">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164943-2192a600-b344-1.png">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164944-21d8d5b2-b344-1.png">
-<meta property="og:updated_time" content="2019-10-16T12:28:43.995Z">
+<meta property="og:updated_time" content="2019-10-16T12:46:37.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初探phar反序列化">
-<meta name="twitter:description" content="初探phar反序列化">
+<meta name="twitter:description" content="初探phar反序列化来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。">
 <meta name="twitter:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20180908164942-210cf44c-b344-1.png">
   <link rel="canonical" href="http://yoursite.com/2019/10/16/初探phar反序列化/">
 
@@ -256,7 +256,7 @@
                 
               
 
-              <time title="Created: 2019-10-16 19:57:13 / Modified: 20:28:43" itemprop="dateCreated datePublished" datetime="2019-10-16T19:57:13+08:00">2019-10-16</time>
+              <time title="Created: 2019-10-16 19:57:13 / Modified: 20:46:37" itemprop="dateCreated datePublished" datetime="2019-10-16T19:57:13+08:00">2019-10-16</time>
             </span>
           
             
@@ -275,9 +275,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="初探phar反序列化"><a href="#初探phar反序列化" class="headerlink" title="初探phar反序列化"></a>初探phar反序列化</h1><a id="more"></a>
-
-<p>来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。<br>这个新的攻击方式被他公开在了美国的BlackHat会议演讲上，演讲主题为：”不为人所知的php反序列化漏洞”。它可以使攻击者将相关漏洞的严重程度升级为远程代码执行。我们在RIPS代码分析引擎中添加了对这种新型攻击的检测。</p>
+        <h1 id="初探phar反序列化"><a href="#初探phar反序列化" class="headerlink" title="初探phar反序列化"></a>初探phar反序列化</h1><p>来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，<br>可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。</p>
+<a id="more"></a>
+<p>这个新的攻击方式被他公开在了美国的BlackHat会议演讲上，演讲主题为：”不为人所知的php反序列化漏洞”。它可以使攻击者将相关漏洞的严重程度升级为远程代码执行。我们在RIPS代码分析引擎中添加了对这种新型攻击的检测。</p>
 <h1 id="关于流包装"><a href="#关于流包装" class="headerlink" title="关于流包装"></a>关于流包装</h1><p>大多数PHP文件操作允许使用各种URL协议去访问文件路径：如<code>data://</code>，<code>zlib://</code>或<code>php://</code>。<br>例如常见的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include(&apos;php://filter/read=convert.base64-encode/resource=index.php&apos;);</span><br><span class="line">include(&apos;data://text/plain;base64,xxxxxxxxxxxx&apos;);</span><br></pre></td></tr></table></figure>
 
