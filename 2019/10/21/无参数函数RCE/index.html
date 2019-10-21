@@ -58,31 +58,49 @@
   };
 </script>
 
-  <meta name="description" content="同志###我要向你学习!">
-<meta property="og:type" content="website">
+  <meta name="description" content="PHP Parametric Function RCE前言最近做了一些php 无参数函数执行的题目，这里做一个总结，以便以后bypass各种正则过滤。大致思路如下：1.利用超全局变量进行bypass，进行RCE2.进行任意文件读取 什么是无参数函数RCE传统意义上，如果我们有 1eval($_GET[&amp;apos;code&amp;apos;]);  即代表我们拥有了一句话木马，可以进行getshell，例">
+<meta property="og:type" content="article">
 <meta property="og:title" content="su33er的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/10/21/无参数函数RCE/index.html">
 <meta property="og:site_name" content="su33er的博客">
-<meta property="og:description" content="同志###我要向你学习!">
+<meta property="og:description" content="PHP Parametric Function RCE前言最近做了一些php 无参数函数执行的题目，这里做一个总结，以便以后bypass各种正则过滤。大致思路如下：1.利用超全局变量进行bypass，进行RCE2.进行任意文件读取 什么是无参数函数RCE传统意义上，如果我们有 1eval($_GET[&amp;apos;code&amp;apos;]);  即代表我们拥有了一句话木马，可以进行getshell，例">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-00-08.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-45-53.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-47-19.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-46-53.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-47-44.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-47-02.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-14-31.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-15-44.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-17-09.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-17-52.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-20-36.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-22-28.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-23-25.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-30-34.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-31-48.png">
+<meta property="og:image" content="https://skysec.top/images/2019-03-29-13-34-09.png">
+<meta property="og:updated_time" content="2019-10-21T04:16:53.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="su33er的博客">
-<meta name="twitter:description" content="同志###我要向你学习!">
-  <link rel="canonical" href="http://yoursite.com/">
+<meta name="twitter:description" content="PHP Parametric Function RCE前言最近做了一些php 无参数函数执行的题目，这里做一个总结，以便以后bypass各种正则过滤。大致思路如下：1.利用超全局变量进行bypass，进行RCE2.进行任意文件读取 什么是无参数函数RCE传统意义上，如果我们有 1eval($_GET[&amp;apos;code&amp;apos;]);  即代表我们拥有了一句话木马，可以进行getshell，例">
+<meta name="twitter:image" content="https://skysec.top/images/2019-03-29-13-00-08.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/21/无参数函数RCE/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>su33er的博客</title>
+  <title> | su33er的博客</title>
   
 
 
@@ -210,10 +228,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/21/无参数函数RCE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -229,7 +247,8 @@
         <h1 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019/10/21/无参数函数RCE/" class="post-title-link" itemprop="url">Untitled</a>
+            
+
           
         </h1>
 
@@ -259,7 +278,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="PHP-Parametric-Function-RCE"><a href="#PHP-Parametric-Function-RCE" class="headerlink" title="PHP Parametric Function RCE"></a>PHP Parametric Function RCE</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近做了一些php 无参数函数执行的题目，这里做一个总结，以便以后bypass各种正则过滤。<br>大致思路如下：<br>1.利用超全局变量进行bypass，进行RCE<br>2.进行任意文件读取</p>
+        <h1 id="PHP-Parametric-Function-RCE"><a href="#PHP-Parametric-Function-RCE" class="headerlink" title="PHP Parametric Function RCE"></a>PHP Parametric Function RCE</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近做了一些php 无参数函数执行的题目，这里做一个总结，以便以后bypass各种正则过滤。<br>大致思路如下：<br>1.利用超全局变量进行bypass，进行RCE<br>2.进行任意文件读取</p>
 <h2 id="什么是无参数函数RCE"><a href="#什么是无参数函数RCE" class="headerlink" title="什么是无参数函数RCE"></a>什么是无参数函数RCE</h2><p>传统意义上，如果我们有</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval($_GET[&apos;code&apos;]);</span><br></pre></td></tr></table></figure>
 
@@ -324,263 +343,42 @@
 <p>即可进行文件读取</p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>php无参数函数RCE的方式有很多种，主要还是考察对php函数的熟练程度。我相信应该还有更多的方式没有挖掘出来，期待讨论。</p>
 
-        
-      
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/16/初探phar反序列化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="su33er">
-      <meta itemprop="description" content="同志###我要向你学习!">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="su33er的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/16/初探phar反序列化/" class="post-title-link" itemprop="url">初探phar反序列化</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-16 19:57:13 / Modified: 20:46:37" itemprop="dateCreated datePublished" datetime="2019-10-16T19:57:13+08:00">2019-10-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          <h1 id="初探phar反序列化"><a href="#初探phar反序列化" class="headerlink" title="初探phar反序列化"></a>初探phar反序列化</h1><p>来自Secarma的安全研究员Sam Thomas发现了一种新的漏洞利用方式，<br>可以在不使用php函数unserialize()的前提下，引起严重的php对象注入漏洞。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/10/16/初探phar反序列化/#more" rel="contents">
-                Read more &raquo;
-              </a>
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/16/初探phar反序列化/" rel="next" title="初探phar反序列化">
+                  <i class="fa fa-chevron-left"></i> 初探phar反序列化
+                </a>
+              
             </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+            <span class="post-nav-divider"></span>
 
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/16/php反序列化学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="su33er">
-      <meta itemprop="description" content="同志###我要向你学习!">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="su33er的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/16/php反序列化学习/" class="post-title-link" itemprop="url">php反序列化学习</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
+            <div class="post-nav-prev post-nav-item">
               
-                
-              
-
-              <time title="Created: 2019-10-16 19:54:41 / Modified: 20:48:35" itemprop="dateCreated datePublished" datetime="2019-10-16T19:54:41+08:00">2019-10-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>以前在做反序列化的题的时候遇到的都是public成员，<br>先来复习一下一个简单的序列化例子：</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/10/16/php反序列化学习/#more" rel="contents">
-                Read more &raquo;
-              </a>
             </div>
-          
-          <!--/noindex-->
+          </div>
         
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
 
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/16/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="su33er">
-      <meta itemprop="description" content="同志###我要向你学习!">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="su33er的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/16/hello-world/" class="post-title-link" itemprop="url">xss漏洞挖掘思路</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-16 14:43:00 / Modified: 20:49:28" itemprop="dateCreated datePublished" datetime="2019-10-16T14:43:00+08:00">2019-10-16</time>
-            </span>
-          
-            
-
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p> xss漏洞挖掘思路<br> 在这篇文章中：<br>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/10/16/hello-world/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
-
-  
-
 
 
           </div>
@@ -598,6 +396,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -610,6 +413,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-Parametric-Function-RCE"><span class="nav-number">1.</span> <span class="nav-text">PHP Parametric Function RCE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是无参数函数RCE"><span class="nav-number">1.2.</span> <span class="nav-text">什么是无参数函数RCE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#法1：getenv"><span class="nav-number">1.3.</span> <span class="nav-text">法1：getenv()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#法二：getallheaders"><span class="nav-number">1.4.</span> <span class="nav-text">法二：getallheaders()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#法三：get-defined-vars"><span class="nav-number">1.5.</span> <span class="nav-text">法三：get_defined_vars()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#法四：session-id"><span class="nav-number">1.6.</span> <span class="nav-text">法四：session_id()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#法五：dirname-amp-chdir"><span class="nav-number">1.7.</span> <span class="nav-text">法五：dirname() &amp; chdir()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">1.8.</span> <span class="nav-text">后记</span></a></li></ol></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
