@@ -58,31 +58,38 @@
   };
 </script>
 
-  <meta name="description" content="同志###我要向你学习!">
-<meta property="og:type" content="website">
+  <meta name="description" content="记第一次的挖洞，挖到高危的sql注入漏洞前言其实一开始没有那么精准，还是常规的信息搜集，子域名啊，目录结构，whois反查那些。所以一开始还遇到到个很鸡肋的apache tomcat 示例目录泄漏，基本没什么用，因为不知道session要设置的key和value值。   柳暗花明https://xxxxxxxxxxxx/mall.html?category=&amp;amp;count=61635&amp;amp">
+<meta property="og:type" content="article">
 <meta property="og:title" content="su33er的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/11/20/记一次高危的首洞/index.html">
 <meta property="og:site_name" content="su33er的博客">
-<meta property="og:description" content="同志###我要向你学习!">
+<meta property="og:description" content="记第一次的挖洞，挖到高危的sql注入漏洞前言其实一开始没有那么精准，还是常规的信息搜集，子域名啊，目录结构，whois反查那些。所以一开始还遇到到个很鸡肋的apache tomcat 示例目录泄漏，基本没什么用，因为不知道session要设置的key和value值。   柳暗花明https://xxxxxxxxxxxx/mall.html?category=&amp;amp;count=61635&amp;amp">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/Users/huangzhuofeng/Desktop/%E6%88%AA%E5%B1%8F2019-11-20%E4%B8%8B%E5%8D%889.36.45.png">
+<meta property="og:image" content="http://yoursite.com/Users/huangzhuofeng/Desktop/%E6%88%AA%E5%B1%8F2019-11-20%E4%B8%8B%E5%8D%889.41.18.png">
+<meta property="og:image" content="http://yoursite.com/Users/huangzhuofeng/Desktop/%E6%88%AA%E5%B1%8F2019-11-20%E4%B8%8B%E5%8D%889.34.04.png">
+<meta property="og:image" content="http://yoursite.com/Users/huangzhuofeng/Desktop/%E6%88%AA%E5%B1%8F2019-11-20%E4%B8%8B%E5%8D%889.55.08.png">
+<meta property="og:image" content="http://yoursite.com/Users/huangzhuofeng/Downloads/sql.PNG">
+<meta property="og:updated_time" content="2019-11-20T13:55:56.999Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="su33er的博客">
-<meta name="twitter:description" content="同志###我要向你学习!">
-  <link rel="canonical" href="http://yoursite.com/">
+<meta name="twitter:description" content="记第一次的挖洞，挖到高危的sql注入漏洞前言其实一开始没有那么精准，还是常规的信息搜集，子域名啊，目录结构，whois反查那些。所以一开始还遇到到个很鸡肋的apache tomcat 示例目录泄漏，基本没什么用，因为不知道session要设置的key和value值。   柳暗花明https://xxxxxxxxxxxx/mall.html?category=&amp;amp;count=61635&amp;amp">
+<meta name="twitter:image" content="http://yoursite.com/Users/huangzhuofeng/Desktop/%E6%88%AA%E5%B1%8F2019-11-20%E4%B8%8B%E5%8D%889.36.45.png">
+  <link rel="canonical" href="http://yoursite.com/2019/11/20/记一次高危的首洞/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>su33er的博客</title>
+  <title> | su33er的博客</title>
   
 
 
@@ -210,10 +217,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/20/记一次高危的首洞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -229,7 +236,8 @@
         <h1 class="post-title" itemprop="name headline">
           
             
-            <a href="/2019/11/20/记一次高危的首洞/" class="post-title-link" itemprop="url">Untitled</a>
+            
+
           
         </h1>
 
@@ -263,7 +271,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="记第一次的挖洞，挖到高危的sql注入漏洞"><a href="#记第一次的挖洞，挖到高危的sql注入漏洞" class="headerlink" title="记第一次的挖洞，挖到高危的sql注入漏洞"></a>记第一次的挖洞，挖到高危的sql注入漏洞</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>其实一开始没有那么精准，还是常规的信息搜集，子域名啊，目录结构，whois反查那些。所以一开始还遇到到个很鸡肋的apache tomcat 示例目录泄漏，基本没什么用，因为不知道session要设置的key和value值。</p>
+        <h1 id="记第一次的挖洞，挖到高危的sql注入漏洞"><a href="#记第一次的挖洞，挖到高危的sql注入漏洞" class="headerlink" title="记第一次的挖洞，挖到高危的sql注入漏洞"></a>记第一次的挖洞，挖到高危的sql注入漏洞</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>其实一开始没有那么精准，还是常规的信息搜集，子域名啊，目录结构，whois反查那些。所以一开始还遇到到个很鸡肋的apache tomcat 示例目录泄漏，基本没什么用，因为不知道session要设置的key和value值。</p>
 <p><img src="/Users/huangzhuofeng/Desktop/%E6%88%AA%E5%B1%8F2019-11-20%E4%B8%8B%E5%8D%889.36.45.png" alt></p>
 <p><img src="/Users/huangzhuofeng/Desktop/%E6%88%AA%E5%B1%8F2019-11-20%E4%B8%8B%E5%8D%889.41.18.png" alt></p>
 <h3 id="柳暗花明"><a href="#柳暗花明" class="headerlink" title="柳暗花明"></a>柳暗花明</h3><p><a href="https://xxxxxxxxxxxx/mall.html?category=&amp;count=61635&amp;designation=&amp;manufacturerName=&amp;maxPrice=&amp;minPrice=&amp;offset=0&amp;orderBy=&amp;productCount=1&amp;rows=15&amp;warehouse=" target="_blank" rel="noopener">https://xxxxxxxxxxxx/mall.html?category=&amp;count=61635&amp;designation=&amp;manufacturerName=&amp;maxPrice=&amp;minPrice=&amp;offset=0&amp;orderBy=&amp;productCount=1&amp;rows=15&amp;warehouse=</a></p>
@@ -279,113 +287,42 @@
 <p><img src="/Users/huangzhuofeng/Downloads/sql.PNG" alt></p>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>列出库名提交就结束了，不往下了，如果爆出后台密码，留意到一开头那个tomcat的manager目录，登入的话，上传war包马估计可以getshell，猜想而已..</p>
 
-        
-      
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/code-breaking全部题解及知识拓展/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="su33er">
-      <meta itemprop="description" content="同志###我要向你学习!">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="su33er的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/22/code-breaking全部题解及知识拓展/" class="post-title-link" itemprop="url">code-breaking</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-22 19:22:53" itemprop="dateCreated datePublished" datetime="2019-10-22T19:22:53+08:00">2019-10-22</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-31 10:58:57" itemprop="dateModified" datetime="2019-10-31T10:58:57+08:00">2019-10-31</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          <p>code-breaking全部题解及知识拓展</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2019/10/22/code-breaking全部题解及知识拓展/#more" rel="contents">
-                Read more &raquo;
-              </a>
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/22/code-breaking全部题解及知识拓展/" rel="next" title="code-breaking">
+                  <i class="fa fa-chevron-left"></i> code-breaking
+                </a>
+              
             </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
       </footer>
+    
   </article>
   
   
   
 
-    
   </div>
-
-  
-
 
 
           </div>
@@ -403,6 +340,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -415,6 +357,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#记第一次的挖洞，挖到高危的sql注入漏洞"><span class="nav-number">1.</span> <span class="nav-text">记第一次的挖洞，挖到高危的sql注入漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#柳暗花明"><span class="nav-number">1.0.2.</span> <span class="nav-text">柳暗花明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神器sqlmap"><span class="nav-number">1.0.3.</span> <span class="nav-text">神器sqlmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">1.0.4.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
