@@ -62,4 +62,9 @@ setTimeout(run, 16);
 onload = function() {
 PIC = document.getElementById("bubbles").getElementsByTagName("img");
 resize();
-for(nbf=0;nbf
+for(nbf=0;nbf<nbfm;nbf++){
+sf = PIC[nbf%PIC.length];
+object[nbf] = new CObj(nbf,sf,sf.width/2,sf.height/2);
+}
+run();
+}
