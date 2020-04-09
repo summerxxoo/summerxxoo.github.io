@@ -58,12 +58,12 @@
   };
 </script>
 
-  <meta name="description" content="最近看了一点内网渗透的学习资料，感觉内网渗透需要的知识太多，遂写博客来记录下自己学习内网渗透的一些笔记。">
+  <meta name="description" content="路漫漫其修远兮">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内网笔记">
 <meta property="og:url" content="http://yoursite.com/2020/03/07/内网笔记/index.html">
 <meta property="og:site_name" content="su33er的博客">
-<meta property="og:description" content="最近看了一点内网渗透的学习资料，感觉内网渗透需要的知识太多，遂写博客来记录下自己学习内网渗透的一些笔记。">
+<meta property="og:description" content="路漫漫其修远兮">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214921605-2074294329.png">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129223554983-56718359.png">
@@ -82,10 +82,10 @@
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129215417848-1780114464.png">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131222312270-1593921519.png">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201902/1344396-20190208110305087-1718640.png">
-<meta property="og:updated_time" content="2020-03-06T16:20:20.416Z">
+<meta property="og:updated_time" content="2020-04-09T10:45:09.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内网笔记">
-<meta name="twitter:description" content="最近看了一点内网渗透的学习资料，感觉内网渗透需要的知识太多，遂写博客来记录下自己学习内网渗透的一些笔记。">
+<meta name="twitter:description" content="路漫漫其修远兮">
 <meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214921605-2074294329.png">
   <link rel="canonical" href="http://yoursite.com/2020/03/07/内网笔记/">
 
@@ -303,11 +303,19 @@
                 
               
 
-              <time title="Created: 2020-03-07 00:17:24 / Modified: 00:20:20" itemprop="dateCreated datePublished" datetime="2020-03-07T00:17:24+08:00">2020-03-07</time>
+              <time title="Created: 2020-03-07 00:17:24" itemprop="dateCreated datePublished" datetime="2020-03-07T00:17:24+08:00">2020-03-07</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-09 18:45:09" itemprop="dateModified" datetime="2020-04-09T18:45:09+08:00">2020-04-09</time>
+              </span>
             
           
 
@@ -322,9 +330,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近看了一点内网渗透的学习资料，感觉内网渗透需要的知识太多，遂写博客来记录下自己学习内网渗透的一些笔记。</p>
+        <p>路漫漫其修远兮</p>
 <a id="more"></a>
-
+<p>最近看了一点内网渗透的学习资料，感觉内网渗透需要的知识太多，遂写博客来记录下自己学习内网渗透的一些笔记。</p>
 <p>本文转载于：<a href="https://www.cnblogs.com/bmjoker" target="_blank" rel="noopener">https://www.cnblogs.com/bmjoker</a></p>
 <p>开篇首先推荐i春秋陈小兵老师在技术沙龙上的分享：<a href="https://www.ichunqiu.com/open/61711" target="_blank" rel="noopener">https://www.ichunqiu.com/open/61711</a></p>
 <p>并看大佬的一篇msf内网穿透文章：<a href="https://www.freebuf.com/articles/network/125278.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/125278.html</a></p>
@@ -738,10 +746,6 @@
 
 <p>(4)SC创建服务执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、系统权限(其中test为服务名)</span><br><span class="line">sc \\DC1 create test binpath= c:\cmd.exe</span><br><span class="line">sc \\DC1 start test</span><br><span class="line">sc \\DC1 delete test</span><br><span class="line"></span><br><span class="line">2.指定用户权限启动</span><br><span class="line">sc \\DC1 create test binpath = &quot;c:\1.exe&quot; obj= &quot;centoso\administrator&quot; passwrod= test</span><br><span class="line">sc \\DC1 start test</span><br></pre></td></tr></table></figure>
-
-
-
-
     </div>
 
     
@@ -830,7 +834,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

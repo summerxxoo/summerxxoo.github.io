@@ -58,12 +58,12 @@
   };
 </script>
 
-  <meta name="description" content="从thinkphp学习代码审计—part3（tp6反序列)路漫漫其修远兮">
+  <meta name="description" content="路漫漫其修远兮">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从thinkphp学习代码审计---part3（tp6反序列)">
 <meta property="og:url" content="http://yoursite.com/2020/04/08/从thinkphp学习代码审计-part3（tp6反序列/index.html">
 <meta property="og:site_name" content="su33er的博客">
-<meta property="og:description" content="从thinkphp学习代码审计—part3（tp6反序列)路漫漫其修远兮">
+<meta property="og:description" content="路漫漫其修远兮">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/08/2020-04-08-9.44.53d5a664813a225291.png">
 <meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/08/2020-04-08-10.39.11c32cddbd917c7856.png">
@@ -77,10 +77,10 @@
 <meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/08/2020-04-08-1.33.2127b9d23bea361626.png">
 <meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/08/4c17e091778d00700.png">
 <meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/08/2020-04-08-3.32.423a9a16c3d60b50cf.png">
-<meta property="og:updated_time" content="2020-04-08T08:20:08.670Z">
+<meta property="og:updated_time" content="2020-04-09T10:45:52.047Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从thinkphp学习代码审计---part3（tp6反序列)">
-<meta name="twitter:description" content="从thinkphp学习代码审计—part3（tp6反序列)路漫漫其修远兮">
+<meta name="twitter:description" content="路漫漫其修远兮">
 <meta name="twitter:image" content="https://www.kanjiantu.com/images/2020/04/08/2020-04-08-9.44.53d5a664813a225291.png">
   <link rel="canonical" href="http://yoursite.com/2020/04/08/从thinkphp学习代码审计-part3（tp6反序列/">
 
@@ -298,11 +298,19 @@
                 
               
 
-              <time title="Created: 2020-04-08 13:38:45 / Modified: 16:20:08" itemprop="dateCreated datePublished" datetime="2020-04-08T13:38:45+08:00">2020-04-08</time>
+              <time title="Created: 2020-04-08 13:38:45" itemprop="dateCreated datePublished" datetime="2020-04-08T13:38:45+08:00">2020-04-08</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-09 18:45:52" itemprop="dateModified" datetime="2020-04-09T18:45:52+08:00">2020-04-09</time>
+              </span>
             
           
 
@@ -317,10 +325,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="从thinkphp学习代码审计—part3（tp6反序列"><a href="#从thinkphp学习代码审计—part3（tp6反序列" class="headerlink" title="从thinkphp学习代码审计—part3（tp6反序列)"></a>从thinkphp学习代码审计—part3（tp6反序列)</h1><p>路漫漫其修远兮</p>
+        <p>路漫漫其修远兮</p>
 <a id="more"></a>
-
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">composer create-project --prefer-dist topthink/think=6.0.x-dev tp6x</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> tp6x</span><br><span class="line"></span><br><span class="line">/think run</span><br></pre></td></tr></table></figure>
+<h1 id="从thinkphp学习代码审计—part3（tp6反序列"><a href="#从thinkphp学习代码审计—part3（tp6反序列" class="headerlink" title="从thinkphp学习代码审计—part3（tp6反序列)"></a>从thinkphp学习代码审计—part3（tp6反序列)</h1><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">composer create-project --prefer-dist topthink/think=6.0.x-dev tp6x</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> tp6x</span><br><span class="line"></span><br><span class="line">/think run</span><br></pre></td></tr></table></figure>
 
 <p>将 <strong>application/index/controller/Index.php</strong> 代码修改成如下：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">controller</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $u = unserialize($_GET[<span class="string">'c'</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'ThinkPHP V6.x'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -418,6 +425,10 @@
 
             <div class="post-nav-prev post-nav-item">
               
+                <a href="/2020/04/09/学习ing-Weblogic-XmlDecoder-RCE分析-cve-2017-10271/" rel="prev" title="(学习ing)Weblogic XmlDecoder RCE分析(cve-2017-10271)">
+                  (学习ing)Weblogic XmlDecoder RCE分析(cve-2017-10271) <i class="fa fa-chevron-right"></i>
+                </a>
+              
             </div>
           </div>
         
@@ -479,7 +490,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
