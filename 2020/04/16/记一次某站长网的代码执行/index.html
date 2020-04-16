@@ -75,7 +75,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JkcC3q.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JkYBRJ.md.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JksuCt.png">
-<meta property="og:updated_time" content="2020-04-16T11:38:46.410Z">
+<meta property="og:updated_time" content="2020-04-16T11:42:37.277Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次某站长网的代码执行">
 <meta name="twitter:description" content="记一次某站长网的代码执行">
@@ -296,7 +296,7 @@
                 
               
 
-              <time title="Created: 2020-04-16 15:16:34 / Modified: 19:38:46" itemprop="dateCreated datePublished" datetime="2020-04-16T15:16:34+08:00">2020-04-16</time>
+              <time title="Created: 2020-04-16 15:16:34 / Modified: 19:42:37" itemprop="dateCreated datePublished" datetime="2020-04-16T15:16:34+08:00">2020-04-16</time>
             </span>
           
             
@@ -351,6 +351,7 @@
 
 <p><a href="https://imgchr.com/i/JkYwiF" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/16/JkYwiF.md.png" alt="JkYwiF.md.png"></a></p>
 <h3 id="Index-php"><a href="#Index-php" class="headerlink" title="Index.php"></a>Index.php</h3><p>后面读一下index.php看下问题:</p>
+<p>@eval(“$found = eregi(&quot;$keyword[$ai]&quot;,&quot;$detail[0]&quot;);”);//这个地方使用了一个危险的eval函数导致了代码执行</p>
 <p><a href="https://imgchr.com/i/JkcC3q" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/16/JkcC3q.png" alt="JkcC3q.png"></a></p>
 <p>原来在乌云之前就已经发现有案例了（如下镜像库）</p>
 <p><a href="https://php.mengsec.com/bugs/wooyun-2014-053172.html" target="_blank" rel="noopener">https://php.mengsec.com/bugs/wooyun-2014-053172.html</a></p>
