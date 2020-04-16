@@ -79,7 +79,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/15/Jir6hV.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JismEn.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JF26JA.png">
-<meta property="og:updated_time" content="2020-04-16T03:41:16.124Z">
+<meta property="og:updated_time" content="2020-04-16T06:12:02.977Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从preg_replace窥探php代码审计">
 <meta name="twitter:description" content="从preg_replace窥探php代码审计">
@@ -311,7 +311,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-16 11:41:16" itemprop="dateModified" datetime="2020-04-16T11:41:16+08:00">2020-04-16</time>
+                <time title="Modified: 2020-04-16 14:12:02" itemprop="dateModified" datetime="2020-04-16T14:12:02+08:00">2020-04-16</time>
               </span>
             
           
@@ -370,7 +370,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$option=&apos;\$option=&apos;;phpinfo();&apos;;&apos;;</span><br></pre></td></tr></table></figure>
 
 <p><strong><em>偷懒不试了</em></strong></p>
-<h3 id="相关—discuz-后台getshell"><a href="#相关—discuz-后台getshell" class="headerlink" title="相关—discuz 后台getshell"></a>相关—discuz 后台getshell</h3><p><img src="https://s1.ax1x.com/2020/04/15/JiNuh4.png" alt="JiNuh4.png"></p>
+<h2 id="相关—discuz-后台getshell"><a href="#相关—discuz-后台getshell" class="headerlink" title="相关—discuz 后台getshell"></a>相关—discuz 后台getshell</h2><p><img src="https://s1.ax1x.com/2020/04/15/JiNuh4.png" alt="JiNuh4.png"></p>
 <p>在 updateapps 函数中完成了对 uc_api 的更新，这里的正则在匹配时是非贪婪的，这里就会存在一个问题，当uc_api为 <code>define(&#39;UC_API&#39;, &#39;http://127.0.0.1/discuz34/uc_server\&#39;);phpinfo();//&#39;);</code> 时，我们执行updateapps函数来更新uc_api时就会将phpinfo();释放出来。 要使用updateapps函数来更新uc_api，我们需要知道UC_KEY(dz)的值，而UC_KEY(dz)的值，恰好是我们后台可以设置的</p>
 <p><a href="https://mp.weixin.qq.com/s/8OueE-bEIdkvwPWu3KqrcQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/8OueE-bEIdkvwPWu3KqrcQ</a></p>
 <h2 id="preg-replace函数之命令执行"><a href="#preg-replace函数之命令执行" class="headerlink" title="preg_replace函数之命令执行"></a>preg_replace函数之命令执行</h2><p>来自红日安全-代码审计Day8 </p>
@@ -382,10 +382,8 @@
 <p><strong>定义</strong> ： <code>mixed preg_replace ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &amp;$count ]] )</code></p>
 <p>搜索 <strong>subject</strong> 中匹配 <strong>pattern</strong> 的部分， 如果匹配成功以 <strong>replacement</strong> 进行替换</p>
 </blockquote>
-<ul>
-<li><strong>$pattern</strong> 存在 <strong>/e</strong> 模式修正符，允许代码执行</li>
-<li><strong>/e</strong> 模式修正符，是 <strong>preg_replace() \</strong> 将 *<em>$replacement*</em> 当做php代码来执行</li>
-</ul>
+<p><strong>$pattern</strong> 存在 <strong>/e</strong> 模式修正符，允许代码执行</p>
+<p><strong>/e</strong> 模式修正符，是 <strong>preg_replace() \</strong> 将 *<em>$replacement*</em> 当做php代码来执行</p>
 <p><img src="https://s1.ax1x.com/2020/04/15/JiaLc9.png" alt="JiaLc9.png"></p>
 <p><strong>漏洞解析</strong></p>
 <p>这道题目考察的是 <strong>preg_replace</strong> 函数使用 <strong>/e</strong> 模式，导致代码执行的问题。我们发现在上图代码 <strong>第11行</strong> 处，将 <strong>GET</strong> 请求方式传来的参数用在了 <strong>complexStrtolower</strong> 函数中，而变量 <strong>$regex</strong> 和 <strong>$value</strong> 又用在了存在代码执行模式的 <strong>preg_replace</strong> 函数中。所以，我们可以通过控制 <strong>preg_replace</strong> 函数第1个、第3个参数，来执行代码。但是可被当做代码执行的第2个参数，却固定为 <strong>‘strtolower(“\1”)’</strong> 。时间上，这里涉及到正则表达式反向引用的知识，即此处的 <strong>\1</strong> ，大家可以参考 <a href="https://www.w3cschool.cn/zhengzebiaodashi/regexp-syntax.html" target="_blank" rel="noopener"><strong>W3Cschool</strong></a> 上的解释：</p>
@@ -543,7 +541,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#经典写入配置漏洞"><span class="nav-number">1.</span> <span class="nav-text">经典写入配置漏洞:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法1-利用反斜线"><span class="nav-number">1.1.</span> <span class="nav-text">解法1 利用反斜线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法2-利用正则"><span class="nav-number">1.2.</span> <span class="nav-text">解法2 利用正则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法3-利用-00"><span class="nav-number">1.3.</span> <span class="nav-text">解法3 利用%00</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关—discuz-后台getshell"><span class="nav-number">1.4.</span> <span class="nav-text">相关—discuz 后台getshell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preg-replace函数之命令执行"><span class="nav-number">2.</span> <span class="nav-text">preg_replace函数之命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于反向引用，给个例子"><span class="nav-number">2.0.1.</span> <span class="nav-text">关于反向引用，给个例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回归题目"><span class="nav-number">2.0.2.</span> <span class="nav-text">回归题目:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">2.0.3.</span> <span class="nav-text">分析:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECShop前台注入和getshell漏洞"><span class="nav-number">3.</span> <span class="nav-text">ECShop前台注入和getshell漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接:</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#经典写入配置漏洞"><span class="nav-number">1.</span> <span class="nav-text">经典写入配置漏洞:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法1-利用反斜线"><span class="nav-number">1.1.</span> <span class="nav-text">解法1 利用反斜线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法2-利用正则"><span class="nav-number">1.2.</span> <span class="nav-text">解法2 利用正则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法3-利用-00"><span class="nav-number">1.3.</span> <span class="nav-text">解法3 利用%00</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关—discuz-后台getshell"><span class="nav-number">2.</span> <span class="nav-text">相关—discuz 后台getshell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#preg-replace函数之命令执行"><span class="nav-number">3.</span> <span class="nav-text">preg_replace函数之命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于反向引用，给个例子"><span class="nav-number">3.0.1.</span> <span class="nav-text">关于反向引用，给个例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回归题目"><span class="nav-number">3.0.2.</span> <span class="nav-text">回归题目:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">3.0.3.</span> <span class="nav-text">分析:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECShop前台注入和getshell漏洞"><span class="nav-number">4.</span> <span class="nav-text">ECShop前台注入和getshell漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">5.</span> <span class="nav-text">参考链接:</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
