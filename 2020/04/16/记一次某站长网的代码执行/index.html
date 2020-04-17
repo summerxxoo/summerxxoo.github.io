@@ -78,7 +78,8 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JAgTK0.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JA5zkV.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JA5JWF.png">
-<meta property="og:updated_time" content="2020-04-16T13:11:33.478Z">
+<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/17/uOKLpK.png">
+<meta property="og:updated_time" content="2020-04-17T10:21:15.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次某站长网的代码执行">
 <meta name="twitter:description" content="记一次某站长网的代码执行">
@@ -299,11 +300,19 @@
                 
               
 
-              <time title="Created: 2020-04-16 15:16:34 / Modified: 21:11:33" itemprop="dateCreated datePublished" datetime="2020-04-16T15:16:34+08:00">2020-04-16</time>
+              <time title="Created: 2020-04-16 15:16:34" itemprop="dateCreated datePublished" datetime="2020-04-16T15:16:34+08:00">2020-04-16</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 18:21:15" itemprop="dateModified" datetime="2020-04-17T18:21:15+08:00">2020-04-17</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -356,10 +365,6 @@
 <h3 id="Index-php"><a href="#Index-php" class="headerlink" title="Index.php"></a>Index.php</h3><p>后面读一下index.php看下问题:</p>
 <p>@eval(“$found = eregi(&quot;$keyword[$ai]&quot;,&quot;$detail[0]&quot;);”);//这个地方使用了一个危险的eval函数导致了代码执行</p>
 <p><a href="https://imgchr.com/i/JkcC3q" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/16/JkcC3q.png" alt="JkcC3q.png"></a></p>
-<p>原来在乌云之前就已经发现有案例了（如下镜像库）</p>
-<p><a href="https://php.mengsec.com/bugs/wooyun-2014-053172.html" target="_blank" rel="noopener">https://php.mengsec.com/bugs/wooyun-2014-053172.html</a></p>
-<p><a href="http://wy.zone.ci/bug_detail.php?wybug_id=wooyun-2014-053172" target="_blank" rel="noopener">http://wy.zone.ci/bug_detail.php?wybug_id=wooyun-2014-053172</a></p>
-<p>wooyun-2014-053172</p>
 <h3 id="Phpinfo"><a href="#Phpinfo" class="headerlink" title="Phpinfo"></a>Phpinfo</h3><p>打印下phpinfo看下;</p>
 <p><a href="https://imgchr.com/i/JkYBRJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/16/JkYBRJ.md.png" alt="JkYBRJ.md.png"></a></p>
 <p>disable_functions    </p>
@@ -380,7 +385,17 @@
 <p><img src="https://s1.ax1x.com/2020/04/16/JA5zkV.png" alt="JA5zkV.png"></p>
 <p>看了下config.php，找到数据库密码,🀄️，网络安全法警告⚠️，溜了</p>
 <p><img src="https://s1.ax1x.com/2020/04/16/JA5JWF.png" alt="JA5JWF.png"></p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后:"></a>最后:</h2><p>有一说一，在实战中，一叶飘零师傅的无参数命令执行真滴好用</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后:"></a>最后:</h2><ul>
+<li><p>有一说一，在实战中，一叶飘零师傅的无参数命令执行真滴好用</p>
+</li>
+<li><p>原来在乌云之前就已经发现有案例了（如下镜像库）</p>
+<p><a href="https://php.mengsec.com/bugs/wooyun-2014-053172.html" target="_blank" rel="noopener">https://php.mengsec.com/bugs/wooyun-2014-053172.html</a></p>
+<p><a href="http://wy.zone.ci/bug_detail.php?wybug_id=wooyun-2014-053172" target="_blank" rel="noopener">http://wy.zone.ci/bug_detail.php?wybug_id=wooyun-2014-053172</a></p>
+<p>wooyun-2014-053172</p>
+</li>
+</ul>
+<p>后面谷歌了一些同类网站，再get多几个shell了</p>
+<p><img src="https://www.kanjiantu.com/images/2020/04/17/uOKLpK.png" alt="uOKLpK.png"></p>
 
     </div>
 
