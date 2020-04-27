@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="php-learn">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP-&gt;面向对象编程">
+<meta property="og:url" content="http://yoursite.com/2020/04/28/PHP-面向对象/index.html">
+<meta property="og:site_name" content="su33er的博客">
+<meta property="og:description" content="php-learn">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/28/JhfoDK.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/28/JhfIu6.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/28/Jhhi5Q.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/28/JhhkCj.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/28/JhhA8s.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/28/JhhPUg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/28/JhhMaF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/04/28/JhhKVU.png">
+<meta property="og:updated_time" content="2020-04-27T16:26:26.508Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP-&gt;面向对象编程">
+<meta name="twitter:description" content="php-learn">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/28/JhfoDK.png">
+  <link rel="canonical" href="http://yoursite.com/2020/04/28/PHP-面向对象/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>PHP->面向对象编程 | su33er的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">su33er的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-偶尔看看女神">
+      
+    
+
+    <a href="/qiangfu/" rel="section"><i class="fa fa-fw fa-calendar"></i>偶尔看看女神</a>
+
+  </li>
+      
+    
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/28/PHP-面向对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="su33er">
+      <meta itemprop="description" content="心之所向皆是遗憾，目之所及皆是过往">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="su33er的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            PHP->面向对象编程
+            
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-04-28 00:11:13 / Modified: 00:26:26" itemprop="dateCreated datePublished" datetime="2020-04-28T00:11:13+08:00">2020-04-28</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/php/" itemprop="url" rel="index">
+                    <span itemprop="name">php</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>php-learn</p>
+<a id="more"></a>
+
+<h1 id="一、面向对象的概念"><a href="#一、面向对象的概念" class="headerlink" title="一、面向对象的概念"></a>一、面向对象的概念</h1><h2 id="1-1-什么是面向对象-object-oriented"><a href="#1-1-什么是面向对象-object-oriented" class="headerlink" title="1.1 什么是面向对象(object oriented)"></a>1.1 什么是面向对象(<code>object oriented</code>)</h2><p>   世间万物皆对象，抽象的也是对象，一切可见或不可见都是对象</p>
+<h2 id="1-2-对象的基本组成"><a href="#1-2-对象的基本组成" class="headerlink" title="1.2 对象的基本组成"></a>1.2 对象的基本组成</h2><p>   对象包含两个部分：</p>
+<ul>
+<li>对象的组成元素<ul>
+<li>是对象的<code>数据模型</code>，用于描述对象的数据<br>又称为对象的<code>属性</code>，或者对象的<code>成员变量</code></li>
+</ul>
+</li>
+<li>对象的行为<ul>
+<li>是对象的<code>行为模型</code>，用于描述对象能够做什么事情<br>又被称为对象的<code>方法</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="1-3-对象特点"><a href="#1-3-对象特点" class="headerlink" title="1.3 对象特点"></a>1.3 对象特点</h2><ul>
+<li>每一个对象都是独一无二的</li>
+<li>对象是一个特定的事物，他的职能是完成特定功能</li>
+<li>对象是<strong>可以重复使用</strong></li>
+</ul>
+<h2 id="1-4-面向对象简介"><a href="#1-4-面向对象简介" class="headerlink" title="1.4 面向对象简介"></a>1.4 面向对象简介</h2><ol>
+<li>面向对象编程<br>就是编程的时候数据结构（数据组织方式 ）都通过对象的结构进行存储，使用<strong><code>属性</code></strong>和<strong><code>方法</code></strong>组织起来</li>
+<li>为什么要使用面向对象编程？<br>对象的描述方式更加贴合真实世界，有利于对大型业务的理解</li>
+</ol>
+<h2 id="1-5-面向对象的实质"><a href="#1-5-面向对象的实质" class="headerlink" title="1.5 面向对象的实质"></a>1.5 面向对象的实质</h2><ol>
+<li>面向对象就是把生活中要解决的问题都用对象的方式进行存储–把所有的数据用<strong>属性</strong>、<strong>方法</strong>表现出来。</li>
+<li>对象之间的互动是<strong>通过<code>方法</code>的调用完成<code>互动</code></strong></li>
+</ol>
+<h2 id="1-6-面向对象的基本思路"><a href="#1-6-面向对象的基本思路" class="headerlink" title="1.6 面向对象的基本思路"></a>1.6 面向对象的基本思路</h2><ol>
+<li>识别对象<br>任何实体都可以被识别为一个对象</li>
+<li>识别对象的<strong>属性</strong><br>对象里面存储的数据被识别为属性<br>对于不同的业务逻辑，关注的数据不同，对象里面存储的属性也不同</li>
+<li>识别对象的<strong>行为</strong><br>对象自己的属性数据的改变<br>对象外部的交互</li>
+</ol>
+<h2 id="1-7-面向对象的基本原则"><a href="#1-7-面向对象的基本原则" class="headerlink" title="1.7 面向对象的基本原则"></a>1.7 面向对象的基本原则</h2><ol>
+<li><p>对象<strong>内部</strong><code>高内聚</code><br>对象只负责一项<strong><code>特定的职能</code></strong>（职能可大可小）<br>所有对象相关的内容都封装到对象内部</p>
+</li>
+<li><p>对象<strong>外部</strong><code>低耦合</code><br>外部世界可以看到对象的一些属性（并非全部）<br>外部世界可以看到对象可以做某些事情（并非全部）</p>
+<p>软件设计尽可能的做到：高内聚，低耦合，模块与模块间应该是独立的，没有依赖关系</p>
+</li>
+</ol>
+<h1 id="二、面向对象的基本实践"><a href="#二、面向对象的基本实践" class="headerlink" title="二、面向对象的基本实践"></a>二、面向对象的基本实践</h1><h2 id="2-1-类的概念"><a href="#2-1-类的概念" class="headerlink" title="2.1 类的概念"></a>2.1 类的概念</h2><ol>
+<li>物以类聚，把具有相似特性的对象对垒到一个类中</li>
+<li>类定义了这些相似对象拥有的相同的属性和方法</li>
+<li>类是相似对象的描述，成为类的定义，是该类对象的蓝图或者原型</li>
+<li>类的对象称为一个类的<code>实例</code>(Instance)</li>
+<li><strong>类的属性和方法统称为<code>类成员</code></strong></li>
+</ol>
+<h2 id="2-2-类的实例化"><a href="#2-2-类的实例化" class="headerlink" title="2.2 类的实例化"></a>2.2 类的实例化</h2><ul>
+<li>类的实例化：通过类定义创建一个类的对象</li>
+<li>类的定义属性值都是空或默认值，而对象的属性都有具体的值</li>
+</ul>
+<h2 id="2-3-类的定义"><a href="#2-3-类的定义" class="headerlink" title="2.3 类的定义"></a>2.3 类的定义</h2><ol>
+<li>类的定义以关键字<code>class</code>开始，后面跟着这个类的名称。类的命名<strong>通常每个单词的第一个字母大写</strong>，以中括号开始和结束</li>
+<li>类的实例化为对象时使用关键字<code>new</code>，<code>new</code>之后紧跟类的名称和一对括号</li>
+<li>对象中得成员属性和方法可以通过<code>-&gt;</code>符号来访问</li>
+</ol>
+<h2 id="2-4-构造函数"><a href="#2-4-构造函数" class="headerlink" title="2.4 构造函数"></a>2.4 构造函数</h2><ol>
+<li>默认构造函数在对象被实例化的时候自动调用</li>
+<li><code>$this</code>是<code>Php</code>里面的<strong><code>伪变量</code></strong>，表示对象本身。可以通过<code>$this-&gt;</code>的方式访问对象的属性和方法</li>
+<li>每一次用<code>new</code>实例化对象的时候，都会用类名后面的参数列表调用构造函数</li>
+<li><code>php</code>类函数的构造函数<code>function __construct(){}</code>运行时自动调用</li>
+</ol>
+<h2 id="2-5-析构函数"><a href="#2-5-析构函数" class="headerlink" title="2.5 析构函数"></a>2.5 析构函数</h2><ol>
+<li><code>function __destruct(){}</code>析构函数是根据后入先出的原则</li>
+<li>有<strong>两种方式</strong>会被执行析构函数：对象被设置未<code>null</code>或者程序结束时会被自动调用析构函数，，所占用的资源被系统回收</li>
+<li>析构函数通常被用于清理程序使用的资源，比如释放打开的文件等等</li>
+<li>析构函数在该对象不会再被使用的情况下自动调用，<strong><code>如果被复制了，而不是</code>&amp;<code>引用，就不会调用析构函数</code></strong></li>
+</ol>
+<h2 id="2-6-对象-amp-引用的基本概念"><a href="#2-6-对象-amp-引用的基本概念" class="headerlink" title="2.6 对象&amp;引用的基本概念"></a>2.6 对象<code>&amp;</code>引用的基本概念</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$james1 = $james; //相当于复制出来多一个引用，两者是独立的两个引用</span><br><span class="line">$james2 = &amp;$james; //相当于为james取一个别名，两者其实是一体的，只是有两个名字</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/28/JhfoDK.png" alt="JhfoDK.png"></p>
+<p>   <strong>特别注意：</strong></p>
+<ol>
+<li><strong><code>PHP 永远会将对象按引用传递</code></strong>（<code>ArrayObject</code> 是一个<code>SPL</code><strong><code>对象</code></strong>，它完全模仿数组的用法，但是却是以对象来工作）</li>
+<li><code>$arr = array(); $arr2 = $arr;</code> <code>$arr2</code>是<code>$arr</code><strong><code>数组的一份拷贝</code></strong>，它们之间互不影响，是独立的两个数组</li>
+<li><code>&amp;</code>对象（数组）都是相当于起<strong><code>别名</code></strong></li>
+</ol>
+<h4 id="深入理解PHP引用：常见错误-3：关于通过引用返回与通过值返回的困惑"><a href="#深入理解PHP引用：常见错误-3：关于通过引用返回与通过值返回的困惑" class="headerlink" title="深入理解PHP引用：常见错误 #3：关于通过引用返回与通过值返回的困惑"></a><a href="https://segmentfault.com/a/1190000014126990#articleHeader2" target="_blank" rel="noopener"><strong>深入理解PHP引用：</strong>常见错误 #3：关于通过引用返回与通过值返回的困惑</a></h4><h1 id="三、面向对象的高级实战"><a href="#三、面向对象的高级实战" class="headerlink" title="三、面向对象的高级实战"></a>三、面向对象的高级实战</h1><h2 id="3-1-对象的继承"><a href="#3-1-对象的继承" class="headerlink" title="3.1 对象的继承"></a>3.1 对象的继承</h2><p>  父类：拥有部分相同的属性和方法</p>
+<p>  继承的好处</p>
+<ol>
+<li><p>父类里面定义的类成员可以不用在子类中重复定义，节约了编程的时间和代价</p>
+</li>
+<li><p>同一个父类的子类拥有相同的父类定义的类成员，因此外部代码调用他们的时候可以一视同仁</p>
+</li>
+<li><p>子类可以修改和调用父类定义的类成员</p>
+<ul>
+<li>我们称为<strong><code>重写</code></strong>（<code>Overwrite</code>）</li>
+<li>一旦子类修改了，就按照子类修改之后的功能执行</li>
+</ul>
+<p>子类：</p>
+</li>
+<li><p>子类可以通过<code>$this</code>访问父类的属性</p>
+</li>
+<li><p>子类的对象可以直接调用父类的方法和属性</p>
+</li>
+<li><p><code>PHP</code>的<strong><code>单继承特性</code></strong>：类不允许同时继承多个父类（<code>extends</code>后面只能跟一个父类名称）</p>
+</li>
+</ol>
+<h2 id="3-2-访问控制"><a href="#3-2-访问控制" class="headerlink" title="3.2 访问控制"></a>3.2 访问控制</h2><p>  面向对象的三种访问权限：</p>
+<ol>
+<li><code>public</code>是公有的类成员，可以在任何地方被访问<ul>
+<li>可以被类以及子类或者对象都可以访问</li>
+</ul>
+</li>
+<li><code>protected</code>受保护的类成员，可以被其自身以及继承的子类访问<ul>
+<li>可以被子类继承，但是不能被对象访问，只能通过封装的方式让对象访问</li>
+</ul>
+</li>
+<li><code>private</code>私有的类成员，只能被自身访问<ul>
+<li>不能被子类继承，也不能被对象访问，只能在自身通过封装让外界访问（例如在类里面定义一个公开方法来调用私有属性）</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-3-Static-静态-关键字"><a href="#3-3-Static-静态-关键字" class="headerlink" title="3.3 Static(静态)关键字"></a>3.3 Static(静态)关键字</h2><p>  静态成员：定义时在访问控制关键字后添加<code>static</code>关键字即可（访问控制关键字：<code>public. protected. private</code>）</p>
+<ol>
+<li>静态属性用于保存类的公有数据，可以在不同对象间共享</li>
+<li>静态方法里面只能访问静态属性</li>
+<li>静态成员不需要实例化对象就可以访问</li>
+<li>类的内部可以通过 <code>self::</code> 或 <strong><code>static::</code></strong> 关键字访问自身静态成员，<strong>self::</strong><code>$</code><strong>属性 self::方法()</strong></li>
+<li>通过 <code>parent::</code> 关键字访问<strong>父类的静态成员</strong>，也可以通过子类::父类静态成员</li>
+<li>通过 <code>类名::</code> 的方式在类的外部访问静态成员</li>
+</ol>
+<h2 id="3-4-重写和Final关键字"><a href="#3-4-重写和Final关键字" class="headerlink" title="3.4 重写和Final关键字"></a>3.4 重写和Final关键字</h2><ol>
+<li>子类中编写跟父类完全一致的方法可以完成对父类方法的重写，方法参数最好有默认参数</li>
+<li>对于不想被任何类继承的类可以在<code>class</code>之前添加<code>final</code>关键字</li>
+<li>对于不想被子类重写（<code>overwrite</code>, 修改）的方法，可以在方法定义前面添加<code>final</code>关键字</li>
+</ol>
+<h2 id="3-5-数据访问"><a href="#3-5-数据访问" class="headerlink" title="3.5 数据访问"></a>3.5 数据访问</h2><ol>
+<li><strong><code>parent</code>关键字可以可用于调用父类中被子类重写了的方法</strong></li>
+<li><code>self</code>关键字可以用于访问类自身的<strong><code>成员方法</code></strong>，静态成员和类常量；<strong>不能用于访问类自身的属性！！！</strong>使用常量的时候不需要在常量<code>const</code>名称前面添加<code>$</code>符号</li>
+<li><code>static::</code>关键字用于访问类自身定义的静态成员，访问静态属性时需要在属性前面添加<code>$</code>符号。</li>
+<li>常量属性<code>const</code>不能使用对象访问，仅能使用类访问，在类本体内可以使用“<code>self::常量名</code>”，在类本体外可以使用“<code>类名::常量名</code>”</li>
+</ol>
+<h2 id="3-6-对象接口"><a href="#3-6-对象接口" class="headerlink" title="3.6 对象接口"></a>3.6 对象接口</h2><p>   接口就是把不同类的<code>共同行为</code>进行定义，然后在不同的类里面实现不同的功能</p>
+<ol>
+<li><code>interface</code>定义接口，<code>implements</code>用于表示类实现某个接口</li>
+<li>接口里面的方法没有具体的实现，无<code>{}</code></li>
+<li>实现了某个接口的类必须提供接口中定义的方法的具体实现</li>
+<li>不能实例化接口，但是能够判断某个对象是否实现了某个接口。<code>instanceof</code>关键字判断某个对象是否实现了某个接口 <code>$object instanceof interface</code></li>
+<li>接口可以继承接口（<code>interface extends interface</code>）</li>
+<li>接口中定义的所有<strong>方法</strong>都<strong><code>必须是公有</code></strong>，这是接口的特性</li>
+</ol>
+<h2 id="3-7-多态"><a href="#3-7-多态" class="headerlink" title="3.7 多态"></a>3.7 多态</h2><p>   因为接口的方法实现可以有很多，所以对于接口里面定义的方法的具体实现是多种多样的，这种特性我们称为<strong><code>多态</code></strong></p>
+<p>   不需要知道对象属于哪个类，只要判断该对象的类是否实现接口，就能实现调用，相同代码实现不同结果</p>
+<p>   形象点说就是同一个接口，不同的对象实现，得出的结果不一样就是多态，如传入的是人类对象，得到的是人类吃苹果，传入的是猴子对象，得到的就是猴子吃香蕉。相同的一行代码，对于传入不同的接口的实现的对象的时候，表现是不同的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 多态</span><br><span class="line"> * 1. 只要某个对象实现了接口（instanceof），就可以直接在对象上调用接口的方法</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">interface ICanEat &#123;</span><br><span class="line">   public function eat($food);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Human类实现了ICanEat接口</span><br><span class="line">class Human implements ICanEat &#123; </span><br><span class="line">  // 跟Animal类的实现是不同的</span><br><span class="line">  public function eat($food)&#123;</span><br><span class="line">    echo &quot;Human eating &quot; . $food . &quot;\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Animal类实现了ICanEat接口</span><br><span class="line">class Animal implements ICanEat &#123;</span><br><span class="line">  public function eat($food)&#123;</span><br><span class="line">    echo &quot;Animal eating &quot; . $food . &quot;\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function eat($obj)&#123;</span><br><span class="line">  if($obj instanceof ICanEat)&#123; </span><br><span class="line">    $obj-&gt;eat(&quot;FOOD&quot;); // 不需要知道到底是Human还是Animal，直接吃就行了</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    echo &quot;Can&apos;t eat!\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$man = new Human();</span><br><span class="line">$monkey = new Animal();</span><br><span class="line"></span><br><span class="line">// 同样的代码，传入接口的不同实现类的时候，表现不同。这就是为什么成为多态的原因。</span><br><span class="line">eat($man);</span><br><span class="line">eat($monkey);</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-8-抽象类"><a href="#3-8-抽象类" class="headerlink" title="3.8 抽象类"></a>3.8 抽象类</h2><p>   接口里面的方法都是没有实现的，而类里面的方法都是有实现的。<br>   有没有一种形态，允许类里面一部分方法不实现呢？</p>
+<ul>
+<li>当接口中的某些方法对于所有的实现类都是一样的实现方法，只有部分方法需要用到多态的特性<ul>
+<li>如人和动物吃东西是不同的，但是呼吸是相同的，不需要为人和动物分别实现呼吸的功能</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><code>abstract</code>关键字用于定义抽象类</li>
+<li>在抽象方法前面添加<code>abstract</code>关键字可以标明这个方法是抽象方法不需要具体实现<code>{}</code></li>
+<li>抽象类中可以包含普通的方法，有方法的具体实现</li>
+<li>继承抽象类的关键字是<code>extends</code></li>
+<li>继承抽象类的子类需要实现抽象类中定义的抽象方法</li>
+<li>抽象类不能被实例化，当子类继承抽象类的时候，所有的抽象的方法都必须定义</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 抽象类</span><br><span class="line"> * 1. 抽象类允许类里面的部分方法暂时没有具体实现，这些方法我们成为抽象方法</span><br><span class="line"> * 2. 一旦类里面有抽象方法，这个类就必须是抽象类</span><br><span class="line"> * 3. 抽象类跟接口一样，不能直接实例化为对象</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">// 抽象类前面以abstract关键字开始</span><br><span class="line">abstract class ACanEat &#123;</span><br><span class="line">   // 没有实现的方法需要设定为抽象方法</span><br><span class="line">   // 抽象方法需要在子类中实现 </span><br><span class="line">   abstract public function eat($food);</span><br><span class="line"></span><br><span class="line">   public function breath()&#123;</span><br><span class="line">      echo &quot;Breath use the air.\n&quot;;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Human类实现了ICanEat接口</span><br><span class="line">class Human extends ACanEat &#123; </span><br><span class="line">  // 跟Animal类的实现是不同的</span><br><span class="line">  public function eat($food)&#123;</span><br><span class="line">    echo &quot;Human eating &quot; . $food . &quot;\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Animal类实现了ICanEat接口</span><br><span class="line">class Animal extends ACanEat &#123;</span><br><span class="line">  public function eat($food)&#123;</span><br><span class="line">    echo &quot;Animal eating &quot; . $food . &quot;\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$man = new Human();</span><br><span class="line">$man-&gt;eat(&quot;Apple&quot;);</span><br><span class="line">$man-&gt;breath(); // 和Animal共用了抽象类ICanEat的breath方法</span><br><span class="line">$monkey = new Animal();</span><br><span class="line">$monkey-&gt;eat(&quot;Banana&quot;);</span><br><span class="line">$monkey-&gt;breath();</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、PHP面向对象的特殊实践"><a href="#四、PHP面向对象的特殊实践" class="headerlink" title="四、PHP面向对象的特殊实践"></a>四、PHP面向对象的特殊实践</h1><h2 id="4-1-魔术方法之-toString-和invoke"><a href="#4-1-魔术方法之-toString-和invoke" class="headerlink" title="4.1 魔术方法之_toString()和invoke()"></a>4.1 魔术方法之_toString()和invoke()</h2><ol>
+<li><code>__toString()</code>当对象被当作String使用时，这个方法会被自动调用（需要在类中定义<code>__tostring()</code>方法。调用 echo $object</li>
+<li><code>__invoke()</code>当对象被当作方法调用时，这个方法会被自动调用（需要在类中定义<code>__invoke()</code>方法）。调用 parameter)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 魔术方法1</span><br><span class="line"> * 1. 当对象被当做String使用时，__toString()会被自动调用</span><br><span class="line"> * 2. 当对象被当成方法调用时，__invoke()会被自动调用</span><br><span class="line"> */</span><br><span class="line">class MagicTest&#123;</span><br><span class="line">  public function __toString()&#123;</span><br><span class="line">    return &quot;This is the Class MagicTest.\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  public function __invoke($x)&#123;</span><br><span class="line">    echo &quot;__invoke called with parameter &quot; . $x . &quot;\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$obj =  new MagicTest();</span><br><span class="line">echo $obj;</span><br><span class="line">$obj(5);</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-魔术方法之call-和callStatic"><a href="#4-2-魔术方法之call-和callStatic" class="headerlink" title="4.2 魔术方法之call()和callStatic()"></a>4.2 魔术方法之<strong>call()和</strong>callStatic()</h2><ol>
+<li><code>__call()</code>方法：当对象访问不存在的方法名称时，此方法自动调用。<ul>
+<li>调用示例：<code>public function __call($name,$argument){}</code></li>
+<li>注意：访问控制关键字必须为<code>public</code>；必须有两个参数：对象访问的方法名称(<code>$name</code>)、方法包含的参数(<code>$argument</code> ==&gt; 自动转换成数组)。</li>
+</ul>
+</li>
+<li><code>__callStatic()</code>方法：当对象访问不存在的静态方法名称时，此方法自动调用。<ul>
+<li>调用示例：<code>public static function __callStatic($name,$argument){}</code></li>
+<li>注意：同<code>__call()</code>；此方法为静态方法(static)。</li>
+</ul>
+</li>
+<li>这两种方法也被称为<strong>方法的重载</strong>（<code>overloading</code>）<ul>
+<li>注意区分重写（<code>overwrite</code>）</li>
+<li>通过这两个方法，同一个方法的调用可以对应不同的方法的实现（同一个方法的静态调用、动态调用对应不同的方法实现）</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 魔术方法之方法重载</span><br><span class="line"> * 1. 当对象访问不存在的方法名称时，__call()方法会被自动调用</span><br><span class="line"> * 2. 当对象访问不存在的静态方法名称时，__callStatic()方法会被自动调用</span><br><span class="line"> */</span><br><span class="line">class MagicTest&#123;</span><br><span class="line">    /**</span><br><span class="line">     * 自动将参数转换成数组</span><br><span class="line">     * array (size=2)</span><br><span class="line">     *  0 =&gt; string &apos;para1&apos; (length=5)</span><br><span class="line">     *  1 =&gt; string &apos;para2&apos; (length=5)</span><br><span class="line">     * @param $name</span><br><span class="line">     * @param $arguments</span><br><span class="line">     */</span><br><span class="line">  public function __call($name, $arguments)&#123;</span><br><span class="line">      var_dump($arguments);</span><br><span class="line">    echo &quot;Calling &quot; . $name . &quot; with parameters: &quot; . implode(&apos;, &apos;, $arguments) . &quot;\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static function __callStatic($name, $arguments)&#123;</span><br><span class="line">    echo &quot;Static calling &quot; . $name . &quot; with parameters: &quot; . implode(&apos;, &apos;, $arguments) . &quot;\n&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$obj =  new MagicTest();</span><br><span class="line">$obj-&gt;runTest(&quot;para1&quot;, &quot;para2&quot;);</span><br><span class="line">MagicTest::runTest(&quot;para3&quot;,&quot;para4&quot;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-魔术方法之get-、set-、isset-和unset"><a href="#4-3-魔术方法之get-、set-、isset-和unset" class="headerlink" title="4.3 魔术方法之get()、set()、isset()和unset()"></a>4.3 魔术方法之<strong>get()、</strong>set()、<strong>isset()和</strong>unset()</h2><ol>
+<li><p>在给不可访问<code>属性</code>赋值时，<strong>__set()</strong>会被调用 定义<strong>function __set(value)</strong></p>
+</li>
+<li><p><code>读取</code>不可访问属性的值时，<strong>__get()</strong>会被调用 定义<strong>function __get($name)</strong></p>
+</li>
+<li><p>当对不可访问属性调用<code>isset()</code>或<code>empty()</code>时，<code>__isset()</code>会被调用</p>
+</li>
+<li><p>当对不可访问的属性调用<code>unset()</code>时，<code>__unset()</code>会被调用</p>
+<p>这几个方法也被成为<code>属性重载</code>的魔术方法<br>所谓不可访问属性，实际上就是在调用某个属性时发现这个属性没有被定义，这时候不同的操作会触发不同的魔术方法</p>
+</li>
+</ol>
+<h2 id="4-4-魔术方法之-clone"><a href="#4-4-魔术方法之-clone" class="headerlink" title="4.4 魔术方法之__clone()"></a>4.4 魔术方法之__clone()</h2><p><img src="https://s1.ax1x.com/2020/04/28/JhfIu6.png" alt="JhfIu6.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$obj1 = $ojb; //不能实现对象复制，两个对象变量指向同一对象</span><br><span class="line">$obj1 = clone $obj; //实现对象复制，变成值相同的两个对象</span><br></pre></td></tr></table></figure>
+
+<p>   调用<code>clone</code>时会自动调用<code>__clone()</code>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$james = new NbaPlayer(); //$ja0 对应内存地址(假设为 address0 )中存储的是 james对象的标识符</span><br><span class="line">$james2 = clone $james;    //当希望生成一个真正独立存储的 NbaPlayer() 对象,但新对象的所有数据都和 $james 对象中的相同时,使用关键字clone</span><br></pre></td></tr></table></figure>
+
+<p>   当在<code>class NbaPlayer()</code>中定义了 <code>__clone()</code>方法 后,使用<code>clone</code>关键字时,系统将调用用户定义的<code>__clone()</code>方法 (此时可以对<code>clone</code>后生成的新对象的属性进行修改)</p>
+<h1 id="五、PHP中的Trai"><a href="#五、PHP中的Trai" class="headerlink" title="五、PHP中的Trai"></a>五、PHP中的Trai</h1><p>PHP是单继承语言，为了使开发人员在不同层次结构内独立的类中复用方法，PHP5.4.0起，PHP实现了一种代码复用的方法Trait，Trait无法自身实例化，通过和Class组合的方式实现多继承。</p>
+<ul>
+<li>示例</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">trait A &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class B &#123;</span><br><span class="line">        public function sayWorld() &#123;</span><br><span class="line">                echo &quot;World\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class C extends B &#123;</span><br><span class="line">        use A;</span><br><span class="line">        public function sayHi() &#123;</span><br><span class="line">                echo &quot;Hi\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$c = new C();</span><br><span class="line">$c-&gt;sayHi();</span><br><span class="line">$c-&gt;sayHello();</span><br><span class="line">$c-&gt;sayWorld();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/28/Jhhi5Q.png" alt="Jhhi5Q.png"></p>
+<ul>
+<li>优先级 派生类&gt;trait&gt;基类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">trait A &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello trait\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        public function sayHi() &#123;</span><br><span class="line">                echo &quot;Hi trait\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class B &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello class\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        public function sayHi() &#123;</span><br><span class="line">                echo &quot;Hi class\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class C extends B &#123;</span><br><span class="line">        use A;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello C\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$c = new C();</span><br><span class="line">$c-&gt;sayHello();</span><br><span class="line">$c-&gt;sayHi();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/28/JhhkCj.png" alt="JhhkCj.png"></p>
+<ul>
+<li>多个trait，用英文逗号分隔。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">trait Hello &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">trait World &#123;</span><br><span class="line">        public function sayWorld() &#123;</span><br><span class="line">                echo &quot;World&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test &#123;</span><br><span class="line">        use Hello,World;</span><br><span class="line">        public function sayHelloWorld() &#123;</span><br><span class="line">                echo &quot;!\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$test = new Test();</span><br><span class="line">$test-&gt;sayHello();</span><br><span class="line">$test-&gt;sayWorld();</span><br><span class="line">$test-&gt;sayHelloWorld();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/28/JhhA8s.png" alt="JhhA8s.png"></p>
+<ul>
+<li>解决冲突</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">trait A &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello A\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        public function sayHi() &#123;</span><br><span class="line">                echo &quot;Hi A\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">trait B &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello B\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        public function sayHi() &#123;</span><br><span class="line">                echo &quot;Hi B\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class C &#123;</span><br><span class="line">        // 使用insteadof操作符明确指定使用冲突方法中的哪一个</span><br><span class="line">        use A,B &#123;</span><br><span class="line">                A::sayHello insteadof B;</span><br><span class="line">                B::sayHi insteadof A;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class D &#123;</span><br><span class="line">        use A,B &#123;</span><br><span class="line">                A::sayHello insteadof B;</span><br><span class="line">                B::sayHi insteadof A;</span><br><span class="line">                A::sayHi as hi; // as操作符为某个方法引入别名，解决多个trait都插入一个同名方法的冲突</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$c = new C();</span><br><span class="line">$c-&gt;sayHello();</span><br><span class="line">$c-&gt;sayHi();</span><br><span class="line">echo &quot;\n&quot;;</span><br><span class="line">$d = new D();</span><br><span class="line">$d-&gt;sayHello();</span><br><span class="line">$d-&gt;sayHi();</span><br><span class="line">$d-&gt;hi();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/28/JhhPUg.png" alt="JhhPUg.png"></p>
+<ul>
+<li>使用as语法调整方法的访问控制</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">trait Hello &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello trait\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class A &#123;</span><br><span class="line">        use Hello &#123;</span><br><span class="line">                Hello::sayHello as protected; // 使用as操作符修改sayHello的访问控制</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class B &#123;</span><br><span class="line">        use Hello &#123;</span><br><span class="line">                Hello::sayHello as private sayHi; // 使用as操作符给sayHello引入一个别名并修改别名的访问控制，原版sayHello的访问控制不改变</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$a = new A();</span><br><span class="line">// PHP Fatal error:  Uncaught Error: Call to protected method A::sayHello() from context &apos;&apos; in trait5.php:158</span><br><span class="line">$a-&gt;sayHello();</span><br><span class="line">$b = new B();</span><br><span class="line">$b-&gt;sayHello();</span><br><span class="line">// PHP Fatal error:  Uncaught Error: Call to private method B::sayHi() from context &apos;&apos; in trait5.php:162</span><br><span class="line">$b-&gt;sayHi();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用trait组合trait</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">trait Hello &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello &quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">trait World &#123;</span><br><span class="line">        public function sayWorld() &#123;</span><br><span class="line">                echo &quot;World!\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">trait HelloWorld &#123;</span><br><span class="line">        use Hello,World;</span><br><span class="line">&#125;</span><br><span class="line">class Hi &#123;</span><br><span class="line">        use HelloWorld;</span><br><span class="line">&#125;</span><br><span class="line">$hi = new Hi();</span><br><span class="line">$hi-&gt;sayHello();</span><br><span class="line">$hi-&gt;sayWorld();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>trait使用抽象方法，对组合trait的类施加强制要求</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">trait Hello &#123;</span><br><span class="line">        public function sayHello() &#123;</span><br><span class="line">                echo &quot;Hello &quot; . $this-&gt;getWorld();</span><br><span class="line">        &#125;</span><br><span class="line">        // 抽象方法</span><br><span class="line">        abstract public function getWorld();</span><br><span class="line">&#125;</span><br><span class="line">class Hi &#123;</span><br><span class="line">        private $world;</span><br><span class="line">        use Hello; // 组合trait</span><br><span class="line">        // 实现抽象方法</span><br><span class="line">        public function getWorld() &#123;</span><br><span class="line">                return $this-&gt;world;</span><br><span class="line">        &#125;</span><br><span class="line">        public function setWorld($val) &#123;</span><br><span class="line">                $this-&gt;world = $val;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">$hi = new Hi();</span><br><span class="line">$hi-&gt;setWorld(&quot;world!\n&quot;);</span><br><span class="line">$hi-&gt;sayHello();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/28/JhhMaF.png" alt="JhhMaF.png"></p>
+<ul>
+<li>trait定义静态属性和静态方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">trait Counter &#123;</span><br><span class="line">        public function inc() &#123;</span><br><span class="line">                // 静态属性</span><br><span class="line">                static $c = 0;</span><br><span class="line">                $c = $c + 1;</span><br><span class="line">                echo &quot;$c\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        // 静态方法</span><br><span class="line">        public static function doSomething() &#123;</span><br><span class="line">                return &quot;Doing Something\n&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Test &#123;</span><br><span class="line">        use Counter;</span><br><span class="line">&#125;</span><br><span class="line">$test = new Test();</span><br><span class="line">$test-&gt;inc();</span><br><span class="line">echo $test::doSomething();</span><br><span class="line">$test-&gt;inc();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/04/28/JhhKVU.png" alt="JhhKVU.png"></p>
+<ul>
+<li>trait定义属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">trait A &#123;</span><br><span class="line">        public $name = &apos;frankphper&apos;;</span><br><span class="line">        public $age = 18;</span><br><span class="line">&#125;</span><br><span class="line">class B &#123;</span><br><span class="line">        use A;</span><br><span class="line">        public $name = &apos;frankphper&apos;;</span><br><span class="line">        public $age = 28;</span><br><span class="line">&#125;</span><br><span class="line">$b = new B();</span><br><span class="line">echo $b-&gt;name; // PHP 7.0.0 后没问题，之前版本是 E_STRICT 提醒</span><br><span class="line">echo &quot;\n&quot;;</span><br><span class="line">echo $b-&gt;age; // PHP Fatal error:  B and A define the same property ($age) in the composition of B. However, the definition differs and is considered incompatible. Class was composed in trait5.php on line 250</span><br><span class="line">echo &quot;\n&quot;;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/php/" rel="tag"># php</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/04/25/处理机调度与死锁/" rel="next" title="处理机调度与死锁">
+                  <i class="fa fa-chevron-left"></i> 处理机调度与死锁
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、面向对象的概念"><span class="nav-number">1.</span> <span class="nav-text">一、面向对象的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-什么是面向对象-object-oriented"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 什么是面向对象(object oriented)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-对象的基本组成"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 对象的基本组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-对象特点"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 对象特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-面向对象简介"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 面向对象简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-面向对象的实质"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 面向对象的实质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-面向对象的基本思路"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 面向对象的基本思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-面向对象的基本原则"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 面向对象的基本原则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、面向对象的基本实践"><span class="nav-number">2.</span> <span class="nav-text">二、面向对象的基本实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-类的概念"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 类的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-类的实例化"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 类的实例化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-类的定义"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 类的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-构造函数"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-析构函数"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-对象-amp-引用的基本概念"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 对象&amp;引用的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#深入理解PHP引用：常见错误-3：关于通过引用返回与通过值返回的困惑"><span class="nav-number">2.6.0.1.</span> <span class="nav-text">深入理解PHP引用：常见错误 #3：关于通过引用返回与通过值返回的困惑</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、面向对象的高级实战"><span class="nav-number">3.</span> <span class="nav-text">三、面向对象的高级实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-对象的继承"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 对象的继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-访问控制"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 访问控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Static-静态-关键字"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Static(静态)关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-重写和Final关键字"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 重写和Final关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-数据访问"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 数据访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-对象接口"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 对象接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-多态"><span class="nav-number">3.7.</span> <span class="nav-text">3.7 多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-抽象类"><span class="nav-number">3.8.</span> <span class="nav-text">3.8 抽象类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、PHP面向对象的特殊实践"><span class="nav-number">4.</span> <span class="nav-text">四、PHP面向对象的特殊实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-魔术方法之-toString-和invoke"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 魔术方法之_toString()和invoke()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-魔术方法之call-和callStatic"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 魔术方法之call()和callStatic()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-魔术方法之get-、set-、isset-和unset"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 魔术方法之get()、set()、isset()和unset()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-魔术方法之-clone"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 魔术方法之__clone()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、PHP中的Trai"><span class="nav-number">5.</span> <span class="nav-text">五、PHP中的Trai</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">su33er</p>
+  <div class="site-description" itemprop="description">心之所向皆是遗憾，目之所及皆是过往</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://mi1itray_axe.gitee.io/" title="https://mi1itray_axe.gitee.io/" rel="noopener" target="_blank">Team233核心人物-张大炮</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">su33er</span>
+</div>
+  <!--<div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+-->
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">
+      
+    Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/muse.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+</body>
+</html>
