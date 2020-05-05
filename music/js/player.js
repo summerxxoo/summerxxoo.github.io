@@ -24,7 +24,7 @@ $(document).ready(function(){
       artist: "Oscar Enestad",
       poster :"http://p1.music.126.net/SDteiqCAosaL8AcdUn6XwQ==/109951164357030841.jpg"
       },{title:"circles",mp3:"https://link.hhtjim.com/163/1387574419.mp3",artist:"Post Malone",poster:"http://p2.music.126.net/42XFi2UPHDLCkKGHWmiGEQ==/109951164332836092.jpg"
-      },{title:"1999",mp3:"https://link.hhtjim.com/163/1314780499.mp3",artist:"Troye Sivan",poster:"http://p2.music.126.net/b7WyInzyJxF5oHkAok1FbA==/109951163586538233.jpg"}];
+      },{title:"1999",mp3:"http://47.113.84.149/1999.mp3",artist:"Troye Sivan",poster:"http://p2.music.126.net/b7WyInzyJxF5oHkAok1FbA==/109951163586538233.jpg"}];
 
   
   var cssSelector = {
