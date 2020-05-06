@@ -1,346 +1,201 @@
 <!DOCTYPE html>
-
-
-
-
-
-
 <html lang="en">
-<head>
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
-
-<link rel="stylesheet" href="/css/main.css?v=7.4.1">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-
-<script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.4.1',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
-    sidebarPadding: 40
-  };
-</script>
-
-  <meta name="description" content="第三章 处理机调度与死锁">
-<meta property="og:type" content="article">
-<meta property="og:title" content="处理机调度与死锁">
-<meta property="og:url" content="http://yoursite.com/2020/04/25/处理机调度与死锁/index.html">
-<meta property="og:site_name" content="2cu的博客">
-<meta property="og:description" content="第三章 处理机调度与死锁">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/30/Jb9Kot.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/30/Jb9udI.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/30/Jb9neA.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/30/Jb9ZsH.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/30/Jb9eLd.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/30/Jb91W8.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/30/Jb9QFP.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/30/Jb9lJf.jpg">
-<meta property="og:image" content="https://img-blog.csdn.net/20150817213210368?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:image" content="https://ftp.bmp.ovh/imgs/2020/04/94d981684646bc9e.png">
-<meta property="og:updated_time" content="2020-04-30T01:59:36.642Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="处理机调度与死锁">
-<meta name="twitter:description" content="第三章 处理机调度与死锁">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/30/Jb9Kot.jpg">
-  <link rel="canonical" href="http://yoursite.com/2020/04/25/处理机调度与死锁/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
-  };
-</script>
-
-  <title>处理机调度与死锁 | 2cu的博客</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="心之所向皆是遗憾，目之所及皆是过往">
+  <meta name="author" content="2cu">
+  <meta name="keywords" content>
+  <title>处理机调度与死锁 - 2cu的博客</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
 
 
 
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
 
 
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-  
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>2cu</strong>&nbsp;</a>
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">2cu的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              About</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/qiangfu/">
+              <i class="iconfont icon-tags-fill"></i>
+              偶尔看看女神</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/music/">
+              <i class="iconfont icon-tags-fill"></i>
+              音乐间</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              Links</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-</div>
-
-
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-      
-      
-        
-        
-        <li class="menu-item menu-item-home">
-      
-    
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-about">
-      
-    
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-categories">
-      
-    
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-archives">
-      
-    
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-偶尔看看女神">
-      
-    
-
-    <a href="/qiangfu/" rel="section"><i class="fa fa-fw fa-calendar"></i>偶尔看看女神</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-私人音乐间">
-      
-    
-
-    <a href="/music/" rel="section"><i class="fa fa-fw fa-sitemap"></i>私人音乐间</a>
-
-  </li>
-      
-    
-  </ul>
-
-    
-
 </nav>
-</div>
-    </header>
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/处理机调度与死锁/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="2cu">
-      <meta itemprop="description" content="心之所向皆是遗憾，目之所及皆是过往">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="2cu的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            处理机调度与死锁
-            
-
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2020-04-25 11:34:07" itemprop="dateCreated datePublished" datetime="2020-04-25T11:34:07+08:00">2020-04-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-30 09:59:36" itemprop="dateModified" datetime="2020-04-30T09:59:36+08:00">2020-04-30</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学业笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学业笔记</span>
-                  </a>
-                </span>
-
-                
-                
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
               
             </span>
-          
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-04-25 11:34">
+                    April 25, 2020 am
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    5.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    60
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>第三章 处理机调度与死锁</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>第三章 处理机调度与死锁</p>
 <a id="more"></a>
 
 <h2 id="本章内容："><a href="#本章内容：" class="headerlink" title="本章内容："></a>本章内容：</h2><p>处理机调度的层次、调度准则、调度算法、产生死锁的原因和必要条件、预防死锁的方法、死锁的检测与解除</p>
@@ -365,44 +220,49 @@
 <p>优先权<br>批处理系统、分时系统、实时系统都可以优先执行优先级别更高的作业。</p>
 <p>面向系统<br>系统吞吐量高<br>系统吞吐量，系统在单位时间内所能完成的总的工作量，它与批处理系统中的作业长短有关。短作业执行时间短，吞吐量高，长作业相反。</p>
 <p>CPU利用率<br>资源的平衡利用<br>调度的相关时间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">服务时间：作业需要运行的时间</span><br><span class="line">完成时间 = 开始时间 + 服务时间</span><br><span class="line">等待时间 = 开始时间 - 提交时间</span><br><span class="line">周转时间 = 完成时间 - 提交时间</span><br><span class="line">带权周转时间 = 周转时间 / 服务时间</span><br><span class="line">响应比 = （等待时间 + 服务时间） / 服务时间 = 等待时间/服务时间 + 1</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">服务时间：作业需要运行的时间
+完成时间 = 开始时间 + 服务时间
+等待时间 = 开始时间 - 提交时间
+周转时间 = 完成时间 - 提交时间
+带权周转时间 = 周转时间 / 服务时间
+响应比 = （等待时间 + 服务时间） / 服务时间 = 等待时间/服务时间 + 1</code></pre>
 
 <h3 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h3><p>调度算法</p>
 <h3 id="先来先服务"><a href="#先来先服务" class="headerlink" title="先来先服务"></a>先来先服务</h3><p>先来先服务调度算法（First Come First Served, FCFS）是最简单的调度算法，可以用于作业调度和进程调度。按照作业进入系统后备作业队列的先后次序来挑选作业，加入就绪队列，等待执行。</p>
 <p>算例：假设系统中有4个作业，到达时间分别为8、8.5、9、9.5，服务时间分别为2、0.5、0.1、0.2，FCFS的调度为：</p>
-<p><img src="https://s1.ax1x.com/2020/04/30/Jb9Kot.jpg" alt="Jb9Kot.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/04/30/Jb9Kot.jpg" srcset="/img/loading.gif" alt="Jb9Kot.jpg"></p>
 <p>FCFS是非抢占式的，易于实现，效率不高，性能不好，有利于长作业（CPU繁忙性）而不利于短作业（I/O繁忙性）。</p>
 <h3 id="短作业优先"><a href="#短作业优先" class="headerlink" title="短作业优先"></a>短作业优先</h3><p>短作业优先调度算法（Short Job First）用于进程调度时又被称为短进程优先调度算法（Short Process First），该算法既可以用于作业调度，又可以用于进程调度。</p>
 <p>在作业调度中，该算法每次从后备作业队列中挑选估计服务时间最短的一个或几个作业，将他们调入内存，分配必要的资源，创建进程并放入就绪队列。在进程调度中的原理类似。</p>
 <p>算例：假设系统中有4个作业，到达时间分别为8、8.5、9、9.5，服务时间分别为2、0.5、0.1、0.2，SJF的调度为：</p>
-<p><img src="https://s1.ax1x.com/2020/04/30/Jb9udI.jpg" alt="Jb9udI.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/04/30/Jb9udI.jpg" srcset="/img/loading.gif" alt="Jb9udI.jpg"></p>
 <p>SJF是非抢占式的，优先照顾短作业，具有很好的性能，降低平均等待时间，提高吞吐量。但是不利于长作业，长作业可能一直处于等待状态，出现饥饿现象；完全未考虑作业的优先紧迫程度，不能用于实时系统。</p>
 <h3 id="最短剩余时间优先"><a href="#最短剩余时间优先" class="headerlink" title="最短剩余时间优先"></a>最短剩余时间优先</h3><p>SJF本身是非抢占式的，用于抢占式调度系统时，对应的算法陈伟最短剩余时间优先调度算法。</p>
 <p>该算法首先按照作业的服务时间挑选最短的作业运行，在该作业运行期间，一旦有新作业到达系统，并且该新作业的服务时间比当前运行作业的剩余服务时间短，则发生抢占；否则，当前作业继续运行。该算法确保一旦新的短作业或短进程进入系统，能够很快得到处理。</p>
 <p>算例：假设系统中有4个作业，到达时间分别为8、8.5、9、9.5，服务时间分别为2、0.5、0.1、0.2，SJF的调度为：</p>
-<p><img src="https://s1.ax1x.com/2020/04/30/Jb9neA.jpg" alt="Jb9neA.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/04/30/Jb9neA.jpg" srcset="/img/loading.gif" alt="Jb9neA.jpg"></p>
 <p>由于频繁的抢占和进程切换，系统开销大，该算法实现代价高，一般用于实时系统。</p>
 <h3 id="高响应比优先"><a href="#高响应比优先" class="headerlink" title="高响应比优先"></a>高响应比优先</h3><p>高响应比优先调度算法（Highest Reponse Ratio First, HRRF）是非抢占式的，主要用于作业调度。</p>
 <p>基本思想：每次进行作业调度时，先计算后备作业队列中每个作业的响应比，挑选最高的作业投入系统运行。</p>
 <p>响应比 = （等待时间 + 服务时间） / 服务时间 = 等待时间 / 服务时间 + 1</p>
 <p>算例：假设系统中有4个作业，到达时间分别为8、8.5、9、9.5，服务时间分别为2、0.5、0.1、0.2，SJF的调度为：</p>
-<p><img src="https://s1.ax1x.com/2020/04/30/Jb9ZsH.jpg" alt="Jb9ZsH.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/04/30/Jb9ZsH.jpg" srcset="/img/loading.gif" alt="Jb9ZsH.jpg"></p>
 <p>由响应比分析可知，该算法介于FCFS和SJF之间，但是每次需要计算每个作业的响应比，增加系统开销。</p>
 <p>优先级<br>每次挑选优先级最高的一个或几个调入，可以用于作业调度和进程调度。分为非抢占式和抢占式。</p>
 <h3 id="时间片轮转"><a href="#时间片轮转" class="headerlink" title="时间片轮转"></a>时间片轮转</h3><p>用于分时系统的进程调度。</p>
 <p>基本思想：系统将CPU处理时间划分为若干个时间片（q），进程按照到达先后顺序排列。每次调度选择队首的进程，执行完1个时间片q后，计时器发出时钟中断请求，该进程移至队尾。以后每次调度都是如此。该算法能在给定的时间内响应所有用户的而请求，达到分时系统的目的。</p>
 <p>其性能主要取决于时间片q的大小，q太大，则所有的进程在1个时间片完成，退外围FCFS；太小则进程频繁切换，系统开销大。</p>
-<p><img src="https://s1.ax1x.com/2020/04/30/Jb9eLd.jpg" alt="Jb9eLd.jpg"></p>
-<p><img src="https://s1.ax1x.com/2020/04/30/Jb91W8.jpg" alt="Jb91W8.jpg"></p>
-<p><img src="https://s1.ax1x.com/2020/04/30/Jb9QFP.jpg" alt="Jb9QFP.jpg"></p>
-<p><img src="https://s1.ax1x.com/2020/04/30/Jb9lJf.jpg" alt="Jb9lJf.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/04/30/Jb9eLd.jpg" srcset="/img/loading.gif" alt="Jb9eLd.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/04/30/Jb91W8.jpg" srcset="/img/loading.gif" alt="Jb91W8.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/04/30/Jb9QFP.jpg" srcset="/img/loading.gif" alt="Jb9QFP.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/04/30/Jb9lJf.jpg" srcset="/img/loading.gif" alt="Jb9lJf.jpg"></p>
 <p>该算法简单有效，常用于分时系统，但不利于I/O频繁的而紧凑，由于这种进程用不完一个时间片，就因为等待I/O操作而被阻塞，当I/O操作结束后，只能插入到就绪队列的末尾，等待下一轮调度。</p>
 <p>时间片轮转还是没太懂，后来看了这篇文章:</p>
 <p>原文链接：<a href="https://blog.csdn.net/u013630349/article/details/47732731" target="_blank" rel="noopener">https://blog.csdn.net/u013630349/article/details/47732731</a></p>
 <h3 id="时间片轮转法（RR）"><a href="#时间片轮转法（RR）" class="headerlink" title="时间片轮转法（RR）"></a>时间片轮转法（RR）</h3><p>算法描述：用于分时系统中的进程调度。每次调度时，总是选择就绪队列的队首进程，让其在CPU上运行一个系统预先设置好的时间片。一个时间片内没有完成运行的进程，返回到绪队列末尾重新排队，等待下一次调度。</p>
 <p>【例】进程A、B、C、D需要运行的时间分别为20ms、10 ms、15 ms、5 ms，均在0时刻到达。到达的先后次序为A、B、C、D。如果时间片分别为1 ms和5ms，计算各个进程的带权周转时间和平均带权周转时间。</p>
 <p>分析 在掌握了时间片轮转法概念的基础上，我们可以用一个执行时间图来形象地表示作进程的执行情况，帮助我们理解此题。具体如下：</p>
-<p><img src="https://img-blog.csdn.net/20150817213210368?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p><img src="https://img-blog.csdn.net/20150817213210368?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" srcset="/img/loading.gif" alt="img"></p>
 <p>##死锁的定义</p>
 <p>指多个进程在运行过程中因争夺资源而造成的一种僵局（deadly-Embrace)，若无外力作用，这些进程都将无法向前推进。</p>
 <p>1.产生死锁的原因有两个：竞争资源、进程间推进顺序非法。</p>
@@ -417,23 +277,96 @@
 <p>4.什么是系统的安全状态，避免死锁的实质是什么？</p>
 <p>系统的安全状态是指在某一时刻，系统能按某种进程顺序(p1, p2,…，pn)来为每个进程Pi分配其资源,直到满足每个进程对资源的最大需求,使每个进程都可顺利地完成，则称此时的系统状态为安全状态.称序列&lt;p1, p2,…，pn&gt;为安全序列。如果一个系统在安全状态，就没有死锁。如果一个系统处于不安全状态，就有可能死锁。避免死锁的实质：确保系统不进入不安全状态。    </p>
 <h2 id="利用银行家算法避免死锁"><a href="#利用银行家算法避免死锁" class="headerlink" title="利用银行家算法避免死锁"></a>利用银行家算法避免死锁</h2><p>储备知识<br>银行家算法中的数据结构：假定系统中有n个进程（P1，P2，…，Pn），m类资源（R1，R2，…，Rm），银行家算法中使用的数据结构如下：<br>可利用资源向量: Available[j]=K, 表示系统资源Rj类资源有K个可用<br>最大需求矩阵: Max[i,j]=K, 表示进程Pi需要Rj类资源的最大数目是K个<br>分配矩阵：Allocation[i,j]=K, 表示进程Pi当前已经分配到K个Rj类资源<br>需求矩阵：Need[i,j]=K, 表示进程Pi还需要K个Rj类资源方能完成任务<br>三个矩阵的关系：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Need [i,j] = Max[i,j] – Allocation [i,j].</span><br><span class="line">银行家算法：设Requesti是进程Pi的请求向量，设Requesti [j] =K，表示进程Pi请求分配Rj类资源K个。当进程Pi发出资源请求后，系统按如下步骤进行检查：</span><br><span class="line">(1)如Requesti[j]≤Need[i,j], 转(2);否则出错，因为进程申请资源量超过它申明的最大量。</span><br><span class="line">(2)如Requesti[j] ≤Available[j],转(3); 否则表资源不够,需等待。</span><br><span class="line">(3)系统试分配资源给进程Pi,并作如下修改：</span><br><span class="line">Available[j]= Available[j]- Requesti[j]</span><br><span class="line">Allocation[i,j]= Allocation[i,j]+ Requesti[j]</span><br><span class="line">Need[i,j]= Need[i,j]- Requesti[j]</span><br><span class="line">(4)系统执行安全性算法，检查此次资源分配后，系统是否处于安全状态。若安全,则正式进行分配,否则恢复原状态让进程Pi等待。</span><br><span class="line">安全性算法：为了进行安全性检查，需要定义如下数据结构：</span><br><span class="line">（1）工作向量Work，它表示系统可以提供给进程继续运行所需的各类资源数目，它含有m个元素，在执行安全算法开始时， Work= Available</span><br><span class="line">（2）Finish ，它表示系统是否有足够的资源分配给进程，使之运行完成。开始时, Finish[i]=false;当有足够资源分配给进程Pi时，令Finish[i]=true。</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">Need [i,j] = Max[i,j] – Allocation [i,j].
+银行家算法：设Requesti是进程Pi的请求向量，设Requesti [j] =K，表示进程Pi请求分配Rj类资源K个。当进程Pi发出资源请求后，系统按如下步骤进行检查：
+(1)如Requesti[j]≤Need[i,j], 转(2);否则出错，因为进程申请资源量超过它申明的最大量。
+(2)如Requesti[j] ≤Available[j],转(3); 否则表资源不够,需等待。
+(3)系统试分配资源给进程Pi,并作如下修改：
+Available[j]= Available[j]- Requesti[j]
+Allocation[i,j]= Allocation[i,j]+ Requesti[j]
+Need[i,j]= Need[i,j]- Requesti[j]
+(4)系统执行安全性算法，检查此次资源分配后，系统是否处于安全状态。若安全,则正式进行分配,否则恢复原状态让进程Pi等待。
+安全性算法：为了进行安全性检查，需要定义如下数据结构：
+（1）工作向量Work，它表示系统可以提供给进程继续运行所需的各类资源数目，它含有m个元素，在执行安全算法开始时， Work= Available
+（2）Finish ，它表示系统是否有足够的资源分配给进程，使之运行完成。开始时, Finish[i]=false;当有足够资源分配给进程Pi时，令Finish[i]=true。</code></pre>
 
 <p>安全性检查算法执行步骤：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(1) Work := Available</span><br><span class="line">             Finish [i] = false</span><br><span class="line">(2)寻找满足如下条件的进程Pi</span><br><span class="line"> Finish [i] = false</span><br><span class="line"> Need[i,j] ≤Work[j]，如果找到，转(3)，否则转(4)</span><br><span class="line">(3)当进程Pi获得资源后，可顺利执行完，并释放分配给它的资源，故执行：</span><br><span class="line">             Work [j]= Work [j]+ Allocation[i,j]；</span><br><span class="line">             Finish[i] = ture；</span><br><span class="line">转 (2).</span><br><span class="line">(4)若所有进程的Finish [i] = true ，则表示系统处于安全状态，否则处于不安全状态</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">(1) Work := Available
+             Finish [i] = false
+(2)寻找满足如下条件的进程Pi
+ Finish [i] = false
+ Need[i,j] ≤Work[j]，如果找到，转(3)，否则转(4)
+(3)当进程Pi获得资源后，可顺利执行完，并释放分配给它的资源，故执行：
+             Work [j]= Work [j]+ Allocation[i,j]；
+             Finish[i] = ture；
+转 (2).
+(4)若所有进程的Finish [i] = true ，则表示系统处于安全状态，否则处于不安全状态</code></pre>
 
 <p>●银行家算法例题：在银行家算法中，若出现下述资源分配情：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Process	Allocation	Need	Available</span><br><span class="line">P0	0032	0012	1622</span><br><span class="line">P1	1000	1750	</span><br><span class="line">P2	1354	2356	</span><br><span class="line">P3	0332	0652	</span><br><span class="line">P4	0014	0656</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">Process	Allocation	Need	Available
+P0	0032	0012	1622
+P1	1000	1750	
+P2	1354	2356	
+P3	0332	0652	
+P4	0014	0656</code></pre>
 
 <p>试问：<br>⑴ 该状态是否安全？<br>⑵ 若进程P2提出请求Request(1，2，2，2)后，系统能否将资源分配给它？<br>解：⑴该状态是安全的，因为存在一个安全序列&lt; P0P3P4P1P2&gt;。下表为该时刻的安全序列表。<br>资源情况<br>进程    Work    Need    Allocation    Work+Allocation    Finish</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">P0</span><br><span class="line">P3</span><br><span class="line">P4</span><br><span class="line">P1</span><br><span class="line">P2	1 6 2 2</span><br><span class="line">1 6 5 4</span><br><span class="line">1 9 8 6</span><br><span class="line">1 9 9 10</span><br><span class="line">2 9 9 10	0 0 1 2</span><br><span class="line">0 6 5 2</span><br><span class="line">0 6 5 6</span><br><span class="line">1 7 5 0</span><br><span class="line">2 3 5 6	0 0 3 2</span><br><span class="line">0 3 3 2</span><br><span class="line">0 0 1 4</span><br><span class="line">1 0 0 0</span><br><span class="line">1 3 5 4	1 6 5 4</span><br><span class="line">1 9 8 6</span><br><span class="line">1 9 9 10</span><br><span class="line">2 9 9 10</span><br><span class="line">3 12 14 14	true</span><br><span class="line">true</span><br><span class="line">true</span><br><span class="line">true</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">P0
+P3
+P4
+P1
+P2	1 6 2 2
+1 6 5 4
+1 9 8 6
+1 9 9 10
+2 9 9 10	0 0 1 2
+0 6 5 2
+0 6 5 6
+1 7 5 0
+2 3 5 6	0 0 3 2
+0 3 3 2
+0 0 1 4
+1 0 0 0
+1 3 5 4	1 6 5 4
+1 9 8 6
+1 9 9 10
+2 9 9 10
+3 12 14 14	true
+true
+true
+true
+true</code></pre>
 
 <p>   ⑵若进程P2提出请求Request(1，2，2，2)后，系统不能将资源分配给它，若分配给进程P2，系统还剩的资源情况为（0，4，0，0），此时系统中的资源将无法满足任何一个进程的资源请求，从而导致系统进入不安全状态，容易引起死锁的发生。<br>（书上例题雷同，在P110，可同步参考）</p>
 <p>1.确定系统处于S为死锁状态的充分条件是：当且仅当S状态的资源分配图是不可完全简化的。<br>2.常用的解除死锁方法有两种:资源剥夺法、撤消进程法。<br>资源剥夺法：当发现死锁后,从其进程剥夺足够数量的资源给死锁进程,以解除死锁状态。<br>撤消进程法：采用强制手段从系统中撤消一个/一部分死锁进程,并剥夺这些进程的资源供其它死锁进程使用。</p>
 <p>   ⑵若进程P2提出请求Request(1，2，2，2)后，系统不能将资源分配给它，若分配给进程P2，系统还剩的资源情况为（0，4，0，0），此时系统中的资源将无法满足任何一个进程的资源请求，从而导致系统进入不安全状态，容易引起死锁的发生。<br>（书上例题雷同，在P110，可同步参考）<br>3.确定系统处于S为死锁状态的充分条件是：当且仅当S状态的资源分配图是不可完全简化的。 </p>
 <p>4.常用的解除死锁方法有两种:资源剥夺法、撤消进程法。<br>资源剥夺法：当发现死锁后,从其进程剥夺足够数量的资源给死锁进程,以解除死锁状态。<br>撤消进程法：采用强制手段从系统中撤消一个/一部分死锁进程,并剥夺这些进程的资源供其它死锁进程使用。</p>
 <p>试问：<br>⑴ 该状态是否安全？<br>⑵ 若进程P2提出请求Request(1，2，2，2)后，系统能否将资源分配给它？<br>解：⑴该状态是安全的，因为存在一个安全序列&lt; P0P3P4P1P2&gt;。下表为该时刻的安全序列表。<br>资源情况<br>进程    Work    Need    Allocation    Work+Allocation    Finish</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">P0</span><br><span class="line">P3</span><br><span class="line">P4</span><br><span class="line">P1</span><br><span class="line">P2	1 6 2 2</span><br><span class="line">1 6 5 4</span><br><span class="line">1 9 8 6</span><br><span class="line">1 9 9 10</span><br><span class="line">2 9 9 10	0 0 1 2</span><br><span class="line">0 6 5 2</span><br><span class="line">0 6 5 6</span><br><span class="line">1 7 5 0</span><br><span class="line">2 3 5 6	0 0 3 2</span><br><span class="line">0 3 3 2</span><br><span class="line">0 0 1 4</span><br><span class="line">1 0 0 0</span><br><span class="line">1 3 5 4	1 6 5 4</span><br><span class="line">1 9 8 6</span><br><span class="line">1 9 9 10</span><br><span class="line">2 9 9 10</span><br><span class="line">3 12 14 14	true</span><br><span class="line">true</span><br><span class="line">true</span><br><span class="line">true</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">P0
+P3
+P4
+P1
+P2	1 6 2 2
+1 6 5 4
+1 9 8 6
+1 9 9 10
+2 9 9 10	0 0 1 2
+0 6 5 2
+0 6 5 6
+1 7 5 0
+2 3 5 6	0 0 3 2
+0 3 3 2
+0 0 1 4
+1 0 0 0
+1 3 5 4	1 6 5 4
+1 9 8 6
+1 9 9 10
+2 9 9 10
+3 12 14 14	true
+true
+true
+true
+true</code></pre>
 
 <p>   ⑵若进程P2提出请求Request(1，2，2，2)后，系统不能将资源分配给它，若分配给进程P2，系统还剩的资源情况为（0，4，0，0），此时系统中的资源将无法满足任何一个进程的资源请求，从而导致系统进入不安全状态，容易引起死锁的发生。<br>（书上例题雷同，在P110，可同步参考）<br>15、确定系统处于S为死锁状态的充分条件是：当且仅当S状态的资源分配图是不可完全简化的。<br>16、常用的解除死锁方法有两种:资源剥夺法、撤消进程法。<br>资源剥夺法：当发现死锁后,从其进程剥夺足够数量的资源给死锁进程,以解除死锁状态。<br>撤消进程法：采用强制手段从系统中撤消一个/一部分死锁进程,并剥夺这些进程的资源供其它死锁进程使用。</p>
 <p>   ⑵若进程P2提出请求Request(1，2，2，2)后，系统不能将资源分配给它，若分配给进程P2，系统还剩的资源情况为（0，4，0，0），此时系统中的资源将无法满足任何一个进程的资源请求，从而导致系统进入不安全状态，容易引起死锁的发生。<br>（书上例题雷同，在P110，可同步参考）<br>15、确定系统处于S为死锁状态的充分条件是：当且仅当S状态的资源分配图是不可完全简化的。<br>16、常用的解除死锁方法有两种:资源剥夺法、撤消进程法。<br>资源剥夺法：当发现死锁后,从其进程剥夺足够数量的资源给死锁进程,以解除死锁状态。<br>撤消进程法：采用强制手段从系统中撤消一个/一部分死锁进程,并剥夺这些进程的资源供其它死锁进程使用。</p>
@@ -460,245 +393,255 @@
 </blockquote>
 <p>6.中级调度的主要目的是为了提高内存利用率和系统吞吐量。</p>
 <p>7.调度算法是指根据系统的资源分配策略所规定的资源分配方法。</p>
-<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图:"></a>思维导图:</h2><p><img src="https://ftp.bmp.ovh/imgs/2020/04/94d981684646bc9e.png" alt></p>
+<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图:"></a>思维导图:</h2><p><img src="https://ftp.bmp.ovh/imgs/2020/04/94d981684646bc9e.png" srcset="/img/loading.gif" alt></p>
 
-    </div>
-
-    
-    
-    
-        
-      
-
-      <footer class="post-footer">
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/学业笔记/">学业笔记</a>
+                    
+                  </div>
+                
+                
+              </div>
               
-                <a href="/2020/04/16/记一次某站长网的代码执行/" rel="next" title="记一次某站长网的代码执行引发批量getshell">
-                  <i class="fa fa-chevron-left"></i> 记一次某站长网的代码执行引发批量getshell
-                </a>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/28/PHP-面向对象/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PHP->面向对象编程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/16/记一次某站长网的代码执行/">
+                        <span class="hidden-mobile">记一次某站长网的代码执行引发批量getshell</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
               
             </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/04/28/PHP-面向对象/" rel="prev" title="PHP->面向对象编程">
-                  PHP->面向对象编程 <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
+            
           </div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-  </div>
-
-
-          </div>
-          
-
         </div>
-        
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-        
-        
-        
-        
-      
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本章内容："><span class="nav-number">1.</span> <span class="nav-text">本章内容：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要考点："><span class="nav-number">2.</span> <span class="nav-text">主要考点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程调度的几种算法"><span class="nav-number">3.</span> <span class="nav-text">进程调度的几种算法:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调度算法"><span class="nav-number">3.1.</span> <span class="nav-text">调度算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先来先服务"><span class="nav-number">3.2.</span> <span class="nav-text">先来先服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#短作业优先"><span class="nav-number">3.3.</span> <span class="nav-text">短作业优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最短剩余时间优先"><span class="nav-number">3.4.</span> <span class="nav-text">最短剩余时间优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高响应比优先"><span class="nav-number">3.5.</span> <span class="nav-text">高响应比优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间片轮转"><span class="nav-number">3.6.</span> <span class="nav-text">时间片轮转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间片轮转法（RR）"><span class="nav-number">3.7.</span> <span class="nav-text">时间片轮转法（RR）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用银行家算法避免死锁"><span class="nav-number">4.</span> <span class="nav-text">利用银行家算法避免死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思维导图"><span class="nav-number">5.</span> <span class="nav-text">思维导图:</span></a></li></ol></div>
-        
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">2cu</p>
-  <div class="site-description" itemprop="description">心之所向皆是遗憾，目之所及皆是过往</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">16</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-categories">
-        
-          
-            <a href="/categories/">
-          
-        
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">categories</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-tags">
-        
-          
-            <a href="/tags/">
-          
-        
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">tags</span>
-        </a>
-      </div>
-    
-  </nav>
-</div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
-      Links
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://mi1itray_axe.gitee.io/" title="https://mi1itray_axe.gitee.io/" rel="noopener" target="_blank">Team233核心人物-张大炮</a>
-        </li>
-      
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-        
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">2cu</span>
-</div>
-  <!--<div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
-  </div>
--->
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">
-      
-    Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
-  </div>
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-  </div>
-  
     
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='5' src="true"></script>
-  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
-  <script src="/lib/anime.min.js?v=3.1.0"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/muse.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
   
 
   
-
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
   
 
   
 
-
   
 
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
   
-  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
-  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "处理机调度与死锁&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

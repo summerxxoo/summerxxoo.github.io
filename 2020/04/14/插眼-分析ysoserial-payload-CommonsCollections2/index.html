@@ -1,391 +1,279 @@
 <!DOCTYPE html>
-
-
-
-
-
-
 <html lang="en">
-<head>
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
-
-<link rel="stylesheet" href="/css/main.css?v=7.4.1">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-
-<script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.4.1',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
-    sidebarPadding: 40
-  };
-</script>
-
-  <meta name="description" content="学习java审计ing">
-<meta name="keywords" content="java,审计">
-<meta property="og:type" content="article">
-<meta property="og:title" content="(插眼)分析ysoserial payload --CommonsCollections2">
-<meta property="og:url" content="http://yoursite.com/2020/04/14/插眼-分析ysoserial-payload-CommonsCollections2/index.html">
-<meta property="og:site_name" content="2cu的博客">
-<meta property="og:description" content="学习java审计ing">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/14/JS1bUP.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/14/JS1q4f.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/14/JpkmcV.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/14/JpkvE4.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/14/JSDPO0.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/14/JSrZHf.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/14/JShWwj.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/14/JS5Bxf.png">
-<meta property="og:updated_time" content="2020-04-14T13:16:26.688Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(插眼)分析ysoserial payload --CommonsCollections2">
-<meta name="twitter:description" content="学习java审计ing">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/14/JS1bUP.png">
-  <link rel="canonical" href="http://yoursite.com/2020/04/14/插眼-分析ysoserial-payload-CommonsCollections2/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
-  };
-</script>
-
-  <title>(插眼)分析ysoserial payload --CommonsCollections2 | 2cu的博客</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="心之所向皆是遗憾，目之所及皆是过往">
+  <meta name="author" content="2cu">
+  <meta name="keywords" content>
+  <title>(插眼)分析ysoserial payload --CommonsCollections2 - 2cu的博客</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
 
 
 
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
 
 
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-  
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>2cu</strong>&nbsp;</a>
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">2cu的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              About</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/qiangfu/">
+              <i class="iconfont icon-tags-fill"></i>
+              偶尔看看女神</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/music/">
+              <i class="iconfont icon-tags-fill"></i>
+              音乐间</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              Links</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-</div>
-
-
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-      
-      
-        
-        
-        <li class="menu-item menu-item-home">
-      
-    
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-about">
-      
-    
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-categories">
-      
-    
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-archives">
-      
-    
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-偶尔看看女神">
-      
-    
-
-    <a href="/qiangfu/" rel="section"><i class="fa fa-fw fa-calendar"></i>偶尔看看女神</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-私人音乐间">
-      
-    
-
-    <a href="/music/" rel="section"><i class="fa fa-fw fa-sitemap"></i>私人音乐间</a>
-
-  </li>
-      
-    
-  </ul>
-
-    
-
 </nav>
-</div>
-    </header>
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/插眼-分析ysoserial-payload-CommonsCollections2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="2cu">
-      <meta itemprop="description" content="心之所向皆是遗憾，目之所及皆是过往">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="2cu的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            (插眼)分析ysoserial payload --CommonsCollections2
-            
-
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2020-04-14 21:07:43 / Modified: 21:16:26" itemprop="dateCreated datePublished" datetime="2020-04-14T21:07:43+08:00">2020-04-14</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/" itemprop="url" rel="index">
-                    <span itemprop="name">web安全</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/代码审计/" itemprop="url" rel="index">
-                    <span itemprop="name">代码审计</span>
-                  </a>
-                </span>
-
-                
-                
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
               
             </span>
-          
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-04-14 21:07">
+                    April 14, 2020 pm
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    698 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    10
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>学习java审计ing</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>学习java审计ing</p>
 <a id="more"></a>
 
 
-<h2 id="调用链-Gadget"><a href="#调用链-Gadget" class="headerlink" title="调用链-Gadget"></a>调用链-Gadget</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue.readObject()</span><br><span class="line">    PriorityQueue.heapify()</span><br><span class="line">        PriorityQueue.siftDown()</span><br><span class="line">           PriorityQueue.siftDownUsingConparator()</span><br><span class="line">                TransformingComparator.compare()</span><br><span class="line">                    InvokerTransformer.transform()</span><br><span class="line">　　　　　　　　　　　　　　　　　　TemplatesImpl.newTranformer()</span><br><span class="line">　　　　　　　　　　　　　　　　　　　　Method.invoke()</span><br><span class="line">                   　　　　  Runtime.exec()</span><br></pre></td></tr></table></figure>
+<h2 id="调用链-Gadget"><a href="#调用链-Gadget" class="headerlink" title="调用链-Gadget"></a>调用链-Gadget</h2><pre><code class="hljs undefined">PriorityQueue.readObject()
+    PriorityQueue.heapify()
+        PriorityQueue.siftDown()
+           PriorityQueue.siftDownUsingConparator()
+                TransformingComparator.compare()
+                    InvokerTransformer.transform()
+　　　　　　　　　　　　　　　　　　TemplatesImpl.newTranformer()
+　　　　　　　　　　　　　　　　　　　　Method.invoke()
+                   　　　　  Runtime.exec()</code></pre>
 
 <h2 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析:"></a>静态分析:</h2><p>最开始是<code>PriorityQueue</code>的readObject部分，调用了<code>heapify</code>方法</p>
 <ol>
 <li><p>PriorityQueue.heapify()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">private void heapify() &#123;</span><br><span class="line">    for (int i = (size &gt;&gt;&gt; 1) - 1; i &gt;= 0; i--)</span><br><span class="line">        siftDown(i, (E) queue[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">private void heapify() &#123;
+    for (int i = (size &gt;&gt;&gt; 1) - 1; i &gt;= 0; i--)
+        siftDown(i, (E) queue[i]);
+&#125;</code></pre>
 
 <p><code>heapify</code>中遍历queue调用<code>siftDown</code>（heapify中的 ((size &gt;&gt;&gt; 1) - 1)也就是为什么要多加一个数据的原因 ）</p>
 </li>
 <li><p>PriorityQueue.siftDown()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">private void siftDown(int k, E x) &#123;</span><br><span class="line">    if (comparator != null)</span><br><span class="line">        siftDownUsingComparator(k, x);</span><br><span class="line">    else</span><br><span class="line">        siftDownComparable(k, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">private void siftDown(int k, E x) &#123;
+    if (comparator != null)
+        siftDownUsingComparator(k, x);
+    else
+        siftDownComparable(k, x);
+&#125;</code></pre>
 
 <p><code>siftDown</code>跟到<code>siftDownUsingComparator</code></p>
 </li>
 <li><p>PriorityQueue.siftDownUsingConparator()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private void siftDownUsingComparator(int k, E x) &#123;</span><br><span class="line">    int half = size &gt;&gt;&gt; 1;</span><br><span class="line">    while (k &lt; half) &#123;</span><br><span class="line">        int child = (k &lt;&lt; 1) + 1;</span><br><span class="line">        Object c = queue[child];</span><br><span class="line">        int right = child + 1;</span><br><span class="line">        if (right &lt; size &amp;&amp;</span><br><span class="line">            comparator.compare((E) c, (E) queue[right]) &gt; 0)</span><br><span class="line">            c = queue[child = right];</span><br><span class="line">        if (comparator.compare(x, (E) c) &lt;= 0)</span><br><span class="line">            break;</span><br><span class="line">        queue[k] = c;</span><br><span class="line">        k = child;</span><br><span class="line">    &#125;</span><br><span class="line">    queue[k] = x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">private void siftDownUsingComparator(int k, E x) &#123;
+    int half = size &gt;&gt;&gt; 1;
+    while (k &lt; half) &#123;
+        int child = (k &lt;&lt; 1) + 1;
+        Object c = queue[child];
+        int right = child + 1;
+        if (right &lt; size &amp;&amp;
+            comparator.compare((E) c, (E) queue[right]) &gt; 0)
+            c = queue[child = right];
+        if (comparator.compare(x, (E) c) &lt;= 0)
+            break;
+        queue[k] = c;
+        k = child;
+    &#125;
+    queue[k] = x;
+&#125;</code></pre>
 
 <p><code>siftDownUsingComparator</code>中触发了成员变量<code>comparator.compare</code>方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public int compare(I obj1, I obj2) &#123;</span><br><span class="line">    O value1 = this.transformer.transform(obj1);</span><br><span class="line">    O value2 = this.transformer.transform(obj2);</span><br><span class="line">    return this.decorated.compare(value1, value2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">public int compare(I obj1, I obj2) &#123;
+    O value1 = this.transformer.transform(obj1);
+    O value2 = this.transformer.transform(obj2);
+    return this.decorated.compare(value1, value2);
+&#125;</code></pre>
 </li>
 <li><p>InvokerTransformer.transform()</p>
-<p><img src="https://s1.ax1x.com/2020/04/14/JS1bUP.png" alt="JS1bUP.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/14/JS1bUP.png" srcset="/img/loading.gif" alt="JS1bUP.png"></p>
 <p>在这里就到了新的漏洞触发点，this.transformer.transform()，而这里的this.transformer即为invokerTransformer，在commoncollections1中第一次调用的是Lazymap的this.factory.transform,而这里是priorityQueue.java的compare里的this.transformer.transform</p>
-<p><img src="https://s1.ax1x.com/2020/04/14/JS1q4f.png" alt="JS1q4f.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/14/JS1q4f.png" srcset="/img/loading.gif" alt="JS1q4f.png"></p>
 </li>
 <li><p>TemplatesImpl.newTranformer()</p>
 <p><strong><em>ysoserial-master-30099844c6-1.jar!/org/apache/xalan/xsltc/trax/TemplatesImpl.class</em></strong></p>
 <p>newTransformer中实例化我们的恶意字节码中包含的类，从而调用其static代码块或者构造方法中的rce代码</p>
-<p><img src="https://s1.ax1x.com/2020/04/14/JpkmcV.png" alt="JpkmcV.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/14/JpkmcV.png" srcset="/img/loading.gif" alt="JpkmcV.png"></p>
 <p>getTransletInstance方法中，可以看到有个 defineTransletClasses()和Class.newInstance()的操作</p>
-<p><img src="https://s1.ax1x.com/2020/04/14/JpkvE4.png" alt="JpkvE4.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/14/JpkvE4.png" srcset="/img/loading.gif" alt="JpkvE4.png"></p>
 <p><code>defineTransletClasses</code>方法中可以看到，将<code>_bytes</code>字节码信息生成类信息，保存在<code>_class</code>中然后在<code>getTransletInstance</code>的方法中实例化了这个<code>_class</code>中的类<br>所以我们只要生成一个类，并在构造函数中调用命令执行函数即可。<br>ysoserial中用到了javassist来进行字节码操作，在初始化函数后面添加了命令执行的函数。</p>
 </li>
 </ol>
 <h2 id="调试"><a href="#调试" class="headerlink" title="调试:"></a>调试:</h2><p>入口:</p>
 <p><strong><em>ysoserial-master-30099844c6-1.jar!/ysoserial/GeneratePayload.class#main</em></strong></p>
-<p><img src="https://s1.ax1x.com/2020/04/14/JSDPO0.png" alt="JSDPO0.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/14/JSDPO0.png" srcset="/img/loading.gif" alt="JSDPO0.png"></p>
 <p>跟进:</p>
 <p><strong><em>ysoserial-master-30099844c6-1.jar!/ysoserial/payloads/CommonsCollections2.class#getObject</em></strong></p>
-<p><img src="https://s1.ax1x.com/2020/04/14/JSrZHf.png" alt="JSrZHf.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/14/JSrZHf.png" srcset="/img/loading.gif" alt="JSrZHf.png"></p>
 <p><strong><em>ysoserial-master-30099844c6-1.jar!/ysoserial/payloads/util/Gadgets.class#createTemplatesImpl</em></strong></p>
 <p>可以看到是借助了<code>com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl</code>这个类<br>这个类里面有两个属性</p>
 <ul>
@@ -393,264 +281,285 @@
 <li><code>_class</code>: 根据<code>_bytecodes</code>的字节码信息生成的类</li>
 </ul>
 <p>将rce类的字节码放到_bytecodes属性中，再设置其他依赖属性_name和_tfactory即可返回templatesImpl类</p>
-<p><img src="https://s1.ax1x.com/2020/04/14/JShWwj.png" alt="JShWwj.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/14/JShWwj.png" srcset="/img/loading.gif" alt="JShWwj.png"></p>
 <p>其中SubTransletpaylod就是存放rce代码的类</p>
-<p><img src="https://s1.ax1x.com/2020/04/14/JS5Bxf.png" alt="JS5Bxf.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/14/JS5Bxf.png" srcset="/img/loading.gif" alt="JS5Bxf.png"></p>
 <p>跳出回到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public Queue&lt;Object&gt; getObject(String command) throws Exception &#123;</span><br><span class="line">    Object templates = Gadgets.createTemplatesImpl(command);</span><br><span class="line">    InvokerTransformer transformer = new InvokerTransformer(&quot;toString&quot;, new Class[0], new Object[0]);</span><br><span class="line">    PriorityQueue&lt;Object&gt; queue = new PriorityQueue(2, new TransformingComparator(transformer));</span><br><span class="line">    queue.add(1);</span><br><span class="line">    queue.add(1);</span><br><span class="line">    Reflections.setFieldValue(transformer, &quot;iMethodName&quot;, &quot;newTransformer&quot;);</span><br><span class="line">    Object[] queueArray = (Object[])((Object[])Reflections.getFieldValue(queue, &quot;queue&quot;));</span><br><span class="line">    queueArray[0] = templates;</span><br><span class="line">    queueArray[1] = 1;</span><br><span class="line">    return queue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">public Queue&lt;Object&gt; getObject(String command) throws Exception &#123;
+    Object templates = Gadgets.createTemplatesImpl(command);
+    InvokerTransformer transformer = new InvokerTransformer(&quot;toString&quot;, new Class[0], new Object[0]);
+    PriorityQueue&lt;Object&gt; queue = new PriorityQueue(2, new TransformingComparator(transformer));
+    queue.add(1);
+    queue.add(1);
+    Reflections.setFieldValue(transformer, &quot;iMethodName&quot;, &quot;newTransformer&quot;);
+    Object[] queueArray = (Object[])((Object[])Reflections.getFieldValue(queue, &quot;queue&quot;));
+    queueArray[0] = templates;
+    queueArray[1] = 1;
+    return queue;
+&#125;</code></pre>
 
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接:"></a>参考链接:</h2><p><a href="https://www.kingkk.com/2020/02/ysoserial-payload分析/" target="_blank" rel="noopener">https://www.kingkk.com/2020/02/ysoserial-payload%E5%88%86%E6%9E%90/</a></p>
 <p><a href="https://www.cnblogs.com/tr1ple/p/12382559.html" target="_blank" rel="noopener">https://www.cnblogs.com/tr1ple/p/12382559.html</a></p>
 <p><a href="https://www.anquanke.com/post/id/201762#h2-5" target="_blank" rel="noopener">https://www.anquanke.com/post/id/201762#h2-5</a></p>
 
-    </div>
-
-    
-    
-    
-        
-      
-
-      <footer class="post-footer">
-          
-            
-          
-          <div class="post-tags">
-            
-              <a href="/tags/java/" rel="tag"># java</a>
-            
-              <a href="/tags/审计/" rel="tag"># 审计</a>
-            
-          </div>
-        
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/web安全/">web安全</a>
+                    
+                      <a class="hover-with-bg" href="/categories/web安全/代码审计/">代码审计</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/审计/">审计</a>
+                    
+                  </div>
+                
+              </div>
               
-                <a href="/2020/04/13/计算机操作系统之进程管理/" rel="next" title="计算机操作系统之进程管理">
-                  <i class="fa fa-chevron-left"></i> 计算机操作系统之进程管理
-                </a>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/15/从preg-replace窥探php代码审计/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从preg_replace窥探php代码审计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/13/计算机操作系统之进程管理/">
+                        <span class="hidden-mobile">计算机操作系统之进程管理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
               
             </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/04/15/从preg-replace窥探php代码审计/" rel="prev" title="从preg_replace窥探php代码审计">
-                  从preg_replace窥探php代码审计 <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
+            
           </div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-  </div>
-
-
-          </div>
-          
-
         </div>
-        
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-        
-        
-        
-        
-      
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#调用链-Gadget"><span class="nav-number">1.</span> <span class="nav-text">调用链-Gadget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态分析"><span class="nav-number">2.</span> <span class="nav-text">静态分析:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试"><span class="nav-number">3.</span> <span class="nav-text">调试:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接:</span></a></li></ol></div>
-        
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">2cu</p>
-  <div class="site-description" itemprop="description">心之所向皆是遗憾，目之所及皆是过往</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">16</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-categories">
-        
-          
-            <a href="/categories/">
-          
-        
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">categories</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-tags">
-        
-          
-            <a href="/tags/">
-          
-        
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">tags</span>
-        </a>
-      </div>
-    
-  </nav>
-</div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
-      Links
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://mi1itray_axe.gitee.io/" title="https://mi1itray_axe.gitee.io/" rel="noopener" target="_blank">Team233核心人物-张大炮</a>
-        </li>
-      
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-        
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">2cu</span>
-</div>
-  <!--<div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
-  </div>
--->
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">
-      
-    Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
-  </div>
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-  </div>
-  
     
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='5' src="true"></script>
-  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
-  <script src="/lib/anime.min.js?v=3.1.0"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/muse.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
   
 
   
-
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
   
 
   
 
-
   
 
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
   
-  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
-  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "(插眼)分析ysoserial payload --CommonsCollections2&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

@@ -1,645 +1,517 @@
 <!DOCTYPE html>
-
-
-
-
-
-
 <html lang="en">
-<head>
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
-
-<link rel="stylesheet" href="/css/main.css?v=7.4.1">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-
-<script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.4.1',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
-    sidebarPadding: 40
-  };
-</script>
-
-  <meta name="description" content="路漫漫其修远兮！">
-<meta name="keywords" content="audit">
-<meta property="og:type" content="article">
-<meta property="og:title" content="从thinkphp学习代码审计---part1">
-<meta property="og:url" content="http://yoursite.com/2020/04/07/从thinkphp学习代码审计-part1/index.html">
-<meta property="og:site_name" content="2cu的博客">
-<meta property="og:description" content="路漫漫其修远兮！">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.16.4759cbcb53c900fbe2.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.35.109fcc7f2e7927796b.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-6.02.16e4fe0990cf87e586.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.44.39fdfd85331bcfeb0d.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.43.05033ccfeb87735548.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.46.31baa4d2a557d4448b.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.54.3004a2f3c42db17e7e.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-6.19.296702c7e44464ecd1.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.25.592829534b096156c3.png">
-<meta property="og:image" content="https://www.kanjiantu.com/images/2020/04/07/9005c5459f9a82b4d.png">
-<meta property="og:updated_time" content="2020-04-13T14:02:42.830Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从thinkphp学习代码审计---part1">
-<meta name="twitter:description" content="路漫漫其修远兮！">
-<meta name="twitter:image" content="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.16.4759cbcb53c900fbe2.png">
-  <link rel="canonical" href="http://yoursite.com/2020/04/07/从thinkphp学习代码审计-part1/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
-  };
-</script>
-
-  <title>从thinkphp学习代码审计---part1 | 2cu的博客</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="心之所向皆是遗憾，目之所及皆是过往">
+  <meta name="author" content="2cu">
+  <meta name="keywords" content>
+  <title>从thinkphp学习代码审计---part1 - 2cu的博客</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
 
 
 
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
 
 
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-  
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>2cu</strong>&nbsp;</a>
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">2cu的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              About</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/qiangfu/">
+              <i class="iconfont icon-tags-fill"></i>
+              偶尔看看女神</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/music/">
+              <i class="iconfont icon-tags-fill"></i>
+              音乐间</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              Links</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-</div>
-
-
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-      
-      
-        
-        
-        <li class="menu-item menu-item-home">
-      
-    
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-about">
-      
-    
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-categories">
-      
-    
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-archives">
-      
-    
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-偶尔看看女神">
-      
-    
-
-    <a href="/qiangfu/" rel="section"><i class="fa fa-fw fa-calendar"></i>偶尔看看女神</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-私人音乐间">
-      
-    
-
-    <a href="/music/" rel="section"><i class="fa fa-fw fa-sitemap"></i>私人音乐间</a>
-
-  </li>
-      
-    
-  </ul>
-
-    
-
 </nav>
-</div>
-    </header>
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/07/从thinkphp学习代码审计-part1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="2cu">
-      <meta itemprop="description" content="心之所向皆是遗憾，目之所及皆是过往">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="2cu的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            从thinkphp学习代码审计---part1
-            
-
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2020-04-07 18:24:33" itemprop="dateCreated datePublished" datetime="2020-04-07T18:24:33+08:00">2020-04-07</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-13 22:02:42" itemprop="dateModified" datetime="2020-04-13T22:02:42+08:00">2020-04-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/" itemprop="url" rel="index">
-                    <span itemprop="name">web安全</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web安全/代码审计/" itemprop="url" rel="index">
-                    <span itemprop="name">代码审计</span>
-                  </a>
-                </span>
-
-                
-                
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
               
             </span>
-          
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-04-07 18:24">
+                    April 7, 2020 pm
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    498 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    7
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>路漫漫其修远兮！</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>路漫漫其修远兮！</p>
 <a id="more"></a>
 <h1 id="从thinkphp学习代码审计—part1-sql注入1"><a href="#从thinkphp学习代码审计—part1-sql注入1" class="headerlink" title="从thinkphp学习代码审计—part1(sql注入1)"></a>从thinkphp学习代码审计—part1(sql注入1)</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备:"></a>环境准备:</h2><p>通过以下命令获取测试环境代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer create-project --prefer-dist topthink/think=5.0.15 tpdemo</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">composer create-project --prefer-dist topthink/think=5.0.15 tpdemo</code></pre>
 
 <p>将 <strong>composer.json</strong> 文件的 <strong>require</strong> 字段设置成如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"require": &#123;</span><br><span class="line">    "php": "&gt;=5.4.0",</span><br><span class="line">    "topthink/framework": "5.0.15"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs json">"require": &#123;
+    "php": "&gt;=5.4.0",
+    "topthink/framework": "5.0.15"
+&#125;</code></pre>
 
 <p>然后执行 <code>composer update</code> ，并将 <strong>application/index/controller/Index.php</strong> 文件代码设置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace app\index\controller;</span><br><span class="line"></span><br><span class="line">class Index</span><br><span class="line">&#123;</span><br><span class="line">    public function index()</span><br><span class="line">    &#123;</span><br><span class="line">        $username = request()-&gt;get(&apos;username/a&apos;);</span><br><span class="line">        db(&apos;users&apos;)-&gt;insert([&apos;username&apos; =&gt; $username]);</span><br><span class="line">        return &apos;Update success&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">&lt;?php
+namespace app\index\controller;
+
+class Index
+&#123;
+    public function index()
+    &#123;
+        $username = request()-&gt;get(&apos;username/a&apos;);
+        db(&apos;users&apos;)-&gt;insert([&apos;username&apos; =&gt; $username]);
+        return &apos;Update success&apos;;
+    &#125;
+&#125;</code></pre>
 
 <p>在 <strong>application/database.php</strong> 文件中配置数据库相关信息，并开启 <strong>application/config.php</strong> 中的 <strong>app_debug</strong> 和 <strong>app_trace</strong> 。创建数据库信息如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> tpdemo;</span><br><span class="line"><span class="keyword">use</span> tpdemo;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">users</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">	username <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> tpdemo;
+<span class="hljs-keyword">use</span> tpdemo;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">users</span>(
+	<span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> primary <span class="hljs-keyword">key</span> auto_increment,
+	username <span class="hljs-built_in">varchar</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>
+);</code></pre>
 
 <p>开启集成环境,访问:</p>
 <p>访问 <strong><a href="http://yoursite/index/index/index?username[0]=inc&amp;username[1]=updatexml(1,concat(0x7,user(),0x7e),1)&amp;username[2]=1" target="_blank" rel="noopener">http://yoursite/index/index/index?username[0]=inc&amp;username[1]=updatexml(1,concat(0x7,user(),0x7e),1)&amp;username[2]=1</a></strong> 链接，即可触发 <strong>SQL注入漏洞</strong> 。（没开启 <strong>app_debug</strong> 是无法看到 <strong>SQL</strong> 报错信息的）</p>
-<p><a href="https://www.kanjiantu.com/image/ubeDFt" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.16.4759cbcb53c900fbe2.png" alt="2020-04-07-5.16.4759cbcb53c900fbe2.png"></a></p>
+<p><a href="https://www.kanjiantu.com/image/ubeDFt" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.16.4759cbcb53c900fbe2.png" srcset="/img/loading.gif" alt="2020-04-07-5.16.4759cbcb53c900fbe2.png"></a></p>
 <h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析:"></a>漏洞分析:</h2><p>前言:</p>
 <p>首先在官方发布的 <strong>5.0.16</strong> 版本更新说明中，发现其中提到该版本包含了一个安全更新，我们可以查阅其 <strong>commit</strong> 记录，发现其修改的 <strong>Builder.php</strong> 文件代码比较可疑。</p>
 <p>调试:</p>
 <p>入口Index.php</p>
-<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.35.109fcc7f2e7927796b.png" alt="2020-04-07-5.35.109fcc7f2e7927796b.png"></p>
+<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.35.109fcc7f2e7927796b.png" srcset="/img/loading.gif" alt="2020-04-07-5.35.109fcc7f2e7927796b.png"></p>
 <p>跟进tpdemo/thinkphp/library/think/db/Query.php:2085</p>
-<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-6.02.16e4fe0990cf87e586.png" alt="2020-04-07-6.02.16e4fe0990cf87e586.png"></p>
+<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-6.02.16e4fe0990cf87e586.png" srcset="/img/loading.gif" alt="2020-04-07-6.02.16e4fe0990cf87e586.png"></p>
 <p> <strong>Mysql</strong> 类继承于 <strong>Builder</strong> 类，即上面的 <strong>$this-&gt;builder-&gt;insert()</strong> 最终调用的是 <strong>Builder</strong> 类的 <strong>insert</strong> 方法</p>
 <p> tpdemo/thinkphp/library/think/db/Builder.php:721</p>
-<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.44.39fdfd85331bcfeb0d.png" alt="2020-04-07-5.44.39fdfd85331bcfeb0d.png"></p>
-<p><a href="https://www.kanjiantu.com/image/ubeU1A" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.43.05033ccfeb87735548.png" alt="2020-04-07-5.43.05033ccfeb87735548.png"></a></p>
+<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.44.39fdfd85331bcfeb0d.png" srcset="/img/loading.gif" alt="2020-04-07-5.44.39fdfd85331bcfeb0d.png"></p>
+<p><a href="https://www.kanjiantu.com/image/ubeU1A" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.43.05033ccfeb87735548.png" srcset="/img/loading.gif" alt="2020-04-07-5.43.05033ccfeb87735548.png"></a></p>
 <p>parseData方法，</p>
 <p>$val[0] =”inc”进入 case ‘inc’， </p>
 <p>$val[1] 就是我们的恶意注入语句</p>
-<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.46.31baa4d2a557d4448b.png" alt="2020-04-07-5.46.31baa4d2a557d4448b.png"></p>
+<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.46.31baa4d2a557d4448b.png" srcset="/img/loading.gif" alt="2020-04-07-5.46.31baa4d2a557d4448b.png"></p>
 <p>跟进parseKey，我们的恶意数据存储在 <strong>$val[1]</strong> 中，虽经过了 <strong>parseKey</strong> 方法处理，当丝毫不受影响，因为该方法只是用来解析处理数据的，并不是清洗数据。</p>
-<p><a href="https://www.kanjiantu.com/image/ubesju" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.54.3004a2f3c42db17e7e.png" alt="2020-04-07-5.54.3004a2f3c42db17e7e.png"></a></p>
+<p><a href="https://www.kanjiantu.com/image/ubesju" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.54.3004a2f3c42db17e7e.png" srcset="/img/loading.gif" alt="2020-04-07-5.54.3004a2f3c42db17e7e.png"></a></p>
 <p>最终返回sql语句:</p>
-<p><a href="https://www.kanjiantu.com/image/ubgdBi" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-6.19.296702c7e44464ecd1.png" alt="2020-04-07-6.19.296702c7e44464ecd1.png"></a></p>
+<p><a href="https://www.kanjiantu.com/image/ubgdBi" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-6.19.296702c7e44464ecd1.png" srcset="/img/loading.gif" alt="2020-04-07-6.19.296702c7e44464ecd1.png"></a></p>
 <p>数据库监控</p>
-<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.25.592829534b096156c3.png" alt="2020-04-07-5.25.592829534b096156c3.png"></p>
-<h2 id="借用构造链"><a href="#借用构造链" class="headerlink" title="借用构造链:"></a>借用构造链:</h2><p><a href="https://www.kanjiantu.com/image/ubguAs" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/9005c5459f9a82b4d.png" alt="9005c5459f9a82b4d.png"></a></p>
+<p><img src="https://www.kanjiantu.com/images/2020/04/07/2020-04-07-5.25.592829534b096156c3.png" srcset="/img/loading.gif" alt="2020-04-07-5.25.592829534b096156c3.png"></p>
+<h2 id="借用构造链"><a href="#借用构造链" class="headerlink" title="借用构造链:"></a>借用构造链:</h2><p><a href="https://www.kanjiantu.com/image/ubguAs" target="_blank" rel="noopener"><img src="https://www.kanjiantu.com/images/2020/04/07/9005c5459f9a82b4d.png" srcset="/img/loading.gif" alt="9005c5459f9a82b4d.png"></a></p>
 <p>参考链接:</p>
 <p><a href="https://github.com/Mochazz/ThinkPHP-Vuln/blob/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8BSQL%E6%B3%A8%E5%85%A51.md" target="_blank" rel="noopener">https://github.com/Mochazz/ThinkPHP-Vuln/blob/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8BSQL%E6%B3%A8%E5%85%A51.md</a></p>
 
-    </div>
-
-    
-    
-    
-        
-      
-
-      <footer class="post-footer">
-          
-            
-          
-          <div class="post-tags">
-            
-              <a href="/tags/audit/" rel="tag"># audit</a>
-            
-          </div>
-        
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/web安全/">web安全</a>
+                    
+                      <a class="hover-with-bg" href="/categories/web安全/代码审计/">代码审计</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/audit/">audit</a>
+                    
+                  </div>
+                
+              </div>
               
-                <a href="/2020/03/16/补天公益爬虫之土豪厂商/" rel="next" title="补天公益爬虫之土豪厂商">
-                  <i class="fa fa-chevron-left"></i> 补天公益爬虫之土豪厂商
-                </a>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/08/从thinkphp学习代码审计-part2（代码执行/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从thinkphp学习代码审计---part2（代码执行)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/16/补天公益爬虫之土豪厂商/">
+                        <span class="hidden-mobile">补天公益爬虫之土豪厂商</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
               
             </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/04/08/从thinkphp学习代码审计-part2（代码执行/" rel="prev" title="从thinkphp学习代码审计---part2（代码执行)">
-                  从thinkphp学习代码审计---part2（代码执行) <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
+            
           </div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-  </div>
-
-
-          </div>
-          
-
         </div>
-        
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-        
-        
-        
-        
-      
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从thinkphp学习代码审计—part1-sql注入1"><span class="nav-number">1.</span> <span class="nav-text">从thinkphp学习代码审计—part1(sql注入1)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">环境准备:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞分析"><span class="nav-number">1.2.</span> <span class="nav-text">漏洞分析:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#借用构造链"><span class="nav-number">1.3.</span> <span class="nav-text">借用构造链:</span></a></li></ol></li></ol></div>
-        
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">2cu</p>
-  <div class="site-description" itemprop="description">心之所向皆是遗憾，目之所及皆是过往</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">16</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-categories">
-        
-          
-            <a href="/categories/">
-          
-        
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">categories</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-tags">
-        
-          
-            <a href="/tags/">
-          
-        
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">tags</span>
-        </a>
-      </div>
-    
-  </nav>
-</div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
-      Links
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://mi1itray_axe.gitee.io/" title="https://mi1itray_axe.gitee.io/" rel="noopener" target="_blank">Team233核心人物-张大炮</a>
-        </li>
-      
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-        
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">2cu</span>
-</div>
-  <!--<div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
-  </div>
--->
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">
-      
-    Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
-  </div>
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-  </div>
-  
     
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='5' src="true"></script>
-  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
-  <script src="/lib/anime.min.js?v=3.1.0"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/muse.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
   
 
   
-
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
   
 
   
 
-
   
 
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
   
-  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
-  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "从thinkphp学习代码审计---part1&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

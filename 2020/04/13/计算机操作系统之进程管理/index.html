@@ -1,343 +1,201 @@
 <!DOCTYPE html>
-
-
-
-
-
-
 <html lang="en">
-<head>
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
-
-<link rel="stylesheet" href="/css/main.css?v=7.4.1">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-
-<script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.4.1',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
-    sidebarPadding: 40
-  };
-</script>
-
-  <meta name="description" content="操作系统笔记">
-<meta name="keywords" content="操作系统">
-<meta property="og:type" content="article">
-<meta property="og:title" content="计算机操作系统之进程管理">
-<meta property="og:url" content="http://yoursite.com/2020/04/13/计算机操作系统之进程管理/index.html">
-<meta property="og:site_name" content="2cu的博客">
-<meta property="og:description" content="操作系统笔记">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/13/GvdOuF.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JCkLb8.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JCkXVS.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JCAMKx.png">
-<meta property="og:image" content="https://s1.ax1x.com/2020/04/15/JCAux1.png">
-<meta property="og:image" content="https://ftp.bmp.ovh/imgs/2020/04/1275e2d2cdca8c14.png">
-<meta property="og:updated_time" content="2020-04-15T06:46:43.101Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计算机操作系统之进程管理">
-<meta name="twitter:description" content="操作系统笔记">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/04/13/GvdOuF.png">
-  <link rel="canonical" href="http://yoursite.com/2020/04/13/计算机操作系统之进程管理/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
-  };
-</script>
-
-  <title>计算机操作系统之进程管理 | 2cu的博客</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="心之所向皆是遗憾，目之所及皆是过往">
+  <meta name="author" content="2cu">
+  <meta name="keywords" content>
+  <title>计算机操作系统之进程管理 - 2cu的博客</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
+
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css">
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
 
 
 
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- 自定义样式保持在最底部 -->
 
 
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-  
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>2cu</strong>&nbsp;</a>
 
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">2cu的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              About</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/qiangfu/">
+              <i class="iconfont icon-tags-fill"></i>
+              偶尔看看女神</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/music/">
+              <i class="iconfont icon-tags-fill"></i>
+              音乐间</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              Links</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-</div>
-
-
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-      
-      
-        
-        
-        <li class="menu-item menu-item-home">
-      
-    
-
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-about">
-      
-    
-
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-categories">
-      
-    
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-archives">
-      
-    
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-偶尔看看女神">
-      
-    
-
-    <a href="/qiangfu/" rel="section"><i class="fa fa-fw fa-calendar"></i>偶尔看看女神</a>
-
-  </li>
-      
-    
-      
-      
-        
-        
-        <li class="menu-item menu-item-私人音乐间">
-      
-    
-
-    <a href="/music/" rel="section"><i class="fa fa-fw fa-sitemap"></i>私人音乐间</a>
-
-  </li>
-      
-    
-  </ul>
-
-    
-
 </nav>
-</div>
-    </header>
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div class="content">
-            
-
-  <div class="posts-expand">
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/计算机操作系统之进程管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="2cu">
-      <meta itemprop="description" content="心之所向皆是遗憾，目之所及皆是过往">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="2cu的博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            计算机操作系统之进程管理
-            
-
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2020-04-13 21:28:05" itemprop="dateCreated datePublished" datetime="2020-04-13T21:28:05+08:00">2020-04-13</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-04-15 14:46:43" itemprop="dateModified" datetime="2020-04-15T14:46:43+08:00">2020-04-15</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学业笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学业笔记!</span>
-                  </a>
-                </span>
-
-                
-                
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
               
             </span>
-          
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-04-13 21:28">
+                    April 13, 2020 pm
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    10.2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    105
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>操作系统笔记</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>操作系统笔记</p>
 <a id="more"></a>
 
 <h2 id="进程的基本概念"><a href="#进程的基本概念" class="headerlink" title="进程的基本概念"></a>进程的基本概念</h2><h3 id="程序的顺序执行的特征"><a href="#程序的顺序执行的特征" class="headerlink" title="程序的顺序执行的特征:"></a>程序的顺序执行的特征:</h3><ol>
@@ -379,18 +237,18 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://s1.ax1x.com/2020/04/13/GvdOuF.png" alt="GvdOuF.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/13/GvdOuF.png" srcset="/img/loading.gif" alt="GvdOuF.png"></p>
 <p>1）就绪——执行：对就绪状态的进程，当进程调度程序按一种选定的策略从中选中一个就绪进程，为之分配了处理机后，该进程便由就绪状态变为执行状态；</p>
 <p>2）执行——阻塞：正在执行的进程因发生某等待事件而无法执行，则进程由执行状态变为阻塞状态，如进程提出输入/输出请求而变成等待外部设备传输信息的状态，进程申请资源（主存空间或外部设备）得不到满足时变成等待资源状态，进程运行中出现了故障（程序出错或主存储器读写错等）变成等待干预状态等等；</p>
 <p>3）阻塞——就绪：处于阻塞状态的进程，在其等待的事件已经发生，如输入/输出完成，资源得到满足或错误处理完毕时，处于等待状态的进程并不马上转入执行状态，而是先转入就绪状态，然后再由系统进程调度程序在适当的时候将该进程转为执行状态；</p>
 <p>4）执行——就绪：正在执行的进程，因时间片用完而被暂停执行，或在采用抢先式优先级调度算法的系统中,当有更高优先级的进程要运行而被迫让出处理机时，该进程便由执行状态转变为就绪状态。</p>
 <h5 id="挂起状态"><a href="#挂起状态" class="headerlink" title="挂起状态"></a>挂起状态</h5><p>不少系统只有上面三种状态，但另一些又增加了新状态，如挂起状态、创建状态和终止状态。挂起状态有可能是终端用户在自己程序运行期间发现有可疑问题时，希望暂时使自己的程序静止下来，以便研究其执行情况或者对程序进行修改。</p>
-<p><a href="https://imgchr.com/i/JCkLb8" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JCkLb8.png" alt="JCkLb8.png"></a></p>
+<p><a href="https://imgchr.com/i/JCkLb8" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JCkLb8.png" srcset="/img/loading.gif" alt="JCkLb8.png"></a></p>
 <h5 id="创建状态和终止状态"><a href="#创建状态和终止状态" class="headerlink" title="创建状态和终止状态"></a>创建状态和终止状态</h5><ul>
 <li>创建状态：创建一个进程一般要通过两个步骤:首先，为一个新进程创建 PCB，并填写必要的管 理信息;其次，把该进程转入就绪状态并插入就绪队列之中。</li>
 <li>终止状态：进程的终止也要通过两个步骤:首先等待操作系统进行善后处理，然后将其 PCB 清零， 并将 PCB 空间返还系统。</li>
 </ul>
-<p><a href="https://imgchr.com/i/JCkXVS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JCkXVS.png" alt="JCkXVS.png"></a></p>
+<p><a href="https://imgchr.com/i/JCkXVS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JCkXVS.png" srcset="/img/loading.gif" alt="JCkXVS.png"></a></p>
 <h2 id="进程控制块-一个数据结构-进程存在的惟一标志"><a href="#进程控制块-一个数据结构-进程存在的惟一标志" class="headerlink" title="进程控制块:一个数据结构,进程存在的惟一标志"></a>进程控制块:一个数据结构,进程存在的惟一标志</h2><p>PCB（Process Control Block）中记录了操作系统所需的、用于描述当前状况以及控制进程运行的全部信息。进程控制块的作用是使在一个多道环境下不能独立运行的程序（含数据）称为一个能独立运行的基本单位，一个能与其他进程并发执行的进程。PCB是进程管理和控制的最重要的数据结构，在创建进程时，建立PCB，并伴随进程运行的全过程，直到进程撤消而撤消。PCB是系统感知进程存在的唯一标识，常驻内存。<br>PCB包含的信息有：进程状态、程序计数器、CPU寄存器、CPU调度此内存、内存管理信息、记账信息、IO状态信息等。</p>
 <p>为了描述和控制进程的运行，系统为每个进程定义了一个数据结构——进程控制块 PCB(Process Control Block)，它是进程实体的一部分，是操作系统中最重要的记录型数据结构。PCB 是进程 存在的惟一标志。</p>
 <h5 id="进程控制块作用"><a href="#进程控制块作用" class="headerlink" title="进程控制块作用"></a>进程控制块作用</h5><ul>
@@ -428,9 +286,9 @@
 <h5 id="进程控制块的组织方式"><a href="#进程控制块的组织方式" class="headerlink" title="进程控制块的组织方式"></a>进程控制块的组织方式</h5><p>在一个系统中，通常可拥有数十个、 数百个乃至数千个 PCB。为了能对它们加以有效 的管理，应该用适当的方式将这些 PCB 组织起来。</p>
 <ul>
 <li><p>链接方式。这是把具有同一状态的 PCB，用其中的链接字链接成一个队列.</p>
-<p><a href="https://imgchr.com/i/JCAMKx" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JCAMKx.png" alt="JCAMKx.png"></a></p>
+<p><a href="https://imgchr.com/i/JCAMKx" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JCAMKx.png" srcset="/img/loading.gif" alt="JCAMKx.png"></a></p>
 </li>
-<li><p>索引方式.根据所有进程的状态建立几张索引表。例如，就绪索引表、阻塞索引表等，并把各索引表在内存的首地址记录在内存的一些专用单元中。在每个索引表的表目中，记录具有相应状态的某个 PCB 在 PCB 表中的地址。<br><a href="https://imgchr.com/i/JCAux1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JCAux1.png" alt="JCAux1.png"></a></p>
+<li><p>索引方式.根据所有进程的状态建立几张索引表。例如，就绪索引表、阻塞索引表等，并把各索引表在内存的首地址记录在内存的一些专用单元中。在每个索引表的表目中，记录具有相应状态的某个 PCB 在 PCB 表中的地址。<br><a href="https://imgchr.com/i/JCAux1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/15/JCAux1.png" srcset="/img/loading.gif" alt="JCAux1.png"></a></p>
 </li>
 </ul>
 <hr>
@@ -526,13 +384,27 @@
 <li>让权等待。当进程不能进入自己的临界区时，应立即释放处理机，以免进程陷入“忙等”状态。</li>
 </ul>
 <h4 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h4><h5 id="整型信号量"><a href="#整型信号量" class="headerlink" title="整型信号量"></a>整型信号量</h5><p>整型信号量定义为一个用于表示资源数目的整型量 S，它与一般整型量不同，除初始化外，仅能通过两个标准的原子操作(Atomic Operation) wait(S)和signal(S) 来访问。这两个操作一直被分别称为 P、V 操作。Wait(S)和 signal(S)操作可 描述为:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wait(S):  	while S&lt;=0 do no-op;</span><br><span class="line">	   			  S:=S-1; </span><br><span class="line">signal(S): 	S:=S+1;</span><br><span class="line"></span><br><span class="line">​``` </span><br><span class="line"></span><br><span class="line">只要是信号量 S≤0，就会不断地测试。因此，该机制并未遵循“让权等待”的准则，而是使进程处于“忙等”的状态。</span><br><span class="line"></span><br><span class="line">##### 记录型信号量</span><br><span class="line"></span><br><span class="line">记录型信号量机制则 是一种不存在“忙等”现象的进程同步机制。但在采取了“让权等待”的策略后，又会出现多个进程等待访问同一临界资源的情况。为此，在信号量机制中，除了需要一个用于代表资源数目的整型变量 value 外，还应增加一个进程链表指针 L，用于链接上述的所有等待进程。记录型信号量是由于它采用了记录型的数据结构而得名的。它所包含的上述两个数 据项可描述为:</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">wait(S):  	while S&lt;=0 do no-op;
+	   			  S:=S-1; 
+signal(S): 	S:=S+1;
+
+​``` 
+
+只要是信号量 S≤0，就会不断地测试。因此，该机制并未遵循“让权等待”的准则，而是使进程处于“忙等”的状态。
+
+##### 记录型信号量
+
+记录型信号量机制则 是一种不存在“忙等”现象的进程同步机制。但在采取了“让权等待”的策略后，又会出现多个进程等待访问同一临界资源的情况。为此，在信号量机制中，除了需要一个用于代表资源数目的整型变量 value 外，还应增加一个进程链表指针 L，用于链接上述的所有等待进程。记录型信号量是由于它采用了记录型的数据结构而得名的。它所包含的上述两个数 据项可描述为:</code></pre>
 
 <p>type semaphore=record<br>value: integer;<br>L: list of process;<br>end</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">相应地，wait(S)和 signal(S)操作可描述为:</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">相应地，wait(S)和 signal(S)操作可描述为:</code></pre>
 
 <p>procedure wait(S)<br>var S:semaphore;<br>begin<br>S.value:=S.value-1;<br>if S.value&lt;0 then block(S.L);<br>end<br>procedure signal(S)<br>var S: semaphore; begin<br>S.value:=S.value+1;<br>if S.value&lt;=0 then wakeup(S.L);<br>end</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- 当 S.value&lt;0 时，表示该类资源已 分配完毕，因此进程应调用 block 原语，进行自我阻塞，放弃处理机，并插入到信号量链表 S.L 中。</span><br><span class="line">- 若 加 1 后仍是 S.value≤0，则表示在该信号量链表中，仍有等待该资源的进程被阻塞，故还应 调用 wakeup 原语，将 S.L 链表中的第一个等待进程唤醒。</span><br><span class="line"></span><br><span class="line">##### AND 型信号量</span><br><span class="line">在有些应用场 合，是一个进程需要先获得两个或更多的共享资源后方能执行其任务。假定现有两个进程 A 和 B，他们都要求访问共享数据 D 和 E。为此，可为 这两个数据分别设置用于互斥的信号量 Dmutex 和 Emutex，并令它们的初值都是 1。</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs undefined">- 当 S.value&lt;0 时，表示该类资源已 分配完毕，因此进程应调用 block 原语，进行自我阻塞，放弃处理机，并插入到信号量链表 S.L 中。
+- 若 加 1 后仍是 S.value≤0，则表示在该信号量链表中，仍有等待该资源的进程被阻塞，故还应 调用 wakeup 原语，将 S.L 链表中的第一个等待进程唤醒。
+
+##### AND 型信号量
+在有些应用场 合，是一个进程需要先获得两个或更多的共享资源后方能执行其任务。假定现有两个进程 A 和 B，他们都要求访问共享数据 D 和 E。为此，可为 这两个数据分别设置用于互斥的信号量 Dmutex 和 Emutex，并令它们的初值都是 1。</code></pre>
 
 <p>process A: wait(Dmutex); 于是 Dmutex=0<br>process B: wait(Emutex); 于是 Emutex=0<br>process A: wait(Emutex); 于是 Emutex=-1 A 阻塞<br>process B: wait(Dmutex); 于是 Dmutex=-1 B 阻塞<br>```</p>
 <p>此时的进程 A 和 B 已进入死锁状态。AND 同步机制的基本思想是:将进程在整个运行过程中需要的所有资源，一次性全部地分配给进程，待进程使用完后再一起释放。对若干个临界资源的分配，采取原子操作方式:要么把它所请求的资源全部分配到进程，要么一个也不分配。</p>
@@ -641,254 +513,262 @@
 <li>系统调用的阻塞问题。在基于进程机制的操作系统中，大多数系统调用将阻塞进程， 因此，当线程执行一个系统调用时，不仅该线程被阻塞，而且进程内的所有线程都会被阻塞。而在内核支持线程方式中，则进程中的其它线程仍然可以运行。</li>
 <li>在单纯的用户级线程实现方式中，多线程应用不能利用多处理机进行多重处理的优点。内核每次分配给一个进程的仅有一个 CPU，因此进程中仅有一个线程能执行，在该线 程放弃 CPU 之前，其它线程只能等待。</li>
 </ul>
-<h2 id="最后附一张脑图"><a href="#最后附一张脑图" class="headerlink" title="最后附一张脑图:"></a>最后附一张脑图:</h2><p><img src="https://ftp.bmp.ovh/imgs/2020/04/1275e2d2cdca8c14.png" alt></p>
+<h2 id="最后附一张脑图"><a href="#最后附一张脑图" class="headerlink" title="最后附一张脑图:"></a>最后附一张脑图:</h2><p><img src="https://ftp.bmp.ovh/imgs/2020/04/1275e2d2cdca8c14.png" srcset="/img/loading.gif" alt></p>
 
-    </div>
-
-    
-    
-    
-        
-      
-
-      <footer class="post-footer">
-          
-            
-          
-          <div class="post-tags">
-            
-              <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
-            
-          </div>
-        
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/学业笔记/">学业笔记!</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/操作系统/">操作系统</a>
+                    
+                  </div>
+                
+              </div>
               
-                <a href="/2020/04/09/学习ing-Weblogic-XmlDecoder-RCE分析-cve-2017-10271/" rel="next" title="(学习ing)Weblogic XmlDecoder RCE分析(cve-2017-10271)">
-                  <i class="fa fa-chevron-left"></i> (学习ing)Weblogic XmlDecoder RCE分析(cve-2017-10271)
-                </a>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/14/插眼-分析ysoserial-payload-CommonsCollections2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">(插眼)分析ysoserial payload --CommonsCollections2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/09/学习ing-Weblogic-XmlDecoder-RCE分析-cve-2017-10271/">
+                        <span class="hidden-mobile">(学习ing)Weblogic XmlDecoder RCE分析(cve-2017-10271)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
               
             </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2020/04/14/插眼-分析ysoserial-payload-CommonsCollections2/" rel="prev" title="(插眼)分析ysoserial payload --CommonsCollections2">
-                  (插眼)分析ysoserial payload --CommonsCollections2 <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
+            
           </div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-  </div>
-
-
-          </div>
-          
-
         </div>
-        
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-        
-        
-        
-        
-      
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的基本概念"><span class="nav-number">1.</span> <span class="nav-text">进程的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序的顺序执行的特征"><span class="nav-number">1.1.</span> <span class="nav-text">程序的顺序执行的特征:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序并发执行的特征"><span class="nav-number">1.2.</span> <span class="nav-text">程序并发执行的特征:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的特征与状态"><span class="nav-number">1.3.</span> <span class="nav-text">进程的特征与状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程与程序"><span class="nav-number">2.</span> <span class="nav-text">进程与程序:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的三个状态"><span class="nav-number">3.</span> <span class="nav-text">进程的三个状态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#挂起状态"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">挂起状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建状态和终止状态"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">创建状态和终止状态</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程控制块-一个数据结构-进程存在的惟一标志"><span class="nav-number">4.</span> <span class="nav-text">进程控制块:一个数据结构,进程存在的惟一标志</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程控制块作用"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">进程控制块作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程控制块中的信息"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">进程控制块中的信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程控制块的组织方式"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">进程控制块的组织方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程控制"><span class="nav-number">4.1.</span> <span class="nav-text">进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程的创建"><span class="nav-number">4.1.1.</span> <span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程的终止"><span class="nav-number">4.1.2.</span> <span class="nav-text">进程的终止</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引起进程终止的事件"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">引起进程终止的事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程的终止过程"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">进程的终止过程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程的阻塞与唤醒"><span class="nav-number">4.1.3.</span> <span class="nav-text">进程的阻塞与唤醒</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引起进程阻塞和唤醒的事件"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">引起进程阻塞和唤醒的事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程阻塞过程"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">进程阻塞过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程唤醒过程"><span class="nav-number">4.1.3.3.</span> <span class="nav-text">进程唤醒过程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程的挂起与激活"><span class="nav-number">4.1.4.</span> <span class="nav-text">进程的挂起与激活</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程的挂起"><span class="nav-number">4.1.4.1.</span> <span class="nav-text">进程的挂起</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程的激活过程"><span class="nav-number">4.1.4.2.</span> <span class="nav-text">进程的激活过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程同步"><span class="nav-number">4.2.</span> <span class="nav-text">进程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程同步的基本概念"><span class="nav-number">4.2.1.</span> <span class="nav-text">进程同步的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#两种形式的制约关系"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">两种形式的制约关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#临界资源"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">临界资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#临界区"><span class="nav-number">4.2.1.3.</span> <span class="nav-text">临界区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同步机制应遵循的规则"><span class="nav-number">4.2.1.4.</span> <span class="nav-text">同步机制应遵循的规则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信号量机制"><span class="nav-number">4.2.2.</span> <span class="nav-text">信号量机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#整型信号量"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">整型信号量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#信号量集"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">信号量集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#信号量的应用"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">信号量的应用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#管程机制"><span class="nav-number">4.2.3.</span> <span class="nav-text">管程机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程通信"><span class="nav-number">4.3.</span> <span class="nav-text">进程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程通信的类型"><span class="nav-number">4.3.1.</span> <span class="nav-text">进程通信的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#共享存储器系统"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">共享存储器系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#消息传递系统"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">消息传递系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#管道通信系统"><span class="nav-number">4.3.1.3.</span> <span class="nav-text">管道通信系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息传递通信的实现方法"><span class="nav-number">4.3.2.</span> <span class="nav-text">消息传递通信的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接通信方式"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">直接通信方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#间接通信方式"><span class="nav-number">4.3.2.2.</span> <span class="nav-text">间接通信方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息传递通信的实现方法-1"><span class="nav-number">4.3.3.</span> <span class="nav-text">消息传递通信的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接通信方式-1"><span class="nav-number">4.3.3.1.</span> <span class="nav-text">直接通信方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#间接通信方式-1"><span class="nav-number">4.3.3.2.</span> <span class="nav-text">间接通信方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息传递系统实现中的若干问题"><span class="nav-number">4.3.4.</span> <span class="nav-text">消息传递系统实现中的若干问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息缓冲队列通信机制"><span class="nav-number">4.3.5.</span> <span class="nav-text">消息缓冲队列通信机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">4.4.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的基本概念"><span class="nav-number">4.4.1.</span> <span class="nav-text">线程的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#引入线程"><span class="nav-number">4.4.1.1.</span> <span class="nav-text">引入线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程与进程的比较"><span class="nav-number">4.4.1.2.</span> <span class="nav-text">线程与进程的比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程的属性"><span class="nav-number">4.4.1.3.</span> <span class="nav-text">线程的属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程的状态"><span class="nav-number">4.4.1.4.</span> <span class="nav-text">线程的状态</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程间的同步和通信"><span class="nav-number">4.4.2.</span> <span class="nav-text">线程间的同步和通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的实现方式"><span class="nav-number">4.4.3.</span> <span class="nav-text">线程的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内核支持线程"><span class="nav-number">4.4.3.1.</span> <span class="nav-text">内核支持线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户级线程"><span class="nav-number">4.4.3.2.</span> <span class="nav-text">用户级线程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后附一张脑图"><span class="nav-number">5.</span> <span class="nav-text">最后附一张脑图:</span></a></li></ol></div>
-        
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">2cu</p>
-  <div class="site-description" itemprop="description">心之所向皆是遗憾，目之所及皆是过往</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">16</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-categories">
-        
-          
-            <a href="/categories/">
-          
-        
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">categories</span>
-        </a>
-      </div>
-    
-      
-      
-      <div class="site-state-item site-state-tags">
-        
-          
-            <a href="/tags/">
-          
-        
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">tags</span>
-        </a>
-      </div>
-    
-  </nav>
-</div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
-      Links
     </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://mi1itray_axe.gitee.io/" title="https://mi1itray_axe.gitee.io/" rel="noopener" target="_blank">Team233核心人物-张大炮</a>
-        </li>
-      
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-        
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">2cu</span>
-</div>
-  <!--<div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
-  </div>
--->
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">
-      
-    Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
-  </div>
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-  </div>
-  
     
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='5' src="true"></script>
-  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
-  <script src="/lib/anime.min.js?v=3.1.0"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/muse.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
   
 
   
-
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
   
 
   
 
-
   
 
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
   
-  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
-  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "计算机操作系统之进程管理&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
