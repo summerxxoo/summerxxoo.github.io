@@ -8,12 +8,18 @@
         video {
             width: 100%;
             max-width: 600px;
+            display: none; /* Initially hide the video */
+        }
+        .message {
+            font-size: 1.2em;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <h1>Access Camera</h1>
     <video id="video" autoplay playsinline></video>
+    <div id="message" class="message"></div>
     <script>
         // Ensure the browser supports the getUserMedia API
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -22,15 +28,23 @@
                 .then(function (stream) {
                     // Get the video element
                     var video = document.getElementById('video');
+                    var message = document.getElementById('message');
                     // Set the source of the video element to the stream from the camera
                     video.srcObject = stream;
+                    video.style.display = 'block'; // Show the video
+                    message.textContent = "Camera access granted. Video is playing.";
+                    message.style.color = "green";
                     video.play();
                 })
                 .catch(function (error) {
-                    console.error("Error accessing the camera: ", error);
+                    var message = document.getElementById('message');
+                    message.textContent = "Error accessing the camera: " + error.message;
+                    message.style.color = "red";
                 });
         } else {
-            console.error("getUserMedia API is not supported by this browser.");
+            var message = document.getElementById('message');
+            message.textContent = "getUserMedia API is not supported by this browser.";
+            message.style.color = "red";
         }
     </script>
 </body>
