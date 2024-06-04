@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Recorder</title>
+    <style>
+        .controls {
+            margin-top: 20px;
+        }
+        .message {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Recorder</h1>
+    <div class="controls">
+        <button id="start-btn">Start Recording</button>
+        <button id="stop-btn" disabled>Stop Recording</button>
+    </div>
+    <audio id="audio" controls></audio>
+    <div id="message" class="message"></div>
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+
+        document.getElementById('start-btn').addEventListener('click', function() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(function(stream) {
+                        mediaRecorder = new MediaRecorder(stream);
+                        mediaRecorder.start();
+                        
+                        document.getElementById('start-btn').disabled = true;
+                        document.getElementById('stop-btn').disabled = false;
+                        document.getElementById('message').textContent = "Recording started...";
+                        document.getElementById('message').style.color = "green";
+
+                        mediaRecorder.ondataavailable = function(event) {
+                            audioChunks.push(event.data);
+                        };
+
+                        mediaRecorder.onstop = function() {
+                            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                            const audioUrl = URL.createObjectURL(audioBlob);
+                            const audio = document.getElementById('audio');
+                            audio.src = audioUrl;
+                            document.getElementById('start-btn').disabled = false;
+                            document.getElementById('stop-btn').disabled = true;
+                            document.getElementById('message').textContent = "Recording stopped.";
+                        };
+                    })
+                    .catch(function(error) {
+                        document.getElementById('message').textContent = "Error accessing the microphone: " + error.message;
+                        document.getElementById('message').style.color = "red";
+                    });
+            } else {
+                document.getElementById('message').textContent = "getUserMedia API is not supported by this browser.";
+                document.getElementById('message').style.color = "red";
+            }
+        });
+
+        document.getElementById('stop-btn').addEventListener('click', function() {
+            mediaRecorder.stop();
+            audioChunks = [];
+        });
+    </script>
+</body>
+</html>
