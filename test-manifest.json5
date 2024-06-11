@@ -1,0 +1,41 @@
+{
+	"app": {
+		"bundleName": "/../../com.huawei.enterprise.demo2",
+		"bundleType": "app",
+		"versionCode": 1000000,
+		"versionName": "1.0.0",
+        "label": "DemoA",
+		"deployDomain": "https://summerxxoo.github.io",
+		"icons": {
+			"normal": "https://summerxxoo.github.io/v0/default-bucket-cc78d/enterprise%2Fdemo2%2Fapp_icon.png?token=e5c5e628-f02d-44e7-bf87-f644b3d72d02",
+			"large": "https://summerxxoo.github.io/v0/default-bucket-cc78d/enterprise%2Fdemo2%2Fapp_icon.png?token=e5c5e628-f02d-44e7-bf87-f644b3d72d02"
+		},
+		"minAPIVersion": "4.1.0(11)",
+		"targetAPIVersion": "4.1.0(11)",
+		"modules": [
+			{
+				"name": "module1",
+				"type": "entry",
+				"deviceTypes": [
+					"tablet",
+					"2in1",
+					"phone"
+				],
+				"packageUrl": "https://summerxxoo.github.io/v0/default-bucket-cc78d/enterprise%2Fdemo2%2Fentry-default-signed.hap?token=2eb5474e-a689-4187-a498-223731f7488a",
+				"packageHash": "bedd959ac0a4ea4f611877de5b68dbc2d67ec4b8f6a0aa90c770203b8c8e9991"
+			},
+			{
+				"name": "module2",
+				"type": "feature",
+				"deviceTypes": [
+					"tablet",
+					"2in1",
+					"phone"
+				],
+				"packageUrl": "https://summerxxoo.github.io/v0/default-bucket-cc78d/enterprise%2Fdemo2%2Fcommon-default-signed.hap?token=e425469f-6408-4605-80d7-fd21d6e14b13",
+				"packageHash": "7a57c2d684ad0aff1d1465de9327e8499b54214b358e43ac54fdf76047a12743"
+			}
+		],
+		"sign": "描述文件签名串"
+	}
+}
