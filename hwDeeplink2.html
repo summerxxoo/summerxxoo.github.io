@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Open App Button</title>
+</head>
+<body>
+  <button id="openAppBtn">Open App</button>
+
+  <script>
+    // 定义要打开的应用程序URL
+    var appUrl = "store://enterprise/manifest?url=https://agc-storage-drcn.platform.dbankcloud.cn/v0/default-4tz88/test-manifest.json5?token=2f061733-72f1-4445-952b-a70b7a743ceb";
+
+    // 给按钮添加点击事件处理程序
+    document.getElementById("openAppBtn").addEventListener("click", function() {
+      // 使用window.open()打开应用程序URL
+      window.open(appUrl);
+    });
+  </script>
+</body>
+</html>
