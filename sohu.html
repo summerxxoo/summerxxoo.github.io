@@ -16,26 +16,35 @@
       console.error("window.handler is not defined");
     }
 
-    function setPrivacyUseInfo(privacyInfoJson) {
-      // 将 JSON 字符串解析为 JavaScript 对象
-      var privacyInfo = JSON.parse(privacyInfoJson);
+    function setPrivacyUseInfo(privacyInfoData) {
+      try {
+        // 尝试解析数据为 JSON 对象
+        var privacyInfo = JSON.parse(privacyInfoData);
 
-      // 将隐私信息存储在全局变量中
-      window.privacyInfo = privacyInfo;
+        // 检查 privacyInfo 对象是否有预期的属性
+        if (privacyInfo.desc && privacyInfo.count && privacyInfo.content) {
+          // 将隐私信息存储在全局变量中
+          window.privacyInfo = privacyInfo;
 
-      // 构建隐私信息的 HTML 内容
-      var privacyInfoHtml = `
-        <h2>Privacy Information</h2>
-        <p>Description: ${privacyInfo.desc}</p>
-        <p>Count: ${privacyInfo.count}</p>
-        <p>Content: ${privacyInfo.content}</p>
-      `;
+          // 构建隐私信息的 HTML 内容
+          var privacyInfoHtml = `
+            <h2>Privacy Information</h2>
+            <p>Description: ${privacyInfo.desc}</p>
+            <p>Count: ${privacyInfo.count}</p>
+            <p>Content: ${privacyInfo.content}</p>
+          `;
 
-      // 将隐私信息输出到 iframe 中
-      var privacyInfoFrame = document.getElementById("privacy-info-frame");
-      privacyInfoFrame.contentWindow.document.open();
-      privacyInfoFrame.contentWindow.document.write(privacyInfoHtml);
-      privacyInfoFrame.contentWindow.document.close();
+          // 将隐私信息输出到 iframe 中
+          var privacyInfoFrame = document.getElementById("privacy-info-frame");
+          privacyInfoFrame.contentWindow.document.open();
+          privacyInfoFrame.contentWindow.document.write(privacyInfoHtml);
+          privacyInfoFrame.contentWindow.document.close();
+        } else {
+          console.error("Invalid privacy information format");
+        }
+      } catch (error) {
+        console.error("Error parsing privacy information:", error);
+      }
     }
   </script>
 </body>
