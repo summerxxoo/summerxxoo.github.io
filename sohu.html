@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <title>Privacy Information</title>
 </head>
 <body>
-<iframe
-  id="inlineFrameExample"
-  title="Inline Frame Example"
-  width="300"
-  height="200"
-  src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik">
-</iframe>
+  <h1>Privacy Information</h1>
+  <iframe id="privacy-info-frame" style="width: 100%; height: 500px;"></iframe>
+
+  <script>
+    function setPrivacyUseInfo(privacyInfoJson) {
+      // 将 JSON 字符串解析为 JavaScript 对象
+      var privacyInfo = JSON.parse(privacyInfoJson);
+
+      // 将隐私信息存储在全局变量中
+      window.privacyInfo = privacyInfo;
+
+      // 构建隐私信息的 HTML 内容
+      var privacyInfoHtml = `
+        <h2>Privacy Information</h2>
+        <p>Description: ${privacyInfo.desc}</p>
+        <p>Count: ${privacyInfo.count}</p>
+        <p>Content: ${privacyInfo.content}</p>
+      `;
+
+      // 将隐私信息输出到 iframe 中
+      var privacyInfoFrame = document.getElementById("privacy-info-frame");
+      privacyInfoFrame.contentWindow.document.open();
+      privacyInfoFrame.contentWindow.document.write(privacyInfoHtml);
+      privacyInfoFrame.contentWindow.document.close();
+    }
+  </script>
 </body>
 </html>
