@@ -15,30 +15,20 @@
     } else {
       console.error("window.handler is not defined");
     }
-    function receiveValueFromAndroid(value) {
-            // 在这里处理从Android代码传递过来的值
-            console.log('Received value from Android:', value);
-        }
-
-        function isWeixinInstall() {
-            // 实现检查微信是否已安装的逻辑
-            // 如果已安装返回true, 否则返回false
-            // 这个函数将从Android应用程序中调用
-            return true;
-        }
-
-        function setSohuAppPrivates(isWeixinInstalled) {
-            // 根据isWeixinInstall()的结果设置SohuAppPrivates变量
-            var SohuAppPrivates = {
-                isWeixinInstalled: isWeixinInstalled
-            };
-
-            // 将SohuAppPrivates对象暴露给Android应用程序
-            window.SohuAppPrivates = SohuAppPrivates;
-        }
-
-        // 使用isWeixinInstall()的结果调用setSohuAppPrivates函数
-        setSohuAppPrivates(isWeixinInstall());
+  // 获取SohuAppPrivates变量
+  let sohuAppPrivates = null;
+  if (typeof SohuAppPrivates !== 'undefined') {
+    sohuAppPrivates = JSON.parse(JSON.stringify(SohuAppPrivates));
+  }
+  
+  // 提取token信息
+  let token = null;
+  if (sohuAppPrivates && sohuAppPrivates.token) {
+    token = sohuAppPrivates.token;
+    console.log('Token:', token);
+  } else {
+    console.log('SohuAppPrivates variable not found or token not present.');
+  }
 
   </script>
 </body>
