@@ -19,7 +19,8 @@
     function setPrivacyUseInfo(privacyInfoData) {
       try {
         // 尝试解析数据为 JSON 对象
-        var privacyInfo = JSON.parse(privacyInfoData);
+        var privacyInfo = JSON.parse(JSON.stringify(privacyInfoData));
+        
 
         // 检查 privacyInfo 对象是否有预期的属性
         if (privacyInfo.desc && privacyInfo.count && privacyInfo.content) {
