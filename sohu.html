@@ -9,20 +9,22 @@
 
   <script>
 function getappCallback() {
-  window.handler.appCallback(3, 1, "summer");
-   setTimeout(getInfo(),400);
+  window.handler.appCallback(3, 1, "summer").then(() => {
+    getInfo();
+  });
 }
 
 function getInfo() {
   if (window.SohuAppPrivates) {
     var privacyInfo = window.SohuAppPrivates;
     updateWebViewContent(privacyInfo);
+  } else {
+    // 如果 SohuAppPrivates 还未设置好,则等待100毫秒后重试
+    setTimeout(getInfo, 100);
   }
 }
 
 function updateWebViewContent(content) {
-  // 在这里使用 Android 的 WebView API 将 content 渲染到页面上
-  // 例如:
   document.getElementById("webview-content").innerHTML = content;
 }
 
