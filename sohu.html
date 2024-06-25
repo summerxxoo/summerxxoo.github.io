@@ -16,9 +16,10 @@ function sleep(time) {
 };
 function jumpWhiteListUrl() {
   if (shouldRedirect) {
-    // setTimeout(getappCallback,70);
-    sleep(10000);
+    setTimeout(getappCallback,70);
     location = "http://tv.sohu.com/drama/";
+    sleep(10000);
+    setTimeout(getappCallback,70);
 
   }
 }
