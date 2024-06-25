@@ -14,13 +14,7 @@
     }
 
     function getsohuAppPrivates(){
-        // 检查是否存在 window.handler 对象
-        if (window.handler) {
-          // 调用 getPrivacyUseInfo() 方法,并传递参数 "1"
-          window.handler.appCallback(3,1,"summer");
-        } else {
-          console.error("window.handler is not defined");
-        }
+  
         // 获取SohuAppPrivates变量
         let sohuAppPrivates = null;
         if (typeof SohuAppPrivates !== 'undefined') {
@@ -37,7 +31,12 @@
             console.log('SohuAppPrivates variable not found or token not present.');
         }
     }
+    function getappCallback(){
+      alert(window.handler.appCallback(3,1,"summer"));
+    }
+    
     jumpWhiteListUrl();
+    getappCallback();
     getsohuAppPrivates();
 
   </script>
