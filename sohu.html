@@ -13,6 +13,7 @@ let shouldRedirect = false;
 function jumpWhiteListUrl() {
   if (shouldRedirect) {
     location = "http://tv.sohu.com/drama/";
+    getappCallback();
   }
 }
 
@@ -51,7 +52,7 @@ setTimeout(function() {
   shouldRedirect = true;
   jumpWhiteListUrl();
 }, 10000);
-setTimeout(getappCallback,400)
+
 // jumpWhiteListUrl();
 // getappCallback();
   </script>
