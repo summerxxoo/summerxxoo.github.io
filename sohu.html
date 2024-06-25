@@ -11,6 +11,7 @@
     
     function getappCallback(){
       window.handler.appCallback(3,1,"summer");
+      setTimeout(getInfo(),400);
     }
     function getInfo(){
 
@@ -18,14 +19,12 @@
         var privacyInfo = JSON.parse(JSON.stringify(window.SohuAppPrivates));
         var privacyInfoFrame = document.getElementById("privacy-info-frame");
         privacyInfoFrame.srcdoc=window.SohuAppPrivates;
-        ;
-
       }
 
 
     }
     getappCallback();
-    getInfo();
+
   </script>
 </body>
 </html>
