@@ -9,8 +9,8 @@
 
   <script>
 function getappCallback() {
-  window.handler.appCallback(3, 1, "summer", function() {
-    getInfo();
+  window.handler.appCallback(3, 1, "summer");
+   setTimeout(getInfo(),400);
   });
 }
 
