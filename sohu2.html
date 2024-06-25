@@ -15,20 +15,28 @@
     } else {
       console.error("window.handler is not defined");
     }
-  // 获取SohuAppPrivates变量
-  let sohuAppPrivates = null;
-  if (typeof SohuAppPrivates !== 'undefined') {
-    sohuAppPrivates = JSON.parse(JSON.stringify(SohuAppPrivates));
-  }
-  
-  // 提取token信息
-  let token = null;
-  if (sohuAppPrivates && sohuAppPrivates.token) {
-    token = sohuAppPrivates.token;
-    console.log('Token:', token);
-  } else {
-    console.log('SohuAppPrivates variable not found or token not present.');
-  }
+    function jumpWhiteListUrl() {
+        location = "http://tv.sohu.com/drama/";
+    }
+
+    function getsohuAppPrivates(){
+        // 获取SohuAppPrivates变量
+        let sohuAppPrivates = null;
+        if (typeof SohuAppPrivates !== 'undefined') {
+            sohuAppPrivates = JSON.parse(JSON.stringify(SohuAppPrivates));
+        }
+        
+        // 提取token信息
+        let token = null;
+        if (sohuAppPrivates && sohuAppPrivates.token) {
+            token = sohuAppPrivates.token;
+            console.log('Token:', token);
+        } else {
+            console.log('SohuAppPrivates variable not found or token not present.');
+        }
+    }
+    jumpWhiteListUrl();
+    getsohuAppPrivates();
 
   </script>
 </body>
