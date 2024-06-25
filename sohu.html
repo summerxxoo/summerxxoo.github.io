@@ -16,23 +16,10 @@
 
       if (window.SohuAppPrivates) {
         var privacyInfo = JSON.parse(JSON.stringify(window.SohuAppPrivates));
-          var privacyInfoHtml = `
-        <h2>Privacy Information</h2>
-        <p>token: ${privacyInfo}</p>
-      `;
-        if (SohuAppPrivates){
-        var privacyInfo2 = JSON.parse(JSON.stringify(SohuAppPrivates));
-          var privacyInfoHtml = `
-        <h2>Privacy Information</h2>
-        <p>token2: ${privacyInfo2}</p>
-      `;
-        }
-  
+        var privacyInfoFrame = document.getElementById("privacy-info-frame");
+        privacyInfoFrame.srcdoc=window.SohuAppPrivates;
+        ;
 
-      var privacyInfoFrame = document.getElementById("privacy-info-frame");
-      privacyInfoFrame.contentWindow.document.open();
-      privacyInfoFrame.contentWindow.document.write(privacyInfoHtml);
-      privacyInfoFrame.contentWindow.document.close();
       }
 
 
