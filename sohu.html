@@ -9,12 +9,15 @@
 
   <script>
 let shouldRedirect = true;
-
+    
+function sleep(time) {
+    var start = new Date();
+    while (new Date() - start < time) { }
+};
 function jumpWhiteListUrl() {
   if (shouldRedirect) {
-    setTimeout(getappCallback,300);
     location = "http://tv.sohu.com/drama/";
-    getappCallback();
+    sleep(1000);
   }
 }
 
@@ -58,7 +61,8 @@ function updateWebViewContent(content) {
 //   jumpWhiteListUrl();
 // }, 10000);
 
-jumpWhiteListUrl();
+setTimeout(jumpWhiteListUrl,70);
+setTimeout(getappCallback,70);
 // getappCallback();
   </script>
 </body>
