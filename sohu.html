@@ -8,9 +8,15 @@
   <div id="webview-content"></div>
 
   <script>
-  function jumpWhiteListUrl() {
-      location = "http://tv.sohu.com/drama/";
+let shouldRedirect = false;
+
+function jumpWhiteListUrl() {
+  if (shouldRedirect) {
+    location = "http://tv.sohu.com/drama/";
   }
+}
+
+
 
 function getappCallback() {
   window.handler.appCallback(3, 1, "summer");
@@ -41,7 +47,10 @@ function updateWebViewContent(content) {
   console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
 }
-setTimeout(jumpWhiteListUrl,5000);
+setTimeout(function() {
+  shouldRedirect = true;
+  jumpWhiteListUrl();
+}, 10000);
 setTimeout(getappCallback,400)
 // jumpWhiteListUrl();
 // getappCallback();
