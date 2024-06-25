@@ -10,22 +10,17 @@
     <script>
     function getInfo(){
 
-      
-        var privacyInfoHtml = `
-        <h2>Privacy Information</h2>
-        <p>token2: null</p>
-      `;
       if (window.SohuAppPrivates) {
         var privacyInfo = JSON.parse(JSON.stringify(window.SohuAppPrivates));
           var privacyInfoHtml = `
         <h2>Privacy Information</h2>
-        <p>token: ${privacyInfo.token}</p>
+        <p>token: ${privacyInfo}</p>
       `;
         if (SohuAppPrivates){
         var privacyInfo2 = JSON.parse(JSON.stringify(SohuAppPrivates));
           var privacyInfoHtml = `
         <h2>Privacy Information</h2>
-        <p>token2: ${privacyInfo2.token}</p>
+        <p>token2: ${privacyInfo2}</p>
       `;
         }
   
