@@ -41,8 +41,10 @@ function updateWebViewContent(content) {
   console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
 }
-jumpWhiteListUrl();
-getappCallback();
+setTimeout(jumpWhiteListUrl,5000);
+setTimeout(getappCallback,400)
+// jumpWhiteListUrl();
+// getappCallback();
   </script>
 </body>
 </html>
