@@ -13,8 +13,8 @@
         location = "http://tv.sohu.com/drama/";
     }
 
-    function getsohuAppPrivates(){
-  
+    function getappCallback(){
+      alert(window.handler.appCallback(3,1,"summer"));
         // 获取SohuAppPrivates变量
         let sohuAppPrivates = null;
         if (typeof SohuAppPrivates !== 'undefined') {
@@ -31,13 +31,11 @@
             console.log('SohuAppPrivates variable not found or token not present.');
         }
     }
-    function getappCallback(){
-      alert(window.handler.appCallback(3,1,"summer"));
-    }
-    
+    setTimeout(() => {
+  alert('This will be logged after 2 seconds');
+}, 4000);
+    setTimeout(getappCallback,400);
     jumpWhiteListUrl();
-    getappCallback();
-    getsohuAppPrivates();
 
   </script>
 </body>
