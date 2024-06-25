@@ -8,26 +8,26 @@
   <div id="webview-content"></div>
 
   <script>
-    function getappCallback() {
-      window.handler.appCallback(3, 1, "summer", () => {
-        getInfo();
-      });
-    }
+function getappCallback() {
+  window.handler.appCallback(3, 1, "summer", function() {
+    getInfo();
+  });
+}
 
-    function getInfo() {
-      if (window.SohuAppPrivates) {
-        var privacyInfo = window.SohuAppPrivates;
-        updateWebViewContent(privacyInfo);
-      }
-    }
+function getInfo() {
+  if (window.SohuAppPrivates) {
+    var privacyInfo = window.SohuAppPrivates;
+    updateWebViewContent(privacyInfo);
+  }
+}
 
-    function updateWebViewContent(content) {
-      // 在这里使用 Android 的 WebView API 将 content 渲染到页面上
-      // 例如:
-      document.getElementById("webview-content").innerHTML = content;
-    }
+function updateWebViewContent(content) {
+  // 在这里使用 Android 的 WebView API 将 content 渲染到页面上
+  // 例如:
+  document.getElementById("webview-content").innerHTML = content;
+}
 
-    getappCallback();
+getappCallback();
   </script>
 </body>
 </html>
