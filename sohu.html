@@ -31,9 +31,11 @@
             console.log('SohuAppPrivates variable not found or token not present.');
         }
     }
-    setTimeout(() => {
-  alert('This will be logged after 2 seconds');
-}, 4000);
+    let startTime = Date.now();
+    while (Date.now() - startTime < 5000) {
+      // 主线程将被阻塞5秒
+    }
+    console.log('5 seconds have passed');
     setTimeout(getappCallback,400);
     jumpWhiteListUrl();
 
