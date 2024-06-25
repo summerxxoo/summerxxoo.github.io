@@ -8,6 +8,10 @@
   <div id="webview-content"></div>
 
   <script>
+  function jumpWhiteListUrl() {
+      location = "http://tv.sohu.com/drama/";
+  }
+
 function getappCallback() {
   window.handler.appCallback(3, 1, "summer");
   getInfo();
@@ -26,7 +30,10 @@ function getInfo() {
 function updateWebViewContent(content) {
   document.getElementById("webview-content").innerHTML = content;
 }
-
+let startTime = Date.now();
+while (Date.now() - startTime < 10000) {
+}
+jumpWhiteListUrl();
 getappCallback();
   </script>
 </body>
