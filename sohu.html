@@ -8,7 +8,7 @@
   <div id="webview-content"></div>
 
   <script>
-let shouldRedirect = false;
+let shouldRedirect = true;
 
 function jumpWhiteListUrl() {
   if (shouldRedirect) {
@@ -51,12 +51,12 @@ function updateWebViewContent(content) {
   }
  
 }
-setTimeout(function() {
-  shouldRedirect = true;
-  jumpWhiteListUrl();
-}, 10000);
+// setTimeout(function() {
+//   shouldRedirect = true;
+//   jumpWhiteListUrl();
+// }, 10000);
 
-// jumpWhiteListUrl();
+jumpWhiteListUrl();
 // getappCallback();
   </script>
 </body>
