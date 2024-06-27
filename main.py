@@ -1,8 +1,5 @@
 
 
-
-
-
 import hashlib
 import requests
 import time
@@ -13,8 +10,8 @@ gid = "x0107402101018f230975986200041f884c4663fa2c0"
 token = "eyJleHAiOjE3MjcyODEzNzYyNDAsImlhdCI6MTcxOTUwNTM3NjI0MCwicHAiOiIxODA2MzUzNjUwMDA0NjM5NzQ0QHNvaHUuY29tIiwidGsiOiJ1bmh1azJNbzVqU1lxcmpBRTdraDNWbWJCeXcwWHZJZyIsInYiOjB9.e36Ta6nWg2G-PjTpajsone-uYBbn-HwL_0OxuzW9iZU"
 passport = "1806353650004639744@sohu.com"
 uid = "SV_4IMDtFxlJVzVwh1xuSmHthGK5u9azvuBsp6loZr0Nxs"
-#请求的接口，现在写的是获取收益信息的，证明签名没那么难
-path = ""
+#请求的接口，现在写的是获取收益信息的isp/comment/amt/show，签名有这么卡人吗？？？
+path = "show"
 
 
 def getTt():
@@ -43,7 +40,7 @@ def calcSign():
     time =    getTt()
 
 
-    input_str = "abmode=1B_35B_91B_142A_152B_177B_202B_227A_262B_297B_304B_332A_339A_346B_353C_367B_381B_388B_395B_449B_v99989_9998C_s16_t10000&api_key=9854b2afa779e1a6bff1962447a09dbd&appid=107402&buildNo=06241948&gid={gid}&isApp=true&partner=750&passport={passport}&path=show&plat=6&poid=1&showType=0&ssl=1&sver=10.0.35&timestamp={timestamp}&token={token}&ua=SohuVideoMobile/10.0.35 (Platform/6)&uid={uid}&userAuth=0&app_key=tPpGsLBEIcVwx4y2".format(timestamp=time,uid = uid,gid = gid , token = token,passport = passport)
+    input_str = "abmode=1B_35B_91B_142A_152B_177B_202B_227A_262B_297B_304B_332A_339A_346B_353C_367B_381B_388B_395B_449B_v99989_9998C_s16_t10000&api_key=9854b2afa779e1a6bff1962447a09dbd&appid=107402&buildNo=06241948&gid={gid}&isApp=true&partner=750&passport={passport}&path={path}&plat=6&poid=1&showType=0&ssl=1&sver=10.0.35&timestamp={timestamp}&token={token}&ua=SohuVideoMobile/10.0.35 (Platform/6)&uid={uid}&userAuth=0&app_key=tPpGsLBEIcVwx4y2".format(timestamp=time,uid = uid,gid = gid , token = token,passport = passport,path=path)
 
     # input_str = "hello world"
     hash_value = f(input_str)
@@ -54,7 +51,7 @@ def calcSign():
 
 
 def request(svsign,timestamp):
-    burp0_url = "https://coop.store.sohu.com:443/isp/comment/amt/show?gid={gid}&sver=10.0.35&userAuth=0&isApp=true&ua=SohuVideoMobile/10.0.35 (Platform/6)&buildNo=06241948&ssl=1&poid=1&token={token}&uid={uid}&partner=750&passport={passport}&api_key=9854b2afa779e1a6bff1962447a09dbd&appid=107402&showType=0&abmode=1B_35B_91B_142A_152B_177B_202B_227A_262B_297B_304B_332A_339A_346B_353C_367B_381B_388B_395B_449B_v99989_9998C_s16_t10000&plat=6".format(gid=gid,token=token,uid=uid,passport=passport)
+    burp0_url = "https://coop.store.sohu.com:443/isp/comment/amt/{path}?gid={gid}&sver=10.0.35&userAuth=0&isApp=true&ua=SohuVideoMobile/10.0.35 (Platform/6)&buildNo=06241948&ssl=1&poid=1&token={token}&uid={uid}&partner=750&passport={passport}&api_key=9854b2afa779e1a6bff1962447a09dbd&appid=107402&showType=0&abmode=1B_35B_91B_142A_152B_177B_202B_227A_262B_297B_304B_332A_339A_346B_353C_367B_381B_388B_395B_449B_v99989_9998C_s16_t10000&plat=6".format(gid=gid,token=token,uid=uid,passport=passport,path=path)
     burp0_headers = {"Connection": "close", "plat": "6", "sver": "10.0.35", "svsign": svsign, "timestamp": str(timestamp), "traceparent": "00-018f20b385c53fdf0850283edf0fc933-018f20b385c53fdf-01", "User-Agent": "SohuVideoMobile/10.0.35 (Platform/6)", "Accept-Encoding": "gzip, deflate"}
     r = requests.get(burp0_url, headers=burp0_headers)
     print("利用凭据查询用户收益情况....\n")
