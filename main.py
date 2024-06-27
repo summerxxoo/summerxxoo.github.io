@@ -1,8 +1,7 @@
 '''
-
 1、一开始说装个app ，说麻烦，ok，报告里面我都说我可以远程打，怎么不自己确认下？ 
 2、远程打了，又说没有获取敏感信息，登录凭据AT都不是敏感吗？ 只有手机号和身份证号才是敏感？ 用户凭据这个不是互联网基础概念吗
-3、ok, 我又开始冷静下来，去解释这个凭据呢，其实是客户端与服务端交互用的，是用户中很重要的认证凭据，而且这个在整个安全业界都知道这个凭据的重要性，证明到这已经是能够表达漏洞危害了。
+3、ok, 我又开始冷静下来，去解释这个凭据呢，其实是客户端与服务端交互用的，是用户中很重要的认证凭据，互联网行业应该都知道用户凭据是啥吧，证明到这已经是能够表达漏洞危害了。
 4、签名校验？？？？？签名是由客户端生成的，这个不也是黑客可以模拟这个过程产生吗？ 真的需要我为了那点赏金给你把安卓开发、web开发所有基础东西都写清楚吗？
 '''
 
@@ -19,8 +18,8 @@ gid = "x0107402101018f230975986200041f884c4663fa2c0"
 token = "eyJleHAiOjE3MjcyODEzNzYyNDAsImlhdCI6MTcxOTUwNTM3NjI0MCwicHAiOiIxODA2MzUzNjUwMDA0NjM5NzQ0QHNvaHUuY29tIiwidGsiOiJ1bmh1azJNbzVqU1lxcmpBRTdraDNWbWJCeXcwWHZJZyIsInYiOjB9.e36Ta6nWg2G-PjTpajsone-uYBbn-HwL_0OxuzW9iZU"
 passport = "1806353650004639744@sohu.com"
 uid = "SV_4IMDtFxlJVzVwh1xuSmHthGK5u9azvuBsp6loZr0Nxs"
-#请求的接口，现在写的是获取收益信息的，证明签名没那么难
-path = ""
+#请求的接口isp/comment/amt/show，现在写的是获取收益信息的查询接口，证明签名没那么难
+path = "/show"
 
 
 def getTt():
