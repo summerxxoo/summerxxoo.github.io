@@ -1,3 +1,19 @@
+function hook_dlopen_anti(soName = '') {
+    Interceptor.attach(Module.findExportByName(null, "android_dlopen_ext"), {
+        onEnter: function (args) {
+            var pathptr = args[0];
+            if (pathptr !== undefined && pathptr != null) {
+                var path = ptr(pathptr).readCString();
+                if(path.indexOf('libmsaoaidsec.so') >= 0){
+                    ptr(pathptr).writeUtf8String("");
+                }
+                // console.log('path: ',path)
+            }
+        }
+    });
+}
+
+
 function hookSetParam2H5() {
     Java.perform(function() {
         const WebViewFragment = Java.use("com.sohu.sohuvideo.ui.fragment.WebViewFragment");
@@ -21,6 +37,37 @@ function hookClassBMethodC() {
         };
     });
 }
+
+function hookGetSign(){
+    // 在 com.sohu.qianfan.base.net.SohuHttpModule 类中监听 getHeaders 方法
+    Java.perform(function() {
+        var SohuHttpModule = Java.use("com.sohu.qianfan.base.net.SohuHttpModule");
+        SohuHttpModule["getHeaders"].implementation = function(originalHeader) {
+            // 打印函数调用栈
+            console.log(Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Exception").$new()));
+            
+            // 执行原始的 getHeaders 方法
+            return this.getHeaders(originalHeader);
+        };
+    });
+
+}
+
+
+function hookGetSign2(){
+    // 在 com.common.sdk.net.connect.http.cronet.model.Request 类中监听 addSignToRequest 方法
+Java.perform(function() {
+    var RequestClass = Java.use("com.common.sdk.net.connect.http.cronet.model.Request");
+    RequestClass["addSignToRequest"].implementation = function() {
+        // 打印函数调用栈
+        console.log(Java.use("android.util.Log").getStackTraceString(Java.use("java.lang.Exception").$new()));
+        
+        // 执行原始的 addSignToRequest 方法
+        this.addSignToRequest();
+    };
+});
+}
+
 
 function getResult(){
     // 在 com.common.sdk.net.connect.http.cronet.model.Request 类中监听 getSortParamsStr 方法
@@ -62,4 +109,28 @@ function getSign3(){
         }
     });
 }
+
+function getSign4(){
+    Java.perform(function() {
+        var Request = Java.use("com.common.sdk.net.connect.http.cronet.model.Request");
+    
+        Request.addHeader.overload("java.lang.String", "java.lang.String").implementation = function(str, str2) {
+            console.log("[+] Entering Request.addHeader()");
+            console.log("[+] First argument: " + str);
+            console.log("[+] Second argument: " + str2);
+    
+    
+            return;
+        }
+    });
+}
+
+
+hook_dlopen_anti();
+// getResult();
+getSign3();
+hookGetSign();
+// hookSetParam2H5();
+// hookClassBMethodC();
+
 
