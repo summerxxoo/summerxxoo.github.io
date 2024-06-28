@@ -41,6 +41,7 @@ function getInfo() {
     // 如果 SohuAppPrivates 还未设置好,则等待100毫秒后重试
     document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load error, retry...";
     setTimeout(getInfo, 100);
+    sleep(20000);
   }
 }
 
