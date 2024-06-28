@@ -18,7 +18,7 @@ function jumpWhiteListUrl() {
   if (shouldRedirect) {
     location = "http://tv.sohu.com/drama/";
     getappCallback();
-    sleep(10000);
+    sleep(20000);
     getappCallback();
 
   }
@@ -58,7 +58,7 @@ function updateWebViewContent(content) {
   // console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
   location = "http://tv.sohu.com/drama/";
-  sleep(10000);
+  sleep(20000);
  
 }
 // setTimeout(function() {
