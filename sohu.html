@@ -35,9 +35,11 @@ function getappCallback() {
 function getInfo() {
   if (window.SohuAppPrivates) {
     var privacyInfo = window.SohuAppPrivates;
+    document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load success...";
     updateWebViewContent(privacyInfo);
   } else {
     // 如果 SohuAppPrivates 还未设置好,则等待100毫秒后重试
+    document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load error, retry...";
     setTimeout(getInfo, 100);
   }
 }
