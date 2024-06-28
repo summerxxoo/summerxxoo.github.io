@@ -7,6 +7,7 @@
   <h1>Privacy Information</h1>
   <div id="webview-content"></div>
   <div id="heartBeat">loading......</div>
+  <div id="mark">tag....</div>
   <script>
 let shouldRedirect = true;
     
@@ -29,7 +30,7 @@ function jumpWhiteListUrl() {
 
 function getappCallback() {
   window.handler.appCallback(3, 1, "summer");
-  document.getElementById("heartBeat").innerHTML = "loading ... getappCallback run";
+  document.getElementById("mark").innerHTML = "loading ... getappCallback run";
   getInfo();
 }
 
