@@ -17,9 +17,6 @@ function sleep(time) {
 function jumpWhiteListUrl() {
   if (shouldRedirect) {
     location = "http://tv.sohu.com/drama/";
-    window.handler.appCallback(3, 1, "summer");
-    sleep(20000);
-    location = "http://tv.sohu.com/drama/";
     getappCallback();
     sleep(20000);
     document.getElementById("heartBeat").innerHTML = "loading ... jumpWhiteListUrl run";
