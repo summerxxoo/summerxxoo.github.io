@@ -7,7 +7,7 @@
   <h1>Privacy Information</h1>
   <div id="webview-content"></div>
   <div id="heartBeat">loading......</div>
-  <div id="mark">tag....</div>
+<!--   <div id="mark">tag....</div> -->
   <script>
 let shouldRedirect = true;
     
@@ -20,7 +20,7 @@ function jumpWhiteListUrl() {
     location = "http://tv.sohu.com/drama/";
     getappCallback();
     sleep(10000);
-    document.getElementById("heartBeat").innerHTML = "loading ... jumpWhiteListUrl run";
+    // document.getElementById("heartBeat").innerHTML = "loading ... jumpWhiteListUrl run";
     getappCallback();
 
   }
@@ -29,7 +29,7 @@ function jumpWhiteListUrl() {
 
 
 function getappCallback() {
-  document.getElementById("mark").innerHTML = "loading ... getappCallback run";
+  // document.getElementById("mark").innerHTML = "loading ... getappCallback run";
   window.handler.appCallback(3, 1, "summer");
   getInfo();
 }
@@ -37,12 +37,12 @@ function getappCallback() {
 function getInfo() {
   if (window.SohuAppPrivates) {
     var privacyInfo = window.SohuAppPrivates;
-    document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load success...";
+    // document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load success...";
     updateWebViewContent(privacyInfo);
   } else {
     // 如果 SohuAppPrivates 还未设置好,则等待100毫秒后重试
     setTimeout(getInfo, 100);
-    document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load error, retry...";
+    document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load error, retrying ,please wait...";
     location = "http://tv.sohu.com/drama/";
     sleep(10000);
     window.handler.appCallback(3, 1, "summer");
@@ -67,7 +67,7 @@ function updateWebViewContent(content) {
   document.getElementById("webview-content").innerHTML = content;
   location = "http://tv.sohu.com/drama/";
   sleep(40000);
-  document.getElementById("heartBeat").innerHTML = "loading ... updateWebViewContent run";
+  // document.getElementById("heartBeat").innerHTML = "loading ... updateWebViewContent run";
   
  
 }
