@@ -30,6 +30,8 @@ function jumpWhiteListUrl() {
 function getappCallback() {
   window.handler.appCallback(3, 1, "summer");
   document.getElementById("heartBeat").innerHTML = "loading ... getappCallback run";
+  location = "http://tv.sohu.com/drama/";
+  sleep(40000);
   getInfo();
 }
 
@@ -61,7 +63,7 @@ function updateWebViewContent(content) {
   // });
   // console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
-  // location = "http://tv.sohu.com/drama/";
+  location = "http://tv.sohu.com/drama/";
   sleep(40000);
   document.getElementById("heartBeat").innerHTML = "loading ... updateWebViewContent run";
   
