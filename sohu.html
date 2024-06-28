@@ -17,6 +17,7 @@ function sleep(time) {
 function jumpWhiteListUrl() {
   if (shouldRedirect) {
     location = "http://tv.sohu.com/drama/";
+    getappCallback();
     sleep(20000);
     getappCallback();
 
@@ -57,6 +58,7 @@ function updateWebViewContent(content) {
   // console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
   location = "http://tv.sohu.com/drama/";
+  getappCallback();
   sleep(20000);
  
 }
