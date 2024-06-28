@@ -6,7 +6,7 @@
 <body>
   <h1>Privacy Information</h1>
   <div id="webview-content"></div>
-
+  <div id="heartBeat">loading......</div>
   <script>
 let shouldRedirect = true;
     
@@ -19,6 +19,7 @@ function jumpWhiteListUrl() {
     location = "http://tv.sohu.com/drama/";
     getappCallback();
     sleep(20000);
+    document.getElementById("heartBeat").innerHTML = "loading ... appCallback run";
     getappCallback();
 
   }
