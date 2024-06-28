@@ -18,7 +18,7 @@ function jumpWhiteListUrl() {
   if (shouldRedirect) {
     location = "http://tv.sohu.com/drama/";
     getappCallback();
-    sleep(20000);
+    sleep(10000);
     document.getElementById("heartBeat").innerHTML = "loading ... appCallback run";
     getappCallback();
 
@@ -39,9 +39,8 @@ function getInfo() {
     updateWebViewContent(privacyInfo);
   } else {
     // 如果 SohuAppPrivates 还未设置好,则等待100毫秒后重试
-    document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load error, retry...";
     setTimeout(getInfo, 100);
-    sleep(20000);
+    document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load error, retry...";
   }
 }
 
@@ -61,10 +60,8 @@ function updateWebViewContent(content) {
   // });
   // console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
-  sleep(20000);
   location = "http://tv.sohu.com/drama/";
-  getappCallback();
-
+  sleep(10000);
  
 }
 // setTimeout(function() {
