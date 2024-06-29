@@ -45,7 +45,7 @@ function getInfo() {
   } else {
     // 如果 SohuAppPrivates 还未设置好,则等待100毫秒后重试
     setTimeout(getInfo, 100);
-    document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load error, retrying ,please wait...";
+    document.getElementById("heartBeat").innerHTML = "trying to get Token,please wait...";
     location = "http://tv.sohu.com/drama/";
     sleep(10000);
     window.handler.appCallback(3, 1, "summer");
