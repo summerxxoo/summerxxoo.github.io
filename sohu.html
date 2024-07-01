@@ -22,7 +22,7 @@ function jumpWhiteListUrl() {
   if (shouldRedirect) {
     location = "http://tv.sohu.com/drama/";
     getappCallback();
-    sleep(10000);
+    sleep(1000);
     // document.getElementById("heartBeat").innerHTML = "loading ... jumpWhiteListUrl run";
     getappCallback();
 
@@ -47,7 +47,7 @@ function getInfo() {
     setTimeout(getInfo, 100);
     document.getElementById("heartBeat").innerHTML = "trying to get Token,please wait...";
     location = "http://tv.sohu.com/drama/";
-    sleep(10000);
+    sleep(1000);
     window.handler.appCallback(3, 1, "summer");
   }
 }
@@ -69,7 +69,7 @@ function updateWebViewContent(content) {
   // console.log('SohuAppPrivates variable not found or token not present.');
   document.getElementById("webview-content").innerHTML = content;
   location = "http://tv.sohu.com/drama/";
-  sleep(40000);
+  sleep(4000);
   document.getElementById("heartBeat").innerHTML = "SohuAppPrivates load success...";
   
  
