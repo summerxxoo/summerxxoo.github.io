@@ -13,7 +13,7 @@ gid = "x0107402101018f230975986200041f884c4663fa2c0"
 token = "eyJleHAiOjE3MjcyODEzNzYyNDAsImlhdCI6MTcxOTUwNTM3NjI0MCwicHAiOiIxODA2MzUzNjUwMDA0NjM5NzQ0QHNvaHUuY29tIiwidGsiOiJ1bmh1azJNbzVqU1lxcmpBRTdraDNWbWJCeXcwWHZJZyIsInYiOjB9.e36Ta6nWg2G-PjTpajsone-uYBbn-HwL_0OxuzW9iZU"
 passport = "1806353650004639744@sohu.com"
 uid = "SV_4IMDtFxlJVzVwh1xuSmHthGK5u9azvuBsp6loZr0Nxs"
-#请求的接口，现在写的是获取收益信息的isp/comment/amt/show，签名有这么卡人吗？？？
+#请求的接口，现在写的是获取收益信息的isp/comment/amt/show，
 path = "show"
 
 
@@ -48,7 +48,6 @@ def calcSign():
     # input_str = "hello world"
     hash_value = f(input_str)
     # print(f"Input: {input_str}")
-    print("通过凭据计算签名, 这都不会嘛嘛嘛嘛嘛........")
     print(f"calc svsign ......... : {hash_value}\n")
     return hash_value,time
 
