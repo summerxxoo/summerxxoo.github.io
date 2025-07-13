@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Redirecting Page</title>
+    <title>自动获取位置测试</title>
     <script>
-        // 初始页面加载后立即开始跳转
+        // 页面加载后自动尝试获取位置
         window.onload = function() {
-            setTimeout(function() {
-                window.location.href = "https://www.baidu.com";
-            }, 1000);
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        console.log("获取成功:", position.coords);
+                        alert(`位置：纬度 ${position.coords.latitude}, 经度 ${position.coords.longitude}`);
+                    },
+                    function(error) {
+                        console.error("获取失败:", error.message);
+                        alert("失败: " + error.message);
+                    },
+                    { enableHighAccuracy: true, timeout: 5000 }
+                );
+            } else {
+                alert("您的浏览器不支持地理位置功能");
+            }
         };
     </script>
 </head>
 <body>
-    <h1>Redirecting...</h1>
-    <p>You will be redirected shortly.</p>
+    <p>正在尝试自动获取位置...</p>
 </body>
 </html>
