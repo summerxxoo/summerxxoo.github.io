@@ -1,29 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>自动获取位置测试</title>
-    <script>
-        // 页面加载后自动尝试获取位置
-        window.onload = function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                        console.log("获取成功:", position.coords);
-                        alert(`位置：纬度 ${position.coords.latitude}, 经度 ${position.coords.longitude}`);
-                    },
-                    function(error) {
-                        console.error("获取失败:", error.message);
-                        alert("失败: " + error.message);
-                    },
-                    { enableHighAccuracy: true, timeout: 5000 }
-                );
-            } else {
-                alert("您的浏览器不支持地理位置功能");
-            }
-        };
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>位置信息获取测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .error {
+            color: #d9534f;
+        }
+        .success {
+            color: #5cb85c;
+        }
+    </style>
 </head>
 <body>
-    <p>正在尝试自动获取位置...</p>
+    <h1>位置信息获取测试</h1>
+    <p>此页面尝试在不请求用户授权的情况下获取非精确位置信息。</p>
+    
+    <div id="result">
+        正在尝试获取位置信息...
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultDiv = document.getElementById('result');
+            
+            // 尝试通过IP地址获取非精确位置
+            function getApproximateLocation() {
+                fetch('https://ipapi.co/json/')
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.error) {
+                            resultDiv.innerHTML = `<p class="error">通过IP获取位置失败: ${data.reason || '未知错误'}</p>`;
+                        } else {
+                            resultDiv.innerHTML = `
+                                <p class="success">通过IP获取的非精确位置信息:</p>
+                                <p>国家: ${data.country_name || '未知'}</p>
+                                <p>城市: ${data.city || '未知'}</p>
+                                <p>大致区域: ${data.region || '未知'}</p>
+                                <p>经纬度: ${data.latitude || '未知'}, ${data.longitude || '未知'}</p>
+                                <p>注意: 这是基于IP的粗略位置，精度可能在城市级别。</p>
+                            `;
+                        }
+                    })
+                    .catch(error => {
+                        resultDiv.innerHTML = `<p class="error">获取位置失败: ${error.message}</p>`;
+                    });
+            }
+
+            // 尝试获取精确位置（通常需要授权）
+            function tryGetPreciseLocation() {
+                if ("geolocation" in navigator) {
+                    // 尝试不显示提示直接获取位置（通常不会成功）
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            resultDiv.innerHTML = `
+                                <p class="success">成功获取位置信息:</p>
+                                <p>纬度: ${position.coords.latitude}</p>
+                                <p>经度: ${position.coords.longitude}</p>
+                                <p>精度: ${position.coords.accuracy} 米</p>
+                                <p>注意: 这需要用户授权才能获取。</p>
+                            `;
+                        },
+                        function(error) {
+                            // 如果精确位置获取失败，回退到IP定位
+                            resultDiv.innerHTML += `<p class="error">获取精确位置失败: ${error.message}。将尝试IP定位...</p>`;
+                            getApproximateLocation();
+                        },
+                        {
+                            enableHighAccuracy: false, // 不请求高精度
+                            maximumAge: 60000, // 接受1分钟内的缓存位置
+                            timeout: 5000 // 5秒超时
+                        }
+                    );
+                } else {
+                    resultDiv.innerHTML = `<p class="error">您的浏览器不支持地理位置API。将尝试IP定位...</p>`;
+                    getApproximateLocation();
+                }
+            }
+
+            // 首先尝试获取精确位置
+            tryGetPreciseLocation();
+        });
+    </script>
 </body>
 </html>
