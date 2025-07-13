@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Open App Button</title>
+</head>
+<body>
+  <button id="openAppBtn">Open App</button>
+
+  <script>
+    // 定义要打开的应用程序URL
+    var appUrl = "xhsdiscover://extweb?link=https://summerxxoo.github.io";
+    document.getElementById("openAppBtn").addEventListener("click", function() {
+      // 使用window.open()打开应用程序URL
+      window.open(appUrl);
+    });
+
+  </script>
+</body>
+</html>
