@@ -1,39 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image to Text Converter</title>
+    <title>Render Local Images</title>
     <style>
-        textarea {
-            width: 100%;
-            height: 200px;
-            font-family: monospace;
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px;
+        }
+        .image-container img {
+            max-width: 300px;
+            max-height: 300px;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
 <body>
-    <h1>Convert Image to Base64 Text</h1>
-    <button onclick="loadImageAsText()">Load Image</button>
-    <textarea id="output" placeholder="Base64 text will appear here..."></textarea>
+    <h1>Local Images Render Test</h1>
+    
+    <!-- 方案1: 直接硬编码已知图片路径 -->
+    <div class="image-container">
+        <img src="https://local_img/image1.png" alt="Image 1">
+        <img src="https://local_img/image2.jpg" alt="Image 2">
+        <!-- 添加更多图片... -->
+    </div>
+
+    <!-- 方案2: 动态加载图片（通过JavaScript） -->
+    <div id="dynamicImages" class="image-container"></div>
+
     <script>
-        async function loadImageAsText() {
-            const imageUrl = "https://local_img/test.png"; // 替换为你的图片路径
-            const output = document.getElementById("output");
-            
-            try {
-                // 1. 用fetch获取图片Blob
-                const response = await fetch(imageUrl);
-                const blob = await response.blob();
-                
-                // 2. 用FileReader转Base64
-                const reader = new FileReader();
-                reader.onload = () => {
-                    output.value = reader.result; // 输出Base64字符串
-                };
-                reader.readAsDataURL(blob);
-            } catch (e) {
-                output.value = `Error: ${e.message}`;
-            }
-        }
+        // 动态加载图片的示例
+        const imagePaths = [
+            "https://local_img/image1.png",
+            "https://local_img/image2.jpg",
+            // 添加更多图片路径...
+        ];
+
+        const container = document.getElementById("dynamicImages");
+        
+        imagePaths.forEach(path => {
+            const img = document.createElement("img");
+            img.src = path;
+            img.alt = "Dynamic loaded image";
+            img.onerror = () => {
+                console.error("Failed to load image:", path);
+                img.style.display = "none"; // 加载失败时隐藏
+            };
+            container.appendChild(img);
+        });
     </script>
 </body>
 </html>
