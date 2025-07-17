@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Render Local Images</title>
+    <style>
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px;
+        }
+        .image-container img {
+            max-width: 300px;
+            max-height: 300px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Local Images Render Test</h1>
+    
+    <!-- 方案1: 直接硬编码已知图片路径 -->
+    <div class="image-container">
+        <img src="https://local_img/..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//sdcard/jsbridge_api_Finder.html" alt="Image 1">
+        <img src="https://local_img/..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//sdcard/jsbridge_api_Finder.html" alt="Image 2">
+        <!-- 添加更多图片... -->
+    </div>
+
+    <!-- 方案2: 动态加载图片（通过JavaScript） -->
+    <div id="dynamicImages" class="image-container"></div>
+
+    <script>
+        // 动态加载图片的示例
+        const imagePaths = [
+            "https://local_img/..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//sdcard/jsbridge_api_Finder.html",
+            "https://local_img/..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//..https://local_img/.//sdcard/jsbridge_api_Finder.html",
+            // 添加更多图片路径...
+        ];
+
+        const container = document.getElementById("dynamicImages");
+        
+        imagePaths.forEach(path => {
+            const img = document.createElement("img");
+            img.src = path;
+            img.alt = "Dynamic loaded image";
+            img.onerror = () => {
+                console.error("Failed to load image:", path);
+                img.style.display = "none"; // 加载失败时隐藏
+            };
+            container.appendChild(img);
+        });
+    </script>
+</body>
+</html>
