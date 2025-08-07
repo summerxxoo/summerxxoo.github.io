@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>显示请求参数</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .param-table th, .param-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .param-table th {
+            background-color: #f2f2f2;
+        }
+        .param-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .no-params {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>请求参数内容</h1>
+    <div id="params-container">
+        <p class="no-params">正在解析URL参数...</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paramsContainer = document.getElementById('params-container');
+            
+            // 获取URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            if (urlParams.size === 0) {
+                paramsContainer.innerHTML = '<p class="no-params">没有检测到URL参数。</p>';
+                return;
+            }
+            
+            // 创建表格显示参数
+            let tableHtml = `
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>参数名</th>
+                            <th>参数值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            // 遍历所有参数并添加到表格中
+            urlParams.forEach((value, key) => {
+                tableHtml += `
+                    <tr>
+                        <td>${escapeHtml(key)}</td>
+                        <td>${escapeHtml(value)}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHtml += `
+                    </tbody>
+                </table>
+                <p>共找到 ${urlParams.size} 个参数。</p>
+            `;
+            
+            paramsContainer.innerHTML = tableHtml;
+        });
+        
+        // 简单的HTML转义函数，防止XSS攻击
+        function escapeHtml(unsafe) {
+            return unsafe
+                .toString()
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
