@@ -1,0 +1,26 @@
+{
+  "apis": [
+    {
+      "url": "https://api5-normal-m-hj.amemv.com/aweme/v1/user/set/settings/",
+      "method": "POST",
+      "expireMs": 4000,
+      "globalPropsName": "prefetchApiData",
+      "needCommonParams": true,
+      "requestIgnoreCache": 1,
+      "clearCacheBeforeRequest": 1,
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "field": {
+          "type": "static",
+          "value": "hide_search_stranger"
+        },
+        "value": {
+          "type": "static",
+          "value": "1"
+        }
+      }
+    }
+  ]
+}
