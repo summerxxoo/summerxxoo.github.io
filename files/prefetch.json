@@ -1,26 +1,30 @@
 {
-  "apis": [
-    {
-      "url": "https://api5-normal-m-hj.amemv.com/aweme/v1/user/set/settings/",
-      "method": "POST",
-      "expireMs": 4000,
-      "globalPropsName": "prefetchApiData",
-      "needCommonParams": true,
-      "requestIgnoreCache": 1,
-      "clearCacheBeforeRequest": 1,
-      "headers": {
-        "Content-Type": "application/x-www-form-urlencoded"
+  "apis": [{
+    "url": "https://api5-normal-lf.amemv.com/passport/auth/bind/",
+    "method": "POST",
+    "expireMs": 4000,
+    "clearCacheBeforeRequest": 1,
+    "data": {
+      "access_token": {
+        "type": "static",
+        "value": "2.00klIpeIGahxaB7f6aa1940aSdfrnD"
       },
-      "data": {
-        "field": {
-          "type": "static",
-          "value": "hide_search_stranger"
-        },
-        "value": {
-          "type": "static",
-          "value": "1"
-        }
+      "uid": {
+        "type": "static",
+        "value": "7932304536"
+      },
+      "platform": {
+        "type": "static",
+        "value": "sina_weibo"
+      },
+      "platform_app_id": {
+        "type": "static",
+        "value": "93"
       }
-    }
-  ]
+    },
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "globalPropsName": "__prefetchInjectData"
+  }]
 }
